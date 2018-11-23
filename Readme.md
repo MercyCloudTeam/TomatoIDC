@@ -51,6 +51,32 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 
 
 
+#### 环境需求
+
+- 一台支持 URL 重写的主机，Nginx、Apache 或 IIS
+- **PHP >= 7.1.3** 
+- Composer（如果没有请本地克隆安装好扩展再打包上传服务器）
+- 安装并启用如下 PHP 扩展：
+  - OpenSSL
+  - PDO
+  - Mbstring
+  - Tokenizer
+  - GD
+  - XML
+  - Ctype
+  - JSON
+  - fileinfo
+
+删除 PHP 函数限制（常见错误解决）
+
+```
+passthru
+proc_open
+proc_get_status
+```
+
+
+
 #### Git安装
 
 ```shell
@@ -61,6 +87,8 @@ cd TomatoIDC;
 #编辑配置文件,编辑数据库连接部分即可
 cp .env.example .env
 vi .env
+#完成数据库迁移
+php artisan migrate
 #依赖安装
 composer install --no-dev
 #初始化程序密匙
@@ -75,9 +103,11 @@ https://domain/install
 
 ```	shell
 #下载并解压压缩包
-
+🚧压缩包服务器找不到啦
 #编辑配置文件（填写数据库部分即可）
 vi .env
+#完成数据库迁移
+php artisan migrate
 #初始化程序密匙
 php artisan key:g
 #访问安装页面完成安装
@@ -118,11 +148,12 @@ location / {
 1. 添加站点
 2. 上传代码（GIT克隆 /压缩包 二选一）
 3. 配置.env文件
-4. 安装依赖（压缩包安装跳过）
-5. 运行php artisan key:g 生成加密密匙
-6. 设置网站目录 运行目录设置为/public
-7. 设置伪静态（Apache基本不用配置即可使用）
-8. 访问 https://domain/install 进行最后安装
+4. 运行php artisan migrate 完成数据库迁移
+5. 安装依赖（压缩包安装跳过）
+6. 运行php artisan key:g 生成加密密匙
+7. 设置网站目录 运行目录设置为/public
+8. 设置伪静态（Apache基本不用配置即可使用）
+9. 访问 https://domain/install 进行最后安装
 
 
 
