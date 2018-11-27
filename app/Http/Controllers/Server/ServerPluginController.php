@@ -25,6 +25,12 @@ class ServerPluginController extends Controller
         return $fileList;
     }
 
+
+    public function getServerPluginForm()
+    {
+
+    }
+
     /**
      * 获取服务器状态
      * @param $server

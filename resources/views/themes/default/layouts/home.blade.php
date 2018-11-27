@@ -16,6 +16,8 @@
     <link href="{{asset('assets/themes/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{asset('assets/themes/argon/css/argon-home.css?v=1.0.0')}}" rel="stylesheet">
+
+    <script src="{{asset('assets/themes/argon/js/sweetalert2.all.min.js')}}"></script>
 </head>
 
 <body>
@@ -47,14 +49,14 @@
             {{--</li>--}}
             <li class="nav-item dropdown">
                 @auth
-                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <div class="media align-items-center">
+                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
                 <img alt="Image placeholder" src="{{Auth::user()->avatar}}">
               </span>
-                    </div>
-                </a>
+                        </div>
+                    </a>
                 @endauth
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
@@ -160,6 +162,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('new.show')}}">
                         <i class="ni ni-calendar-grid-58 text-info"></i> 公告新闻
+                    </a>
+                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="{{route('admin.server.show')}}">--}}
+                        {{--<i class="ni ni-money-coins text-indigo"></i> 推广管理--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('user.recharge')}}">
+                        <i class="ni ni-credit-card text-blue"></i> 用户充值
                     </a>
                 </li>
                 @auth
@@ -298,5 +310,7 @@
 <script src="{{asset('assets/themes/argon/vendor/chart.js/dist/Chart.extension.js')}}"></script>
 <!-- Argon JS -->
 <script src="{{asset('assets/themes/argon/js/argon-home.js?v=1.0.0')}}"></script>
+
+
 </body>
 </html>

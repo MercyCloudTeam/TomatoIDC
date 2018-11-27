@@ -8,9 +8,13 @@ use App\OrderModel;
 use App\ServerModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 
 class EasyPanelController extends Controller
 {
+
+    public $diyConfigureFrom=false;//使用自定义表单
+    public $type = "vm"; //服务器插件类型
     /**
      * CURL GET请求
      * @param $url string 请求URL

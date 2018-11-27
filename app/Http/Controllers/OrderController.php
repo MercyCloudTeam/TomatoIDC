@@ -18,6 +18,30 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
+
+    /**
+     * 生成订单
+     * @param $good_id
+     * @param $price
+     * @param $user_id
+     * @param null $type
+     * @param null $aff_no
+     * @return mixed
+     */
+    protected function makeOrder($good_id,$price,$user_id,$type=null,$aff_no = null )
+    {
+        $no = date('y') . mt_rand(10, 99) . substr(time(), 6) . mt_rand(100, 999);
+        $order = OrderModel::create([
+            'good_id' => $good_id,
+            'user_id' => $user_id,
+            'no' => $no,
+            'type' => $type,
+            'aff_no' => $aff_no,
+            'price' => round(abs($price),2),
+        ]);
+        return $order;
+    }
+
     /**
      * 续费主机并生成订单
      * @param Request $request
@@ -36,16 +60,9 @@ class OrderController extends Controller
         $host = HostModel::where('id', $request['id'])->first();
         $this->authorize('update', $host);//防止越权
         //创建订单
-        $no = date('y') . mt_rand(10, 99) . substr(time(), 6) . mt_rand(100, 999);
         $good = GoodModel::where('id', $host->order->good->id)->first();
-        $order = OrderModel::create([
-            'good_id' => $good->id,
-            'user_id' => Auth::id(),
-            'no' => $no,
-            'type' => 'renew',
-            'aff_no' => $request['no'],
-            'price' => $good->price,
-        ]);
+        $order = $this->makeOrder($good->id,$good->price,Auth::id(),'renew',$request['no']);
+
         OrderModel::where('id', $order->id)->update(['host_id' => $host->id]);
 
         if (!$good->price) {//白嫖 免费
@@ -97,17 +114,9 @@ class OrderController extends Controller
             'aff_no' => 'string|nullable',
         ]);
 
-        $no = date('y') . mt_rand(10, 99) . substr(time(), 6) . mt_rand(100, 999);
         $good = GoodModel::where('id', $request['id'])->first();
 
-        $order = OrderModel::create([ //创建订单
-            'good_id' => $request['id'],
-            'user_id' => Auth::id(),
-            'no' => $no,
-            'type' => 'new',
-            'aff_no' => $request['no'],
-            'price' => $good->price,
-        ]);
+        $order = $this->makeOrder($good->id,$good->price,Auth::id(),'new',$request['no']);
 
         if (!$good->price) {//白嫖 免费
             OrderModel::where('id', $order->id)->update(['status' => 2]);
@@ -207,7 +216,17 @@ class OrderController extends Controller
             'no' => 'exists:orders,no|required'
         ]);
         //TODO 定义好type类型改为switch判断
-        $order = OrderModel::where('no', $request['no'])->first();//获取订单
+        return $this->orderCheckStatusFun($request['no']);
+    }
+
+    /**
+     * 非路由跳转调用检查订单状态
+     * @param $no
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function orderCheckStatusFun($no)
+    {
+        $order = OrderModel::where('no', $no)->first();//获取订单
         if ($order->status == 2 && $order->type == "new") {//判断是否新购订单
             if (empty($order->host_id)) { //判断是否有主机
                 $host = new HostController();

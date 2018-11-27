@@ -161,7 +161,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 //        服务提供
-        App\Providers\ViewVarServiceProVider::class,
+//        App\Providers\ViewVarServiceProVider::class,
+//        App\Providers\RouteServiceProvider::class
 
     ],
 

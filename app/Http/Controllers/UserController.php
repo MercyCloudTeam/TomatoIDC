@@ -33,7 +33,7 @@ class UserController extends Controller
             'name' => 'nullable|string|max:255',
             'qq' => 'digits_between:5,11|integer|nullable',
             'phone' => 'digits_between:6,15|integer|nullable',
-            'account' => 'integer|nullable',
+            'account' => 'numeric|nullable',
             'signature' => 'min:3|max:999|string|nullable',
             'id' => 'exists:users,id|required'
         ]);
@@ -54,7 +54,7 @@ class UserController extends Controller
         $user->qq == $request['qq'] ?: User::where('id', $request['id'])->update(['qq' => $request['qq']]);
         $user->phone == $request['phone'] ?: User::where('id', $request['id'])->update(['phone' => $request['phone']]);
         $user->signature == $request['signature'] ?: User::where('id', $request['id'])->update(['signature' => $request['signature']]);
-        $user->account == $request['account'] ?: User::where('id', $request['id'])->update(['account' => $request['account']]);
+        $user->account == $request['account'] ?: User::where('id', $request['id'])->update(['account' => round(abs($request['account']),2)]);
 
         return back();
     }

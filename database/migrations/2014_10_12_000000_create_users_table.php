@@ -22,10 +22,12 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('qq')->nullable();
             $table->string('phone')->nullable();
-            $table->string('token')->nullable();
+            $table->string('user_token')->nullable();
+            $table->string('api_key')->nullable();
+            $table->string('api_token')->nullable();
             $table->string('wechat_token')->nullable();
             $table->string('qq_token')->nullable();
-            $table->integer('account')->default(0);
+            $table->double('account')->default(0);
             $table->integer('status')->default(1);
             $table->integer('level')->default(1);
             $table->integer('admin_authority')->default(0);

@@ -16,3 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('/v1')->group(function () {
+    Route::middleware(['throttle:60,1'])->group(function () {
+        Route::get('goods/list', 'IndexController@getGoodListApi');
+        Route::get('goods/categories/{name}', 'IndexController@getGoodCategoriesApi');
+        Route::post('user/login', 'IndexController@apiLoginAction');
+        Route::middleware(['auth', 'check.admin.authority'])->group(function () {
+            Route::prefix('')->group(function () {
+
+            });
+        });
+    });
+});

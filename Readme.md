@@ -1,6 +1,6 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.0/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.1/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md)
 
@@ -22,9 +22,14 @@
   - 支持（支付，服务器，功能）插件
   - 支持更换模版
 
+- 功能强大
+
+  - 支持卡密充值
+
 - 人性化
 
   - Gravatar头像
+
 
 
 ### 简介
@@ -44,6 +49,16 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 ### 演示站
 
 [默认](https://dev.moe.beer/)
+
+> 都还没什么人的项目，建个演示站都要被人打:(
+
+会不定期清空数据库，不建议疯狂往里面冲钱:)
+
+欢迎大家搭建一下w来给新人玩耍
+
+（可以到知识星球或者直接转给我）
+
+
 
 
 
@@ -169,7 +184,7 @@ location / {
 
 
 
-预计更新：下版本将支持卡密充值帐户余额
+现已支持卡密充值
 
 
 
@@ -188,7 +203,6 @@ location / {
   - 售卖VPS
   - ~~售卖Shadowsocks~~
 - 支付
-  - 充值卡
   - 支付宝微信官方支付
 - 用户
   - aff推广
@@ -203,25 +217,28 @@ location / {
 
 ### PRO版计划？
 
-我们暂无Pro版计划，我们可能会推出技术支持插件定制开发的，但如果是兼容面板，支付，我们会一步步进行开发，大家可以通过论坛或者交流群内提出
+我们暂无Pro版计划，我们可能会推出技术支持插件定制开发的，但如果是兼容面板，支付，我们会一步步进行开发，大家可以通过[交流论坛](https://dev.fanqieui.com)或者[交流群](https://shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)内提出
 
 
 
 ### 功能开发
 
-欢迎在我们的论坛里提出，如果越多人需要我们将会越快更新！
+欢迎在我们的[交流论坛](https://dev.fanqieui.com)里提出，如果越多人需要我们将会越快更新！
 
 
 
 ### 更新记录
 
 - V0.1.0  🎉 发布第一个开源版本，可以拿来正式使用-2018-11-23日 现已发布
+- V0.1.1 添加依赖（软件大小提升）卡密，用户充值，请参考[论坛](https://dev.fanqieui.com/d/7-tomatoidc-v0-1-1) (更新预计需要10分钟)减少了一个BUG并新增了N个BUG
 
 
 
 ### 问题报告
 
 请提交issue/官方群讨论
+
+也可以提交到[交流论坛](https://dev.fanqieui.com)
 
 如果存在安全问题请私聊我萌~~（但是我们没钱奖励你，SRC？不存在的）~~
 
@@ -239,11 +256,27 @@ location / {
 
 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="TomatoIDC交流群" title="TomatoIDC交流群"></a>
 
+群号：927933095
+
+
+
+### 求支持
+
+不要脸的求支持，觉得这个项目不错的大家可以点一下右上角的小星星，有什么问题去论坛，群，GITHUB我都会看的．也会回复的
+
+
+
+也欢迎大家打赏我进知识星球MercyCloudTeam(可以白嫖主机等东西)
+
+里面可以看到我疯狂挖的新坑，以及一些好玩的BUG，以及一些先行的源代码
+
+![image_822582455182_4.jpg](https://sz.ali.ftc.red/ftc/2018/11/27/image_822582455182_4.jpg)
+
 
 
 ### 废话
 
-本项目刚刚起步，需要大家的支持，如果大家想从其他主机销售系统转过来，需要什么功能欢迎提出来~~（挖墙脚）~~ 
+本项目刚刚起步，需要大家的支持(一颗小星星就可以了)，如果大家想从其他主机销售系统转过来，需要什么功能欢迎提出来~~（挖墙脚）~~ 
 
 
 

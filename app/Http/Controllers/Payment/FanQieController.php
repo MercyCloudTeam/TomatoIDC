@@ -84,12 +84,20 @@ class FanQieController extends Controller
     //回调验证更新订单
     //番茄坑我，md文档和实际返回不一样 花Q
     //微信支付可能存在安全问题
+    //如果有思路的大佬看到这里就知道怎么利用了（逃）
+    /**
+     * 回调验证
+     * @param $request
+     * @param $payment
+     * @return bool
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function notify($request, $payment)
     {
         $this->validate($request, [ //验证
             'trade_status' => "string|nullable",
             'trade_no' => "string|required",
-            'out_trade_no' => "string|required|exists:orders,no",
+            'out_trade_no' => "string|required",
             'sign' => "string|nullable",
             'key' => "string|nullable",
             'total_fee' => "string|nullable",
@@ -102,7 +110,8 @@ class FanQieController extends Controller
         $security['out_trade_no'] = $request['out_trade_no'];
         $security['total_fee'] = $request['total_fee'];
         $security['trade_no'] = $request['trade_no'];
-        empty($request['trade_status']) ? null : $security['trade_status'];
+        $security['trade_status'] = $request['trade_status'];
+//        empty($request['trade_status']) ? null : $security['trade_status'];
         $o = "";
         foreach ($security as $k => $v) {
             $o .= "$k=" . $v . "&";
@@ -160,9 +169,11 @@ class FanQieController extends Controller
         $key = $setting['setting.website.payment.fanqie.' . $payment . ".key"];
         $price = sprintf("%01.2f", $order->price);
         $on = $order->no;
+
         if ($order->status == 2) { //防止多次支付
             return ['type' => 'qrcode', 'url' => "Orders paid"];
         }
+
         $sign = $this->makeSign($mchid, $account, $price, $on, $key);
         $data = [
             'account' => $account,
@@ -188,6 +199,7 @@ class FanQieController extends Controller
                 preg_match('/https:\/\/mapi.*MD5/', $result, $alipay);
                 return ['type' => 'redirect', 'url' => $alipay[0]];
         }
+
         return ['type' => 'qrcode', 'url' => "Error Place Check Setting"];//错误返回
     }
 }

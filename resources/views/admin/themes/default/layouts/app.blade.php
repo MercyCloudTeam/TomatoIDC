@@ -16,6 +16,8 @@
     <link href="{{asset('assets/themes/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{asset('assets/themes/argon/css/argon-home.css?v=1.0.0')}}" rel="stylesheet">
+
+    <script src="{{asset('assets/themes/argon/js/sweetalert2.all.min.js')}}"></script>
 </head>
 
 <body>
@@ -177,6 +179,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.server.show')}}">
                         <i class="ni ni-building text-purple"></i> 服务器管理
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.prepaid.key.show')}}">
+                        <i class="ni ni-credit-card text-blue"></i> 卡密管理
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.server.show')}}">
+                        <i class="ni ni-money-coins text-indigo"></i> 推广管理
                     </a>
                 </li>
                 <li class="nav-item">

@@ -218,6 +218,7 @@
                 </div>
                 <div class="card-footer py-4">
                     <a href="{{route('admin.good.configure.add')}}" class="btn btn-primary">新增配置</a>
+                    <a href="{{route('admin.good.configure.add')}}" class="btn btn-secondary">新增插件专属配置</a>
                 </div>
             </div>
         </div>

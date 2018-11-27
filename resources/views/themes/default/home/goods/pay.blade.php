@@ -42,7 +42,7 @@
                                         <label class="form-control-label" for="input-username">商品名称</label>
                                         <input type="text" id="input-username"
                                                class="form-control form-control-alternative" disabled
-                                               value="{{$order->good->title}}">
+                                               value="{{$order->good ? $order->good->title:$order->no}}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -50,7 +50,7 @@
                                         <label class="form-control-label" for="input-email">价格</label>
                                         <input type="text" id="input-email"
                                                class="form-control form-control-alternative" disabled
-                                               value="{{$order->price}}  {{$currencyUnit}}">
+                                               value="{{$order->price?$order->price:$order->money}} {{$currencyUnit}}">
                                     </div>
                                 </div>
                             </div>

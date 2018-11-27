@@ -49,7 +49,7 @@ class ThemeController extends Controller
      */
     public static function getThemeName()
     {
-        $themes = SettingModel::where('name', '=', 'setting.website.theme')->get();
+        $themes = SettingModel::where('name','setting.website.theme')->get();
         if ($themes->first()) {
             return $themes->first()->value;
         }
@@ -64,6 +64,19 @@ class ThemeController extends Controller
      */
     public static function backThemePath($viewName = 'index', $prefix = null)
     {
+        //SPA单页应用
+        $spa = SettingModel::where('name', 'setting.website.spa.status')->get();
+        if (!$spa->isEmpty()) {
+            if ($spa->first()->value == 1) {
+                $path = 'themes.' . self::getThemeName() . 'index';
+                if (View::exists($path)) {
+                    return $path;
+                }
+                return 'themes.default.index';
+            }
+        }
+        //模
+        //版返回
         empty($prefix) ?: $prefix = '.' . $prefix;
         $path = 'themes.' . self::getThemeName() . $prefix . '.' . $viewName;
         if (View::exists($path)) {

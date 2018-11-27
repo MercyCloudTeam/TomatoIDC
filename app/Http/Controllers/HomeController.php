@@ -241,6 +241,15 @@ class HomeController extends Controller
     }
 
     /**
+     * 用户充值页面
+     */
+    public function userRechargePage()
+    {
+        return view(ThemeController::backThemePath('recharge','home'));
+    }
+
+
+    /**
      * 用户设置操作
      */
     public function userProfileAction(Request $request)

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\UserRechargeController;
 use App\OrderModel;
+use App\ServerModel;
 use App\SettingModel;
+use App\UserRechargeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -38,6 +43,26 @@ class PayController extends Controller
         return $fileList;
     }
 
+
+    public function makePay($payment,$order){
+        $payPlugin = SettingModel::where('name', 'setting.website.payment.' . $payment)->first();
+        $payPlugin = $payPlugin['value'];
+        if (!empty($payPlugin)) {
+            $order->price = $order->money; //解决数据键名不一
+            $payPage = $this->orderPay($payPlugin, $payment, $order);
+//            dd($payPage);
+            return $payPage;
+        }
+        return false;
+    }
+
+    /**
+     * 订单支付
+     * @param $payPlugin
+     * @param $payment
+     * @param $order
+     * @return mixed
+     */
     public function orderPay($payPlugin, $payment, $order)
     {
         $controllerName = __NAMESPACE__ . '\\' . $payPlugin . "Controller";
@@ -70,9 +95,28 @@ class PayController extends Controller
         $controllerName = __NAMESPACE__ . '\\' . $payPlugin . "Controller";
         $plugin = new $controllerName();//动态调用控制器
         if ($no = $plugin->notify($request, $payment)) {
-            OrderModel::where('no', $no)->update(['status' => 2]);
-            return redirect(route('order.status', ['no' => $no]));
+
+            $order = OrderModel::where('no',$no)->get();
+            if (!$order->isEmpty()) {//订单支付
+                if ($order->first()->status == 1) {
+                    OrderModel::where('no', $no)->update(['status' => 2]);
+                    $action = new OrderController();
+                    $action->orderCheckStatusFun($no);
+                    return redirect(route('order.status', ['no' => $no]));
+                }
+            }
+
+            $userRecharge = UserRechargeModel::where('no',$no)->get();
+            if (!$userRecharge->isEmpty()) {//充值支付
+                if ($userRecharge->first()->status == 1) {//当订单状态还是未支付再进行更改
+                    UserRechargeModel::where('no', $no)->update(['status' => 3]);
+                    $action = new UserRechargeController();
+                    $action->userRechargeCheckStatusFun($no);
+                    return redirect(route('user.recharge.status', ['no' => $no]));
+                }
+            }
         }
+
         return redirect(route('order.show'));
     }
 

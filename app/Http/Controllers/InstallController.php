@@ -70,11 +70,21 @@ class InstallController extends Controller
         'setting.website.title' => 'yfsama',
         'setting.website.copyright' => 'yranarf',
         'setting.website.kf.url' => null,
-        'setting.website.version' => 'V0.1.0',
+        'setting.website.aff.status' => false,
+        'setting.website.user.agreements' => null,//url
+        'setting.website.privacy.policy' => null,//url
+        'setting.website.spa.status' => false,//url
+        'setting.website.version' => 'V0.1.1',
         'setting.mail.smtp.url' => null,
         'setting.mail.smtp.port' => null,
         'setting.mail.smtp.user' => null,
         'setting.mail.smtp.passowrd' => null,
+
+        'setting.website.wechat.app_id' => null,
+        'setting.website.wechat.secret' => null,
+        'setting.website.wechat.token' => null,
+        'setting.website.wechat.aes_key' => null,
+        'setting.website.wechat.response_type' => 'array',
     ];
 
     /**
@@ -107,6 +117,7 @@ class InstallController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+            'api_key'=>Hash::make(mt_rand(0,9999).time().config('app.name'))
         ]);
         //管理员权限
         User::where('email', $request['email'])

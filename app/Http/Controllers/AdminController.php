@@ -10,6 +10,7 @@ use App\Http\Controllers\Payment\PayController;
 use App\Http\Controllers\Server\ServerPluginController;
 use App\NewModel;
 use App\OrderModel;
+use App\PrepaidKeyModel;
 use App\ServerModel;
 use App\SettingModel;
 use App\User;
@@ -133,6 +134,18 @@ class AdminController extends Controller
         ])->get();
         !$servers->isEmpty() ?: $servers = null;
         return $servers;
+    }
+
+    /**
+     * 获取充值卡
+     */
+    protected function getPrepaidKeys()
+    {
+        $keys = PrepaidKeyModel::
+            orderBy('created_at', 'desc')
+            ->paginate(10);
+        !$keys->isEmpty()?:$keys = null;
+        return $keys;
     }
 
     /**
@@ -315,7 +328,7 @@ class AdminController extends Controller
             ['status', '!=', '0']
         ])
             ->orderBy('created_at', 'desc')
-            ->paginate(10);;
+            ->paginate(10);
         return view(ThemeController::backAdminThemePath('show', 'users'), compact('users'));
     }
 
@@ -401,6 +414,25 @@ class AdminController extends Controller
         $hosts = $this->getHosts();
         return view(ThemeController::backAdminThemePath('show', 'hosts'), compact('hosts'));
     }
+
+    /**
+     * 充值卡列表管理页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function prepaidKeyShowPage()
+    {
+        $keys = $this->getPrepaidKeys();
+        return view(ThemeController::backAdminThemePath('show', 'prepaid_key'), compact('keys'));
+    }
+    /**
+     * 生成充值卡页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function prepaidKeyAddPage()
+    {
+        return view(ThemeController::backAdminThemePath('add', 'prepaid_key'));
+    }
+
 
 
     /**

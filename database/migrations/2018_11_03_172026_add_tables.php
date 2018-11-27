@@ -34,7 +34,7 @@ class AddTables extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->longText('content');
-            $table->string('price');
+            $table->double('price');
             $table->string('order_id')->nullable();
             $table->string('type')->nullable();
             $table->string('key')->nullable();
@@ -207,10 +207,19 @@ class AddTables extends Migration
 
         Schema::create('prepaid_keys', function (Blueprint $table) {
             $table->string('key');
-            $table->string('account');
+            $table->double('account');
             $table->integer('user_id')->nullable();
             $table->dateTime('deadline')->nullable();
             $table->integer('status')->default(1);
+            $table->timestamps();
+        });
+        Schema::create('user_recharge', function (Blueprint $table) {
+            $table->string('no');
+            $table->string('user_id');
+            $table->string('type')->nullable();
+            $table->double('money');
+            $table->integer('status')->default(1);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -237,6 +246,7 @@ class AddTables extends Migration
         Schema::dropIfExists('tickets');
         Schema::dropIfExists('hosts');
         Schema::dropIfExists('orders');
+        Schema::dropIfExists('user_recharge');
         Schema::dropIfExists('servers');
     }
 }

@@ -113,7 +113,7 @@ class GoodController extends Controller
         GoodModel::create([
             'title' => $request['title'],
             'subtitle' => $request['subtitle'],
-            'price' => $request['price'],
+            'price' => round(abs($request['price']),2),
             'description' => $request['description'],
             'level' => $request['level'],
             'display' => $request['display'],
@@ -287,7 +287,7 @@ class GoodController extends Controller
         ])->update([
             'title' => $request['title'],
             'subtitle' => $request['subtitle'],
-            'price' => $request['price'],
+            'price' => round(abs($request['price']),2),
             'description' => $request['description'],
             'level' => $request['level'],
             'display' => $request['display'],
