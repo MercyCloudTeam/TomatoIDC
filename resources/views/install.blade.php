@@ -1,173 +1,201 @@
-{{--<来自Blk注册界面--}}
-        <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <title>
-        Tomatoidc V0 Install 安装
-    </title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet"/>
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <!-- Nucleo Icons -->
-    <link href="{{asset('assets/themes/blk/css/nucleo-icons.css/')}}" rel="stylesheet"/>
-    <!-- CSS Files -->
-    <link href="{{asset('assets/themes/blk/css/blk-design-system.css?v=1.0.0')}}" rel="stylesheet"/>
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="{{asset('assets/themes/blk//demo/demo.css" rel="stylesheet')}}"/>
+    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="author" content="Creative Tim">
+    <title>TomatoIDC Install|虚拟主机销售系统|MercyCloud|TomatoProject</title>
+    <!-- Favicon -->
+{{--<link href="../assets/img/brand/favicon.png" rel="icon" type="image/png">--}}
+<!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="{{asset('assets/themes/argon/vendor/nucleo/css/nucleo.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/themes/argon/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
+    <!-- Argon CSS -->
+    <link type="text/css" href="{{asset('assets/themes/argon/css/argon-home.css?v=1.0.0')}}" rel="stylesheet">
+
+    <script src="{{asset('assets/themes/argon/js/sweetalert2.all.min.js')}}"></script>
 </head>
 
-<body class="register-page">
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
-    <div class="container">
-        <div class="navbar-translate">
-            <a class="navbar-brand" href="https://demos.creative-tim.com/blk-design-system/index.html" rel="tooltip"
-               title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
-                <span>Yranarf V2 </span> YFsama
+</head>
+
+<body class="bg-default">
+<div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+        <div class="container px-4">
+            <a class="navbar-brand pt-0" href="{{url('/install')}}">
+                <h1 class="mb-1 mt-1" style="color:#FFF">TomatoIDC</h1>
             </a>
-            <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                    aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-        </div>
-        <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <div class="navbar-collapse-header">
-                <div class="row">
-                    <div class="col-6 collapse-brand">
-                        <a>
-                            yranarf
-                        </a>
+            <div class="collapse navbar-collapse" id="navbar-collapse-main">
+                <!-- Collapse header -->
+                <div class="navbar-collapse-header d-md-none">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="../index.html">
+                                <img src="../assets/img/brand/blue.png">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse"
+                                    data-target="#navbar-collapse-main" aria-controls="sidenav-main"
+                                    aria-expanded="false" aria-label="Toggle sidenav">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-6 collapse-close text-right">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation"
-                                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="tim-icons icon-simple-remove"></i>
-                        </button>
+                </div>
+                <!-- Navbar items -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-icon" href="https://mercycloud.com">
+                            <i class="ni ni-planet"></i>
+                            <span class="nav-link-inner--text">MercyCloud</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-icon" href="https://github.com/MercyCloudTeam/TomatoIDC">
+                            <i class="ni ni-circle-08"></i>
+                            <span class="nav-link-inner--text">Github</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+        <div class="container">
+            <div class="header-body text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6">
+                        <h1 class="text-white">TomatoIDC</h1>
+                        <p class="text-lead text-light">
+                            TomatoIDC是一款以GPL3.0协议开源虚拟主机销售系统，具备易于扩展的插件系统，模版系统，使用强大的Laravel框架进行驱动，能帮助你轻松的扩展虚拟主机销售业务。</p>
                     </div>
                 </div>
             </div>
-            <ul class="navbar-nav">
-                {{--<li class="nav-item p-0">--}}
-                {{--<a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="" target="_blank">--}}
-                {{--<i class="fab fa-twitter"></i>--}}
-                {{--<p class="d-lg-none d-xl-none">Twitter</p>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-            </ul>
+        </div>
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                 xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
         </div>
     </div>
-</nav>
-<!-- End Navbar -->
-<div class="wrapper">
-    <div class="page-header">
-        <div class="page-header-image"></div>
-        <div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-md-6 offset-lg-0 offset-md-3">
-                        <div id="square7" class="square square-7"></div>
-                        <div id="square8" class="square square-8"></div>
-                        <div class="card card-register">
-                            <div class="card-header">
-                                <img class="card-img" src="{{asset('assets/themes/blk/img/square1.png')}}"
-                                     alt="Card image">
-                                <h4 class="card-title"> Install</h4>
-                            </div>
-                            <div class="card-body">
-                                <form class="form" href="{{url('/install')}}" method="post">
-                                    {{csrf_field()}}
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-align-left-2"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="title" value="{{old('title')}}" required
-                                               class="form-control" placeholder="网站名称">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-single-02"></i>
-                                            </div>
-                                        </div>
-                                        <input type="text" required name="name" class="form-control"
-                                               value="{{{old('name')}}}" placeholder="管理员用户名">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-email-85"></i>
-                                            </div>
-                                        </div>
-                                        <input type="email" name="email" required placeholder="管理员邮箱"
-                                               value="{{old('email')}}" class="form-control">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="tim-icons icon-lock-circle"></i>
-                                            </div>
-                                        </div>
-                                        <input type="password" required name="password" class="form-control"
-                                               placeholder="管理员密码">
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            TomatoIDC 通过 GPL3.0 协议开源 ，请遵守 GPL3.0协议
-                                        </label>
-                                    </div>
-                                    @if ($errors->any())
-                                        @foreach ($errors->all() as $error)
-                                            <div class="alert alert-danger" style="margin-top: 2rem" role="alert">
-                                                {{ $error }}
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                    <div class="card-footer">
-                                        <input type="submit" class="btn btn-info btn-round btn-lg" value="安装">
-                                    </div>
-                                </form>
-                            </div>
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="card bg-secondary shadow border-0">
+                    <div class="card-body px-lg-5 py-lg-5">
+                        <div class="text-center text-muted mb-4">
+                            <small>请填写安装信息</small>
                         </div>
+                        <form class="form" href="{{url('/install')}}" method="post">
+                            {{csrf_field()}}
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input type="text" name="title" value="{{old('title')}}" required
+                                           class="form-control" placeholder="网站名称">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input type="email" name="email" required placeholder="管理员邮箱"
+                                           value="{{old('email')}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    </div>
+                                    <input type="text" required name="name" class="form-control"
+                                           value="{{{old('name')}}}" placeholder="管理员用户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    <input type="password" required name="password" class="form-control"
+                                           placeholder="管理员密码">
+                                </div>
+                            </div>
+                            {{--<div class="custom-control custom-control-alternative custom-checkbox">--}}
+                            {{--<input class="custom-control-input" id=" customCheckLogin" type="checkbox">--}}
+                            {{--<label class="custom-control-label" for=" customCheckLogin">--}}
+                            {{--<span class="text-muted">Remember me</span>--}}
+                            {{--</label>--}}
+                            {{--</div>--}}
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger" style="margin-top: 2rem" role="alert">
+                                        {{ $error }}
+                                    </div>
+                                @endforeach
+                            @endif
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-primary my-4" value="安装">
+                            </div>
+                        </form>
                     </div>
-                    <div class="register-bg"></div>
-                    <div id="square1" class="square square-1"></div>
-                    <div id="square2" class="square square-2"></div>
-                    <div id="square3" class="square square-3"></div>
-                    <div id="square4" class="square square-4"></div>
-                    <div id="square5" class="square square-5"></div>
-                    <div id="square6" class="square square-6"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--   Core JS Files   -->
-<script src="{{asset('assets/themes/blk/js/core/jquery.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/themes/blk/js/core/popper.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/themes/blk/js/core/bootstrap.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/themes/blk/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="{{asset('assets/themes/blk/js/plugins/bootstrap-switch.js')}}"></script>
-<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-<script src="{{asset('assets/themes/blk/js/plugins/nouislider.min.js')}}" type="text/javascript"></script>
-<!-- Chart JS -->
-<script src="{{asset('assets/themes/blk/js/plugins/chartjs.min.js')}}"></script>
-<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
-<script src="{{asset('assets/themes/blk/js/plugins/moment.min.js')}}"></script>
-<script src="{{asset('assets/themes/blk/js/plugins/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>
-<!-- Black Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{asset('assets/themes/blk/demo/demo.js')}}"></script>
-<!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
-<script src="{{asset('assets/themes/blk/js/blk-design-system.min.js?v=1.0.0')}}" type="text/javascript"></script>
+<!-- Footer -->
+<footer class="py-5">
+    <div class="container">
+        <div class="row align-items-center justify-content-xl-between">
+            <div class="col-xl-6">
+                <div class="copyright text-center text-xl-left text-muted">
+                    TomatoIDC &copy; 2018 <a href="https://mercycloud.com" class="font-weight-bold ml-1"
+                                             target="_blank">MercyCloud</a>
+                    Design : <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative
+                        Tim</a>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                    <li class="nav-item">
+                        <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/MercyCloudTeam/TomatoIDC" class="nav-link"
+                           target="_blank">TomatoIDC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://mercycloud.com" class="nav-link" target="_blank">MercyCloud</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="{{asset('assets/themes/argon/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('assets/themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Argon JS -->
+<script src="{{asset('assets/themes/argon/js/argon-home.js?v=1.0.0')}}"></script>
 </body>
 
 </html>

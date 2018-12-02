@@ -62,17 +62,17 @@ class AdminController extends Controller
         $hostCount = HostModel::all()->count();
         $servers = $this->getServers();
         $orders = [];
-        for ($i =1;$i<=7;$i++){
-            $start = Carbon::now()->subDays($i-1);
+        for ($i = 1; $i <= 7; $i++) {
+            $start = Carbon::now()->subDays($i - 1);
             $end = Carbon::now()->subDay($i);
             $order = OrderModel::where([
-               ['created_at','<',$start],
-               ['created_at','>',$end]
+                ['created_at', '<', $start],
+                ['created_at', '>', $end]
             ])->get();
             $order ?? null;
-            array_push($orders,$order);
+            array_push($orders, $order);
         }
-        return view(ThemeController::backAdminThemePath('index'), compact('userCount', 'orderCount','orders', 'workOrderCount', 'hostCount','servers'));
+        return view(ThemeController::backAdminThemePath('index'), compact('userCount', 'orderCount', 'orders', 'workOrderCount', 'hostCount', 'servers'));
     }
 
     /**
@@ -142,9 +142,9 @@ class AdminController extends Controller
     protected function getPrepaidKeys()
     {
         $keys = PrepaidKeyModel::
-            orderBy('created_at', 'desc')
+        orderBy('created_at', 'desc')
             ->paginate(10);
-        !$keys->isEmpty()?:$keys = null;
+        !$keys->isEmpty() ?: $keys = null;
         return $keys;
     }
 
@@ -345,6 +345,7 @@ class AdminController extends Controller
         return redirect(route('admin.good.show')); //错误返回
 
     }
+
     /**
      * 订单编辑页面
      */
@@ -424,6 +425,7 @@ class AdminController extends Controller
         $keys = $this->getPrepaidKeys();
         return view(ThemeController::backAdminThemePath('show', 'prepaid_key'), compact('keys'));
     }
+
     /**
      * 生成充值卡页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -432,7 +434,6 @@ class AdminController extends Controller
     {
         return view(ThemeController::backAdminThemePath('add', 'prepaid_key'));
     }
-
 
 
     /**

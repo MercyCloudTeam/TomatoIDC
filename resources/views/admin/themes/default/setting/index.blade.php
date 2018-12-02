@@ -98,6 +98,7 @@
                                             @if(empty($setting->where('name','setting.website.payment.alipay')->first()->value))
                                                 <option value="" selected>未配置插件</option>
                                             @endif
+                                                <option value="">不配置插件</option>
                                         </select>
                                     </div>
                                 </div>
@@ -122,6 +123,7 @@
                                             @if(empty($setting->where('name','setting.website.payment.wechat')->first()->value))
                                                 <option value="" selected>未配置插件</option>
                                             @endif
+                                                <option value="">不配置插件</option>
                                         </select>
                                     </div>
                                 </div>

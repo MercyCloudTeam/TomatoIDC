@@ -13,8 +13,9 @@ use GuzzleHttp\Client;
 class EasyPanelController extends Controller
 {
 
-    public $diyConfigureFrom=false;//使用自定义表单
+    public $diyConfigureFrom = false;//使用自定义表单
     public $type = "vm"; //服务器插件类型
+
     /**
      * CURL GET请求
      * @param $url string 请求URL
@@ -163,6 +164,31 @@ class EasyPanelController extends Controller
     public function renewHost()
     {
         return true;
+    }
+
+    /**
+     * 开通主机
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function openHost($server,$host)
+    {
+        !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
+        $serverUrl = $server->ip;
+        $rand = mt_rand(1000, 9999);
+        $sign = $this->makeSign('update_vh', $server->key, $rand);
+        $url = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=update_vh&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&status=0&json=1";
+        $result = $this->curlGet($url);
+        if ($result) {
+            $result = json_decode($result, true);
+            if ($result['result'] == 200) {
+                return $host;
+            }
+            Log::info('EasyPanel close host error', ['url' => $url]);
+            return false;
+        }
+        return false;
     }
 
     /**

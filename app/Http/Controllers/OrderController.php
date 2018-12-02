@@ -28,7 +28,7 @@ class OrderController extends Controller
      * @param null $aff_no
      * @return mixed
      */
-    protected function makeOrder($good_id,$price,$user_id,$type=null,$aff_no = null )
+    protected function makeOrder($good_id, $price, $user_id, $type = null, $aff_no = null)
     {
         $no = date('y') . mt_rand(10, 99) . substr(time(), 6) . mt_rand(100, 999);
         $order = OrderModel::create([
@@ -37,7 +37,7 @@ class OrderController extends Controller
             'no' => $no,
             'type' => $type,
             'aff_no' => $aff_no,
-            'price' => round(abs($price),2),
+            'price' => round(abs($price), 2),
         ]);
         return $order;
     }
@@ -61,7 +61,7 @@ class OrderController extends Controller
         $this->authorize('update', $host);//防止越权
         //创建订单
         $good = GoodModel::where('id', $host->order->good->id)->first();
-        $order = $this->makeOrder($good->id,$good->price,Auth::id(),'renew',$request['no']);
+        $order = $this->makeOrder($good->id, $good->price, Auth::id(), 'renew', $request['no']);
 
         OrderModel::where('id', $order->id)->update(['host_id' => $host->id]);
 
@@ -84,18 +84,8 @@ class OrderController extends Controller
         if (!empty($payPlugin)) {
             $pay = new PayController;
             $payPage = $pay->orderPay($payPlugin, $request['payment'], $order);
-            switch ($payPage['type']) { //判断插件返回值
-                case "qrcode": //二维码
-//                    if (PayController::isMobile()){
-//                        return redirect($payPage['url']);
-//                        break;
-//                    }
-                    return view(ThemeController::backThemePath('pay', 'home.goods'), compact('order', 'payPage'));
-                    break;
-                case "redirect": //跳转
-                    return redirect($payPage['url']);
-                    break;
-            }
+            return $pay->payPage($payPage);
+
         }
         return redirect(route('order.show')); //默认返回
     }
@@ -116,7 +106,7 @@ class OrderController extends Controller
 
         $good = GoodModel::where('id', $request['id'])->first();
 
-        $order = $this->makeOrder($good->id,$good->price,Auth::id(),'new',$request['no']);
+        $order = $this->makeOrder($good->id, $good->price, Auth::id(), 'new', $request['no']);
 
         if (!$good->price) {//白嫖 免费
             OrderModel::where('id', $order->id)->update(['status' => 2]);
@@ -137,18 +127,7 @@ class OrderController extends Controller
         if (!empty($payPlugin)) {
             $pay = new PayController;
             $payPage = $pay->orderPay($payPlugin, $request['payment'], $order);
-            switch ($payPage['type']) { //判断插件返回值
-                case "qrcode": //二维码
-//                    if (PayController::isMobile()){
-//                        return redirect($payPage['url']);
-//                        break;
-//                    }
-                    return view(ThemeController::backThemePath('pay', 'home.goods'), compact('order', 'payPage'));
-                    break;
-                case "redirect": //跳转
-                    return redirect($payPage['url']);
-                    break;
-            }
+            return $pay->payPage($payPage);
         }
         return redirect(route('order.show')); //默认返回
     }
@@ -192,14 +171,7 @@ class OrderController extends Controller
         if (!empty($payPlugin)) {
             $pay = new PayController;
             $payPage = $pay->orderPay($payPlugin, $request['payment'], $order);
-            switch ($payPage['type']) {
-                case "qrcode":
-                    return view(ThemeController::backThemePath('pay', 'home.goods'), compact('order', 'payPage'));
-                    break;
-                case "redirect":
-                    return redirect($payPage['url']);
-                    break;
-            }
+            return $pay->payPage($payPage);
         }
         return redirect(route('order.show')); //默认返回
     }

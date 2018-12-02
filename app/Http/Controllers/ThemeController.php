@@ -68,7 +68,7 @@ class ThemeController extends Controller
         $spa = SettingModel::where('name', 'setting.website.spa.status')->get();
         if (!$spa->isEmpty()) {
             if ($spa->first()->value == 1) {
-                $path = 'themes.' . self::getThemeName() . 'index';
+                $path = 'themes.' . self::getThemeName() . '.index';
                 if (View::exists($path)) {
                     return $path;
                 }

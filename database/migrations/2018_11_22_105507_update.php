@@ -13,7 +13,21 @@ class Update extends Migration
      */
     public function up()
     {
-        //
+//        Schema::create('orders_log')
+        Schema::table('orders', function (Blueprint $table) { //添加字段
+            $table->longText('description')->nullable();
+            $table->string('payment')->nullable();
+            $table->string('api_no')->nullable();
+        });
+        Schema::table('user_recharge', function (Blueprint $table) { //添加字段
+            $table->string('payment')->nullable();
+            $table->string('api_no')->nullable();
+        });
+        Schema::create('wechat_message',function (Blueprint $table){
+            $table->string('openid');
+            $table->longText('message');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +37,6 @@ class Update extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('wechat_message');
     }
 }

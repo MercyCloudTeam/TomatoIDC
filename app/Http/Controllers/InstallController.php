@@ -7,6 +7,13 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * 安装程序，创建管理员用户和初始化设置数据表
+ * Class InstallController
+ * @package App\Http\Controllers
+ */
+//TODO 配置.env文件
+
 class InstallController extends Controller
 {
 
@@ -51,6 +58,21 @@ class InstallController extends Controller
     }
 
     /**
+     * 当用户升级版本之后如果遇到未初始化的自动初始化
+     */
+    public function checkSetting()
+    {
+        foreach ($this->settingArray as $key => $value) {
+            $setTemp = SettingModel::where('name', $key)->get();
+            if ($setTemp->isEmpty()) {
+                SettingModel::create([
+                    'name' => $key,
+                    'value' => $value
+                ]);
+            }
+        }
+    }
+    /**
      * 初始化配置项名称name=>值value
      * @var array
      */
@@ -69,12 +91,12 @@ class InstallController extends Controller
         'setting.website.url' => 'https://mercycloud.com',
         'setting.website.title' => 'yfsama',
         'setting.website.copyright' => 'yranarf',
-        'setting.website.kf.url' => null,
+        'setting.website.kf.url' => '/',
         'setting.website.aff.status' => false,
         'setting.website.user.agreements' => null,//url
         'setting.website.privacy.policy' => null,//url
         'setting.website.spa.status' => false,//url
-        'setting.website.version' => 'V0.1.1',
+        'setting.website.version' => 'V0.1.2',
         'setting.mail.smtp.url' => null,
         'setting.mail.smtp.port' => null,
         'setting.mail.smtp.user' => null,

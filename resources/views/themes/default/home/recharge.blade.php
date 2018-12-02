@@ -14,7 +14,6 @@
                     <p class="text-white" style="font-size: 1rem">欢迎回来</p>
                     <h1 class="display-2 text-white">{{Auth::user()->name}}</h1>
                     <p class="text-white mt-0 mb-5">祝你开心每一天！</p>
-                    <a href="#!" class="btn btn-info">Edit profile</a>
                 </div>
             </div>
         </div>
@@ -24,7 +23,7 @@
 
 @section('container-fluid')
     <div class="row">
-        <div class="col-xl-8 order-xl-1">
+        <div class="col-xl-8 order-xl-1  mb-4">
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
@@ -42,7 +41,8 @@
                                     {{--oninput="value=value.replace(/[^\d]/g,'')"--}}
                                     <label class="form-control-label" for="input-first-name">充值金额</label>
                                     <input  type="text" id="input-first-name"
-                                           name="money"   class="form-control form-control-alternative">
+                                           name="money" oninput="value=value.replace(/[^\d]/g,'')"
+                                            class="form-control form-control-alternative">
                                 </div>
                             </div>
                         </div>

@@ -69,7 +69,7 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">用户密匙</h5>
-                                    @if(empty(Auth::user()->token))
+                                    @if(empty(Auth::user()->api_key))
                                         <span class="h2 font-weight-bold mb-0">未生成</span>
                                     @else
                                         <span class="h2 font-weight-bold mb-0">已生成</span>

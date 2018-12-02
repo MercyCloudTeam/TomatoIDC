@@ -1,9 +1,0 @@
-{
-  "name": "easypanel",
-  "version": "1.0",
-  "title": "Easypanel",
-  "description": "对接EP面板,开通虚拟主机",
-  "author": "franary",
-  "namespace": "EasyPanel",
-  "config": "config.blade"
-}

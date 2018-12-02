@@ -82,7 +82,7 @@ class HostController extends Controller
     /**
      * 检测所有主机状态
      */
-    public function checkHostStatus()
+    public function autoCheckHostStatus()
     {
         $hosts = HostModel::where([ //检测过期主机
             ['status', '1'],

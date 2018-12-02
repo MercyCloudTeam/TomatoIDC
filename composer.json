@@ -10,13 +10,18 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.4",
+        "johnlui/aliyun-oss": "~2.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "overtrue/easy-sms": "^1.1",
         "overtrue/laravel-lang": "~3.0",
+        "overtrue/laravel-mail-aliyun": "dev-master",
         "overtrue/laravel-wechat": "~4.0",
+        "overtrue/laravel-youzan": "^2.0",
         "simplesoftwareio/simple-qrcode": "~2",
-        "thomaswelton/laravel-gravatar": "~1.0"
+        "thomaswelton/laravel-gravatar": "~1.0",
+        "yansongda/laravel-pay": "^2.0",
+        "ybr-nx/laravel-mariadb": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

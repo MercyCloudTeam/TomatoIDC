@@ -114,7 +114,12 @@ ajax.open('get','/temp/cron');
 ajax.send();
 ajax.onreadystatechange = function () {
    if (ajax.readyState==4 &&ajax.status==200) {
-    alert('成功')
+    swal({
+    type: 'success',
+    title: 'Success',
+    content: '成功',
+    timeout: 200
+    })
   　　}
 }
 " class="btn btn-sm btn-warning">手动监控</a>

@@ -1,6 +1,6 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.1/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.2/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md)
 
@@ -20,11 +20,12 @@
 - 可扩展
 
   - 支持（支付，服务器，功能）插件
-  - 支持更换模版
+  - 支持多种模版
 
 - 功能强大
 
   - 支持卡密充值
+  - 支持多种支付方式
 
 - 人性化
 
@@ -178,13 +179,13 @@ location / {
 
 ### 支付
 
-目前暂未完成支付宝/微信官方支付插件（可以参考其他支付插件，改写一下即可使用），但拥有其他免签支付插件
+- 有赞云支付
+- 微信官方支付
+- 支付宝官方（未测试，如果有人可以提供Key测试一下就好了）
+- 卡密充值
+- 番茄云支付
 
 更多支付方式，请自行进行支付插件开发
-
-
-
-现已支持卡密充值
 
 
 
@@ -201,13 +202,14 @@ location / {
 - 服务器
   - 服务器组
   - 售卖VPS
+  - 服务器插件
   - ~~售卖Shadowsocks~~
-- 支付
-  - 支付宝微信官方支付
 - 用户
   - aff推广
 - 优惠卷
-- 更好的插件系统
+- 用户等级
+- 阿里云OSS文件存储
+- 自定义页面
 
 
 
@@ -231,6 +233,7 @@ location / {
 
 - V0.1.0  🎉 发布第一个开源版本，可以拿来正式使用-2018-11-23日 现已发布
 - V0.1.1 添加依赖（软件大小提升）卡密，用户充值，请参考[论坛](https://dev.fanqieui.com/d/7-tomatoidc-v0-1-1) (更新预计需要10分钟)减少了一个BUG并新增了N个BUG
+- V0.1.2 添加对mariadb支持 （未测试），表结构更改，添加微信官方支付， 有赞云支付【支付宝官方（未测试）】，移除BLK模版，更新界面[详见](https://dev.fanqieui.com/d/10-tomatoidc-v0-1-2)
 
 
 
@@ -271,6 +274,22 @@ location / {
 里面可以看到我疯狂挖的新坑，以及一些好玩的BUG，以及一些先行的源代码
 
 ![image_822582455182_4.jpg](https://sz.ali.ftc.red/ftc/2018/11/27/image_822582455182_4.jpg)
+
+
+
+#### 服务器推荐
+
+>以下为我目前使用的服务器，仅代表个人。推广链接可领优惠卷
+
+[阿里云Aliyun](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=rdnyjbu6)
+
+[Vultr](https://www.vultr.com/?ref=7244417) 
+
+
+
+#### TomatoProject
+
+> 在TomatoIDC的V0.1.2开发中，决定将其规划为TomatoProject，将会有一系列开源项目，欢迎大家支持
 
 
 

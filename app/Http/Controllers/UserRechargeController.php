@@ -17,6 +17,12 @@ class UserRechargeController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * 用户充值支付操作
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function userRechargePayAction(Request $request)
     {
         $this->validate($request,[
@@ -29,25 +35,30 @@ class UserRechargeController extends Controller
 
         $pay = new PayController;
         $payPage = $pay->makePay($request->payment,$order);
+        return $pay->payPage($payPage);
 
-        switch ($payPage['type']) { //判断插件返回值
-            case "qrcode": //二维码
-//                    if (PayController::isMobile()){
-//                        return redirect($payPage['url']);
-//                        break;
-//                    }
-                return QrCode::size(200)->color(94, 114, 228)->generate($payPage['url']);
-//                return view(ThemeController::backThemePath('pay', 'home.goods'), compact('order', 'payPage'));
-                break;
-            case "redirect": //跳转
-//                    dd($payPage['url']);
-                return redirect($payPage['url']);
-                break;
-        }
-        return redirect(route('order.show')); //默认返回
+//        switch ($payPage['type']) { //判断插件返回值
+//            case "qrcode": //二维码
+////                    if (PayController::isMobile()){
+////                        return redirect($payPage['url']);
+////                        break;
+////                    }
+//                return QrCode::size(200)->color(94, 114, 228)->generate($payPage['url']);
+////                return view(ThemeController::backThemePath('pay', 'home.goods'), compact('order', 'payPage'));
+//                break;
+//            case "redirect": //跳转
+////                    dd($payPage['url']);
+//                return redirect($payPage['url']);
+//                break;
+//        }
     }
 
-
+    /**
+     * 检查支付状态
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function userRechargeCheckStatusAction(Request $request)
     {
         $this->validate($request, [
@@ -57,6 +68,11 @@ class UserRechargeController extends Controller
     }
 
 
+    /**
+     * 检测支付状态
+     * @param $no
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function userRechargeCheckStatusFun($no)
     {
         $order = UserRechargeModel::where('no', $no)->first();//获取订单

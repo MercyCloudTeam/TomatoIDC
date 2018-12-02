@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GoodCategoriesModel;
 use App\GoodModel;
+use App\Http\Controllers\Payment\PayController;
 use App\Http\Resources\GoodCollection;
 use App\Http\Resources\GoodsCategoriesResource;
 use Illuminate\Http\Request;
@@ -160,7 +161,9 @@ class IndexController extends Controller
     public function tempCronAction()
     {
         $hostController = new HostController();
-        $hosts = $hostController->checkHostStatus();
+        $payController = new PayController();
+        $hosts = $hostController->autoCheckHostStatus();
+        $pay = $payController->autoCheckOrderStatus();
         $hosts = null;
         return time();
     }

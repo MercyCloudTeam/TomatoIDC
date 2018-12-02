@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22467abb61cd9501ae43f9c88ba35796",
+    "content-hash": "531eb2624df70c050c3808e262edea8a",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -995,6 +995,48 @@
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
+            "name": "johnlui/aliyun-oss",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnlui/AliyunOSS.git",
+                "reference": "f10fdec4775e22a8295366981e1daf48c62ce5d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnlui/AliyunOSS/zipball/f10fdec4775e22a8295366981e1daf48c62ce5d3",
+                "reference": "f10fdec4775e22a8295366981e1daf48c62ce5d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/AliyunOSS.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Lui",
+                    "email": "wenhanlv@gmail.com"
+                }
+            ],
+            "description": "阿里云 OSS 官方 SDK 的 Composer 封装，支持任何 PHP 项目，包括 Laravel、Symfony、TinyLara 等等。",
+            "homepage": "https://github.com/johnlui/AliyunOSS",
+            "keywords": [
+                "AliyunOSS",
+                "aliyun",
+                "oss"
+            ],
+            "time": "2017-04-06T06:48:21+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.7.15",
             "source": {
@@ -1575,6 +1617,49 @@
             "time": "2018-09-14T13:43:38+00:00"
         },
         {
+            "name": "overtrue/http",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/http.git",
+                "reference": "cb919399b9b7f198434e9089801a060f5f944f99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/http/zipball/cb919399b9b7f198434e9089801a060f5f944f99",
+                "reference": "cb919399b9b7f198434e9089801a060f5f944f99",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "guzzlehttp/guzzle": "^6.3",
+                "monolog/monolog": "^1.23",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Http\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "A simple http client wrapper.",
+            "time": "2018-11-27T03:38:37+00:00"
+        },
+        {
             "name": "overtrue/laravel-lang",
             "version": "3.0.13",
             "source": {
@@ -1624,6 +1709,39 @@
                 "overtrue"
             ],
             "time": "2018-09-03T09:31:08+00:00"
+        },
+        {
+            "name": "overtrue/laravel-mail-aliyun",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/laravel-mail-aliyun.git",
+                "reference": "d19d3387e78f251d1c156eec8d3da2702663607b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-mail-aliyun/zipball/d19d3387e78f251d1c156eec8d3da2702663607b",
+                "reference": "d19d3387e78f251d1c156eec8d3da2702663607b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "laravel/framework": "^5.5",
+                "swiftmailer/swiftmailer": "^6.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "Aliyun DrirectMail Transport for Laravel Application.",
+            "time": "2018-07-24T13:57:44+00:00"
         },
         {
             "name": "overtrue/laravel-wechat",
@@ -1679,6 +1797,52 @@
             "time": "2018-05-23T14:03:58+00:00"
         },
         {
+            "name": "overtrue/laravel-youzan",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/laravel-youzan.git",
+                "reference": "e7249b70db87e63cbd9e3ae57b76a3f1c950a7f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-youzan/zipball/e7249b70db87e63cbd9e3ae57b76a3f1c950a7f8",
+                "reference": "e7249b70db87e63cbd9e3ae57b76a3f1c950a7f8",
+                "shasum": ""
+            },
+            "require": {
+                "overtrue/youzan": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Youzan": "Overtrue\\LaravelYouzan\\Youzan"
+                    },
+                    "providers": [
+                        "Overtrue\\LaravelYouzan\\YouzanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelYouzan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "Youzan wrapper for Laravel.",
+            "time": "2018-11-01T03:29:20+00:00"
+        },
+        {
             "name": "overtrue/socialite",
             "version": "2.0.3",
             "source": {
@@ -1730,16 +1894,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.1.12",
+            "version": "4.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "9594265a70d9a2f4df6177d0bd5214016cd75b69"
+                "reference": "438057687bfd47d75413c7df32a698c72be751c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/9594265a70d9a2f4df6177d0bd5214016cd75b69",
-                "reference": "9594265a70d9a2f4df6177d0bd5214016cd75b69",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/438057687bfd47d75413c7df32a698c72be751c1",
+                "reference": "438057687bfd47d75413c7df32a698c72be751c1",
                 "shasum": ""
             },
             "require": {
@@ -1789,7 +1953,44 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-11-25T06:10:51+00:00"
+            "time": "2018-11-28T08:07:26+00:00"
+        },
+        {
+            "name": "overtrue/youzan",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/youzan.git",
+                "reference": "a83022974047ab07ec6dd22149925163473997c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/youzan/zipball/a83022974047ab07ec6dd22149925163473997c4",
+                "reference": "a83022974047ab07ec6dd22149925163473997c4",
+                "shasum": ""
+            },
+            "require": {
+                "overtrue/http": "^1.0",
+                "symfony/cache": "^4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Youzan\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "Youzan API client.",
+            "time": "2018-09-07T15:53:23+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3620,6 +3821,205 @@
                 "environment"
             ],
             "time": "2018-07-29T20:33:41+00:00"
+        },
+        {
+            "name": "yansongda/laravel-pay",
+            "version": "v2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yansongda/laravel-pay.git",
+                "reference": "7b2574a62a22e5d777df222f0280c8ea158e5f66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yansongda/laravel-pay/zipball/7b2574a62a22e5d777df222f0280c8ea158e5f66",
+                "reference": "7b2574a62a22e5d777df222f0280c8ea158e5f66",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1",
+                "yansongda/pay": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Yansongda\\LaravelPay\\PayServiceProvider"
+                    ],
+                    "aliases": {
+                        "Pay": "Yansongda\\LaravelPay\\Facades\\Pay"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yansongda\\LaravelPay\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yansongda",
+                    "email": "me@yansongda.cn"
+                }
+            ],
+            "description": "专注 Alipay 和 WeChat 的 laravel 支付扩展包",
+            "keywords": [
+                "alipay",
+                "laravel",
+                "package",
+                "pay",
+                "wechat"
+            ],
+            "time": "2018-09-03T09:09:08+00:00"
+        },
+        {
+            "name": "yansongda/pay",
+            "version": "v2.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yansongda/pay.git",
+                "reference": "abaf48b6b742f66fcc187cde5d2d1152ea7c1d08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yansongda/pay/zipball/abaf48b6b742f66fcc187cde5d2d1152ea7c1d08",
+                "reference": "abaf48b6b742f66fcc187cde5d2d1152ea7c1d08",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "ext-simplexml": "*",
+                "monolog/monolog": "^1.23",
+                "php": ">=7.0",
+                "symfony/http-foundation": "^3.0|^4.0",
+                "yansongda/supports": "^1.8"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.0.x-dev",
+                "phpunit/phpunit": "^6.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yansongda\\Pay\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yansongda",
+                    "email": "me@yansongda.cn"
+                }
+            ],
+            "description": "专注 Alipay 和 WeChat 的支付扩展包",
+            "keywords": [
+                "alipay",
+                "pay",
+                "wechat"
+            ],
+            "time": "2018-11-27T12:21:05+00:00"
+        },
+        {
+            "name": "yansongda/supports",
+            "version": "v1.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yansongda/supports.git",
+                "reference": "e5a8d80dd18ab5361187adfd33c398573943de39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yansongda/supports/zipball/e5a8d80dd18ab5361187adfd33c398573943de39",
+                "reference": "e5a8d80dd18ab5361187adfd33c398573943de39",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "monolog/monolog": "^1.23",
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yansongda\\Supports\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yansongda",
+                    "email": "me@yansongda.cn"
+                }
+            ],
+            "description": "common components",
+            "keywords": [
+                "Guzzle",
+                "array",
+                "collection",
+                "config",
+                "http",
+                "support"
+            ],
+            "time": "2018-11-22T02:57:45+00:00"
+        },
+        {
+            "name": "ybr-nx/laravel-mariadb",
+            "version": "1.0.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ybr-nx/laravel-mariadb.git",
+                "reference": "213c9dc0978b54f4ca5d3e7c2a4f94a1f6462f85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ybr-nx/laravel-mariadb/zipball/213c9dc0978b54f4ca5d3e7c2a4f94a1f6462f85",
+                "reference": "213c9dc0978b54f4ca5d3e7c2a4f94a1f6462f85",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "YbrNX\\MariaDB\\MariaDBServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YbrNX\\MariaDB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "EUPL-1.2"
+            ],
+            "authors": [
+                {
+                    "name": "Ingmar Aasoja",
+                    "email": "ingmar@aasoja.ee"
+                }
+            ],
+            "description": "Add MariaDB JSON select support to Laravel",
+            "keywords": [
+                "database",
+                "json",
+                "laravel",
+                "mariadb"
+            ],
+            "time": "2018-08-17T18:59:12+00:00"
         }
     ],
     "packages-dev": [
@@ -5512,7 +5912,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "overtrue/laravel-mail-aliyun": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

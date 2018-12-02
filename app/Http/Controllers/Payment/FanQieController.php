@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 class FanQieController extends Controller
 {
     public $pluginName = "番茄云支付";
-
+    public $pluginType=true;
     //签名
     protected function makeSign($mchid, $account, $cny, $orderid, $key)
     {
@@ -171,7 +171,7 @@ class FanQieController extends Controller
         $on = $order->no;
 
         if ($order->status == 2) { //防止多次支付
-            return ['type' => 'qrcode', 'url' => "Orders paid"];
+            return ['type' => 'qrcode_string', 'url' => "Orders paid"];
         }
 
         $sign = $this->makeSign($mchid, $account, $price, $on, $key);
@@ -188,18 +188,28 @@ class FanQieController extends Controller
         $result = $this->curlPost($this->$url, $data);
         if (empty($result)) {
             Log::info('Make Pay Url Error', ['url' => $this->$url, 'date' => $data]);
-            return ['type' => 'qrcode', 'url' => "Error Place Check Setting"];//错误返回
+            return ['type' => 'qrcode_string', 'url' => "Error Place Check Setting"];//错误返回
         }
         switch ($payment) {
             case "wechat":
                 preg_match('/weixin.*</', $result, $weixin);
                 $weixin = str_replace('<', '', $weixin[0]);
-                return ['type' => 'qrcode', 'url' => $weixin];
+                return ['type' => 'qrcode_string', 'url' => $weixin];
             case "alipay":
                 preg_match('/https:\/\/mapi.*MD5/', $result, $alipay);
                 return ['type' => 'redirect', 'url' => $alipay[0]];
         }
-
-        return ['type' => 'qrcode', 'url' => "Error Place Check Setting"];//错误返回
+        return ['type' => 'qrcode_string', 'url' => "Error Place Check Setting"];//错误返回
     }
+
+    /**
+     * 番茄云支付不支持订单查询
+     * @return bool
+     */
+    public function checkOrderStatus()
+    {
+        return false;
+    }
+
+
 }

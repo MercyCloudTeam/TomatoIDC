@@ -196,9 +196,9 @@ class AddTables extends Migration
             $table->string('access')->nullable();
             $table->string('hvmt')->nullable();
             $table->string('group')->nullable();
-            $table->string('custommemory')->nullable();
-            $table->string('overover')->nullable();
-            $table->string('custombandwidth')->nullable();
+            $table->string('custommemory')->nullable();  //自定义内存
+            $table->string('overover')->nullable(); //
+            $table->string('custombandwidth')->nullable(); //自定义带宽
             $table->string('time')->nullable();
             $table->integer('status')->default(1);
             $table->string('json_configure')->nullable();//使用json保存配置信息

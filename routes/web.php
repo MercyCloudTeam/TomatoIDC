@@ -36,7 +36,7 @@ Route::middleware(['throttle:60,1'])->group(function () {
 
 
 Route::any('/{payment}/order/notify', 'Payment\PayController@notify');//支付回调
-Route::get('/temp/cron', "IndexControaller@tempCronAction");//临时监控
+Route::get('/temp/cron', "IndexController@tempCronAction");//临时监控
 
 Route::prefix('admin')->group(function () {//管理路由
     Route::middleware(['auth', 'check.admin.authority', 'throttle:60,1'])->group(function () {
@@ -103,8 +103,6 @@ Route::prefix('admin')->group(function () {//管理路由
                 Route::get('{payment}/pay/config', 'AdminController@paymentPluginConfigPage')->name('setting.pay');
                 Route::post('pay/config', 'AdminController@paymentPluginConfigAction');
                 Route::post('/', 'AdminController@settingEditAction');
-                Route::get('edit', 'AdminController@userEditPage');
-                Route::post('edit', 'AdminController@userEditPage');
             });
             Route::prefix('server')->group(function () { //服务器设置
                 Route::get('show', 'AdminController@serverShowPage')->name('server.show');
