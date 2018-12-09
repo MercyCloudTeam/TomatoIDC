@@ -15,6 +15,7 @@
     <link href="{{asset('assets/themes/argon/vendor/font-awesome/css/font-awesome.min.css')}}" rel="s')}}tylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="{{asset('assets/themes/argon/css/argon.css?v=1.0.1')}}" rel="stylesheet">
+    <script src="{{asset('assets/themes/argon/js/sweetalert2.all.min.js')}}"></script>
 </head>
 
 <body>

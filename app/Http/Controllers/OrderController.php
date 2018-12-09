@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GoodModel;
 use App\HostModel;
+use App\Http\Controllers\MailDrive\UserMailController;
 use App\Http\Controllers\Payment\PayController;
 use App\OrderModel;
 use App\SettingModel;
@@ -191,6 +192,16 @@ class OrderController extends Controller
         return $this->orderCheckStatusFun($request['no']);
     }
 
+    public function orderPaySendMail($user,$order)
+    {
+
+        if (!empty(UserMailController::userEmailNoticeSetting())) {
+            $mailDrive = new UserMailController();
+            $mailDrive->sendMailFun($user, 'UserOrderPay', $order);
+
+        }
+    }
+
     /**
      * 非路由跳转调用检查订单状态
      * @param $no
@@ -201,6 +212,7 @@ class OrderController extends Controller
         $order = OrderModel::where('no', $no)->first();//获取订单
         if ($order->status == 2 && $order->type == "new") {//判断是否新购订单
             if (empty($order->host_id)) { //判断是否有主机
+                $this->orderPaySendMail($order->user,$order);
                 $host = new HostController();
                 $status = $host->createHost($order);
                 if ($status) {

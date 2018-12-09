@@ -70,7 +70,7 @@ class EditUser extends Migration
             $table->timestamps();
         });
         Schema::table('servers', function (Blueprint $table) { //添加字段
-            $table->integer('area_id');
+            $table->integer('area_id')->nullable();
         });
         Schema::table('orders', function (Blueprint $table) { //添加字段
             $table->string('json_configure')->nullable();//定制配置，满足特别的用户w

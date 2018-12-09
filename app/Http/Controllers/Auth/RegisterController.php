@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\UserController;
+use App\SettingModel;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -49,11 +52,24 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:16|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'agreement' => 'string|accepted',
         ]);
+    }
+
+    protected function sendValidateMail($user)
+    {
+        if (Schema::hasTable('settings')){
+            if (
+                SettingModel::where('name','setting.website.user.email.validate')->first() != 0 &&
+                !SettingModel::where('name','setting.mail.drive')->get()->isEmpty()
+            ){
+                $userController = new UserController();
+                $userController->userEmailValidateSendAction($user);
+            }
+        }
     }
 
     /**

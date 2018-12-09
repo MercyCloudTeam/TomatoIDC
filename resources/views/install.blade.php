@@ -105,7 +105,7 @@
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                        <span class="input-group-text"><i class="ni ni-air-baloon"></i></span>
                                     </div>
                                     <input type="text" name="title" value="{{old('title')}}" required
                                            class="form-control" placeholder="网站名称">
@@ -123,7 +123,7 @@
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
                                     </div>
                                     <input type="text" required name="name" class="form-control"
                                            value="{{{old('name')}}}" placeholder="管理员用户名">

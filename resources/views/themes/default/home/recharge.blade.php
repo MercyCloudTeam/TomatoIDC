@@ -100,24 +100,4 @@
             </div>
         </div>
     </div>
-
-    @if(session('status'))
-        @if(session('status') == 'success')
-            <script>
-                swal(
-                    'Success!',
-                    '充值成功!',
-                    'success'
-                )
-            </script>
-        @else
-            <script>
-                swal({
-                    type: 'error',
-                    title: '错误',
-                    text: 'Key无效',
-                })
-            </script>
-        @endif
-    @endif
 @endsection

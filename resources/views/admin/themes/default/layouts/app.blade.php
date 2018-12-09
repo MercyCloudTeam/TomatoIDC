@@ -312,6 +312,26 @@
         </footer>
     </div>
 </div>
+
+@if(session('status'))
+    @if(session('status') == 'success')
+        <script>
+            swal(
+                'Success!',
+                '操作成功',
+                'success'
+            )
+        </script>
+    @else
+        <script>
+            swal({
+                type: 'error',
+                title: 'Error',
+                text: '操作失败',
+            })
+        </script>
+    @endif
+@endif
 <script src="{{asset('assets/themes/argon/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{asset('assets/themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Optional JS -->

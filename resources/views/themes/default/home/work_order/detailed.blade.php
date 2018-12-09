@@ -1,7 +1,6 @@
-@extends('admin.themes.default.layouts.app')
-
+@extends('themes.default.layouts.home')
 @section('content')
-    @include('admin.themes.default.layouts.card')
+    @include('themes.default.layouts.header')
 @endsection
 
 @section('container-fluid')

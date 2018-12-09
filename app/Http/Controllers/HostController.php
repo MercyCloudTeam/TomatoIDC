@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\GoodConfigureModel;
 use App\GoodModel;
 use App\HostModel;
+use App\Http\Controllers\MailDrive\UserMailController;
 use App\Http\Controllers\Server\ServerPluginController;
+use App\Mail\UserHostCreate;
 use App\OrderModel;
 use App\ServerModel;
 use Carbon\Carbon;
@@ -18,6 +20,20 @@ class HostController extends Controller
     /**
      * 操作代码 Action
      */
+
+    /**
+     * send mail for new buy user
+     * @param $user
+     * @param $host
+     */
+    protected function hostNewSendMail($user,$host)
+    {
+        if (!empty(UserMailController::userEmailNoticeSetting())) {
+            $mailDrive = new UserMailController();
+            $mailDrive->sendMailFun($user, 'UserHostCreate', $host);
+
+        }
+    }
 
     /**
      * 创建主机
@@ -44,6 +60,7 @@ class HostController extends Controller
                 if (!empty($configure->time)) {//添加截止时间
                     HostModel::where('id', $host->id)->update(['deadline' => Carbon::now()->addDays($configure->time)]);
                 }
+                $this->hostNewSendMail($host->user,$host);
                 return OrderModel::where('id', $order->id)->update(['host_id' => $host->id]);
             } else {
                 OrderModel::where('id', $order->id)->update(['status' => 3]);

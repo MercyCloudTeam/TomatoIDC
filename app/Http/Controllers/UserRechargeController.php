@@ -27,7 +27,7 @@ class UserRechargeController extends Controller
     {
         $this->validate($request,[
             'money'=>'required|numeric',
-            'payment' => 'in:wechat,alipay,diy|string',
+            'payment' => 'in:wechat,alipay,diy,qqpay|string|required',
         ]);
 
         $money =round(abs($request->money),2);

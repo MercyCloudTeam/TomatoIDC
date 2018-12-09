@@ -64,8 +64,8 @@
             "@php artisan package:discover"
         ],
         "post-install-cmd":[
-            "@php artisan key:generate",
-            "@php artisan migrate"
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate"
         ]
     },
     "config": {

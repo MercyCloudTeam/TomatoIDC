@@ -18,9 +18,9 @@ return [
     // Applications
     'apps' => [
         'default' => [
-            'client_id' => 'XXXXXXXXX',
-            'client_secret' => 'XXXXXXXXX',
-            'kdt_id' => '10000000', // store_id
+            'client_id' => null,
+            'client_secret' => null,
+            'kdt_id' => null, // store_id
         ],
         // 'another_app' => [
         //     'client_id' => 'XXXXXXXXX',

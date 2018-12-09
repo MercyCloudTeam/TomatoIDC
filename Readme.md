@@ -1,6 +1,6 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.2/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.4/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md)
 
@@ -26,10 +26,13 @@
 
   - 支持卡密充值
   - 支持多种支付方式
+  - 支持接入微信公众号（账户绑定，查询余额）
 
 - 人性化
 
   - Gravatar头像
+  - 微信公众号提醒
+  - 邮件提醒
 
 
 
@@ -43,7 +46,7 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 
 
 
-目前版本V0.1.0只完成了基础功能，较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
+目前版本V0.1.4 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
 
 
 
@@ -187,7 +190,13 @@ location / {
 
 更多支付方式，请自行进行支付插件开发
 
+### 邮件发送
 
+- SMTP
+
+### 短信验证码
+
+- 阿里云
 
 ### 服务器面板
 
@@ -195,7 +204,10 @@ location / {
 
 - [Easypanel ](https://www.kanglesoft.com/)
 
+### 微信公众号
 
+- 绑定账号
+- 机器人自动回复（查询余额）
 
 ### TODO
 
@@ -203,7 +215,7 @@ location / {
   - 服务器组
   - 售卖VPS
   - 服务器插件
-  - ~~售卖Shadowsocks~~
+  - ~~售卖Shadowsocks~~（考虑到ss长久不更新可能会做类似的）
 - 用户
   - aff推广
 - 优惠卷
@@ -234,6 +246,8 @@ location / {
 - V0.1.0  🎉 发布第一个开源版本，可以拿来正式使用-2018-11-23日 现已发布
 - V0.1.1 添加依赖（软件大小提升）卡密，用户充值，请参考[论坛](https://dev.fanqieui.com/d/7-tomatoidc-v0-1-1) (更新预计需要10分钟)减少了一个BUG并新增了N个BUG
 - V0.1.2 添加对mariadb支持 （未测试），表结构更改，添加微信官方支付， 有赞云支付【支付宝官方（未测试）】，移除BLK模版，更新界面[详见](https://dev.fanqieui.com/d/10-tomatoidc-v0-1-2)
+- V0.1.3 设置项列表更改，添加邮件设置,添加注册邮件验证，购买，开通邮件发送,优化安装体验,添加无服务器插件,修复了一些bug又添加了很多bug
+- V0.1.4 添加微信公众号支持，可以绑定账户，查询余额
 
 
 
@@ -348,3 +362,4 @@ TomatoIDC 是基于 GNU General Public License version 3 开放源代码的自�
 [番茄UI](https://www.fanqieui.com)
 
 [MercyCloudTeam](https://mercycloud.com)
+

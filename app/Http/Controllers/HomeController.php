@@ -249,36 +249,8 @@ class HomeController extends Controller
     }
 
 
-    /**
-     * 用户设置操作
-     */
-    public function userProfileAction(Request $request)
+    public function userEmailValidatePage()
     {
-        $this->validate($request, [
-            'password' => 'nullable|string|min:6',
-            'name' => 'nullable|string|max:255',
-            'qq' => 'digits_between:5,11|integer|nullable',
-            'phone' => 'digits_between:6,15|integer|nullable',
-            'signature' => 'min:3|max:999|string|nullable'
-        ]);
-
-        $user = User::where('id', Auth::id())->first();
-        if ($user->name != $request['name']) { //验证是否重名
-            $this->validate($request, [
-                'name' => 'unique:users,name'
-            ]);
-        }
-        //TODO 提高性能
-        if (!empty($request['password'])) {
-            User::where('id', Auth::id())
-                ->update(['password' => Hash::make($request['password'])]);
-            Auth::logout();
-        }
-        $user->name == $request['name'] ?: User::where('id', Auth::id())->update(['name' => $request['name']]);
-        $user->qq == $request['qq'] ?: User::where('id', Auth::id())->update(['qq' => $request['qq']]);
-        $user->phone == $request['phone'] ?: User::where('id', Auth::id())->update(['phone' => $request['phone']]);
-        $user->signature == $request['signature'] ?: User::where('id', Auth::id())->update(['signature' => $request['signature']]);
-
-        return back();
+        return  view(ThemeController::backThemePath('email_validate','home.user'));
     }
 }

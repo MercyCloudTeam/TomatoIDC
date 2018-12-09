@@ -47,13 +47,12 @@ class InstallController extends Controller
             'password' => 'required|string|min:6|max:200',
         ]);
 
-        if (SettingModel::where('name', '=', 1)->get()->isEmpty()) {
+        if (!SettingModel::all()->count()) {
             $this->insertSettingSchema($request);
         }
-        if (User::where('id', '=', 1)->get()->isEmpty()) {
+        if (!User::all()->count()) {
             $this->insertUserSchema($request);
         }
-
         return redirect('/admin');
     }
 
@@ -65,7 +64,7 @@ class InstallController extends Controller
         foreach ($this->settingArray as $key => $value) {
             $setTemp = SettingModel::where('name', $key)->get();
             if ($setTemp->isEmpty()) {
-                SettingModel::create([
+                   SettingModel::create([
                     'name' => $key,
                     'value' => $value
                 ]);
@@ -95,18 +94,19 @@ class InstallController extends Controller
         'setting.website.aff.status' => false,
         'setting.website.user.agreements' => null,//url
         'setting.website.privacy.policy' => null,//url
-        'setting.website.spa.status' => false,//url
-        'setting.website.version' => 'V0.1.2',
-        'setting.mail.smtp.url' => null,
-        'setting.mail.smtp.port' => null,
-        'setting.mail.smtp.user' => null,
-        'setting.mail.smtp.passowrd' => null,
+        'setting.website.spa.status' => false,//SPA单页模板 启用全部指向index
+        'setting.website.user.email.validate' => false,//邮箱验证
+        'setting.website.user.phone.validate' => false,//手机验证
+        'setting.website.admin.sales.notice' => false,//管理销售通知
+        'setting.website.user.email.notice' => false,//用户邮件通知
+        'setting.website.version' => 'V0.1.4',
 
-        'setting.website.wechat.app_id' => null,
-        'setting.website.wechat.secret' => null,
-        'setting.website.wechat.token' => null,
-        'setting.website.wechat.aes_key' => null,
-        'setting.website.wechat.response_type' => 'array',
+        'setting.mail.drive' => null,//邮件驱动
+        'setting.website.sms.facilitator' => null,//短信服务商
+        'setting.website.phone.auth' => false,//手机注册登录
+        'setting.wechat.service.status' => false,//微信服务状态
+        'setting.wechat.robot.status' => false,//微信机器人状态
+        'setting.wechat.robot.drive' => 'Turing',
     ];
 
     /**
@@ -143,6 +143,6 @@ class InstallController extends Controller
         ]);
         //管理员权限
         User::where('email', $request['email'])
-            ->update(['admin_authority' => 1]);
+            ->update(['admin_authority' => 1,'email_validate'=>1]);
     }
 }

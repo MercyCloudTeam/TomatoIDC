@@ -7,6 +7,7 @@ use App\GoodModel;
 use App\Http\Controllers\Payment\PayController;
 use App\Http\Resources\GoodCollection;
 use App\Http\Resources\GoodsCategoriesResource;
+use App\User;
 use Illuminate\Http\Request;
 
 /**
@@ -69,6 +70,33 @@ class IndexController extends Controller
         $goodsCategories = $this->getGoodsCategories();
         $goods = $this->getGoods();
         return view(ThemeController::backThemePath('show', 'home.goods'), compact('goods', 'goodsCategories'));
+    }
+
+    /**
+     * user email validate action
+     * @param $id string url_path(url/{id}/token)
+     * @param $token string url_path(url/id/{token}
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function userEmailTokenValidate($id,$token)
+    {
+        $token=htmlspecialchars(trim($token));
+        $user = User::where('id',htmlspecialchars(trim($id)))->get();
+        if(!$user->isEmpty()){
+            $user= $user->first();
+            if ($user->email_validate != 0){
+                return redirect('/home');
+            }
+            $encrypt = md5($user->email.substr(env('APP_KEY'),15,31).$user->id.$user->updated_at);
+            if ($encrypt == $token){
+                User::where('id',$id)->update(['email_validate'=>1]);
+                return redirect('/home');
+            }
+        }
+        return response()->json([
+            'status' => 'failure',
+            'date' => []
+        ]);
     }
 
 

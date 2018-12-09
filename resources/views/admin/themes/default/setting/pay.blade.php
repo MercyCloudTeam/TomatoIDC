@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="post" id="add-form" action="{{action('AdminController@paymentPluginConfigAction')}}">
+                    <form method="post" id="add-form" action="{{action('Payment\PayController@paymentPluginConfigAction')}}">
                         {{csrf_field()}}
                         <input type="hidden" value="{{$payment}}" name="payment">
                         <h6 class="heading-small text-muted mb-4">支付插件配置信息</h6>

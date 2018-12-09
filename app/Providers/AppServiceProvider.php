@@ -50,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         $this->viewVariable();//向视图传递变量
     }
 

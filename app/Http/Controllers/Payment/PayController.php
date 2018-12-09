@@ -217,82 +217,74 @@ class PayController extends Controller
     }
 
     /**
+     * get payment plugin config from input
      * 获取插件配置表单
-     * @param $pluginName
-     * @param $payment
-     * @return mixed
+     * @param $pluginName string plugin name
+     * @param $payment string alipay|wechat|diy|qqpay payemnt
+     * @return array|false  success array   failure false
      */
     public function pluginConfigInputForm($pluginName, $payment)
     {
         $controllerName = __NAMESPACE__ . '\\' . $pluginName . "Controller";
-//        dd($pluginName);
-        $plugin = new $controllerName();//动态调用控制器
-        return $plugin->pluginConfigInputForm($payment);
+        if (class_exists($controllerName)) {
+            $plugin = new $controllerName();//动态调用控制器
+            if (method_exists($plugin,'pluginConfigInputForm')) {
+                return $plugin->pluginConfigInputForm($payment);
+            }
+        }
+        return false;
     }
 
     /**
-     * 判断是否手机
-     * @return bool
+     * 获取插件表单
+     * @param $payment string alipay|wechat Payment
+     * @return bool|mixed
      */
-    public static function isMobile()
+    public function getPayPluginInputForm($payment)
     {
-        // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
-        if (isset ($_SERVER['HTTP_X_WAP_PROFILE'])) {
-            return TRUE;
+        $payment = htmlspecialchars(trim($payment));
+        switch ($payment) {
+            case "wechat":
+                $payPlugin = SettingModel::where('name', 'setting.website.payment.wechat')->first();
+                break;
+            case "alipay":
+                $payPlugin = SettingModel::where('name', 'setting.website.payment.alipay')->first();
+                break;
+            case "qqpay":
+                $payPlugin = SettingModel::where('name', 'setting.website.payment.qqpay')->first();
+                break;
+            case "diy":
+                $payPlugin = SettingModel::where('name', 'setting.website.payment.diy')->first();
+                break;
+            default :
+                return false;
         }
-        // 如果via信息含有wap则一定是移动设备,部分服务商会屏蔽该信息
-        if (isset ($_SERVER['HTTP_VIA'])) {
-            return stristr($_SERVER['HTTP_VIA'], "wap") ? TRUE : FALSE;// 找不到为flase,否则为TRUE
+
+        if (empty($payPlugin['value'])) {
+            return false;
         }
-        // 判断手机发送的客户端标志,兼容性有待提高
-        if (isset ($_SERVER['HTTP_USER_AGENT'])) {
-            $clientkeywords = array(
-                'mobile',
-                'nokia',
-                'sony',
-                'ericsson',
-                'mot',
-                'samsung',
-                'htc',
-                'sgh',
-                'lg',
-                'sharp',
-                'sie-',
-                'philips',
-                'panasonic',
-                'alcatel',
-                'lenovo',
-                'iphone',
-                'ipod',
-                'blackberry',
-                'meizu',
-                'android',
-                'netfront',
-                'symbian',
-                'ucweb',
-                'windowsce',
-                'palm',
-                'operamini',
-                'operamobi',
-                'openwave',
-                'nexusone',
-                'cldc',
-                'midp',
-                'wap'
-            );
-            // 从HTTP_USER_AGENT中查找手机浏览器的关键字
-            if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
-                return TRUE;
-            }
-        }
-        if (isset ($_SERVER['HTTP_ACCEPT'])) { // 协议法，因为有可能不准确，放到最后判断
-            // 如果只支持wml并且不支持html那一定是移动设备
-            // 如果支持wml和html但是wml在html之前则是移动设备
-            if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== FALSE) && (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === FALSE || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html')))) {
-                return TRUE;
-            }
-        }
-        return FALSE;
+        $form = $this->pluginConfigInputForm($payPlugin['value'], $payment);
+        return $form;
     }
 
+    /**
+     * Payment Plugin Config Action
+     * @param Request $request User push content
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector back page
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function paymentPluginConfigAction(Request $request)
+    {
+        $form = $this->getPayPluginInputForm($request['payment']);
+        if (empty($form)) {
+            return redirect(route('admin.setting.index'));
+        }
+        foreach ($form as $key => $value) {
+            $this->validate($request, [
+                $key => 'string|nullable'
+            ]);
+            SettingModel::where('name', $value)->update(['value' => $request[$key]]);
+        }
+        return back()->with('status','success');
+    }
 }
