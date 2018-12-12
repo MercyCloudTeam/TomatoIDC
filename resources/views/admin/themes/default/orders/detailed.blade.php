@@ -53,7 +53,17 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @if(!empty($order->domain))
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">域名</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               placeholder="域名" value="{{$order->domain}}"  name="domain">
+                                    </div>
+                                </div>
+                            </div>
+                                @endif
                         </div>
                         @include('admin.themes.default.layouts.errors')
                         <input type="submit" class="btn btn-primary" value="确认">

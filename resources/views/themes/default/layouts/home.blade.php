@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-
+{{--默认模板很多代码很混乱，参考的意义不大--}}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-    <meta name="author" content="Creative Tim">
+    <meta name="description" content="{{$websiteSubtitle}}">
+    <meta name="author" content="Creative Tim & MercyCloud">
     <title>{{$websiteName}} - {{$websiteSubtitle}}</title>
     <!-- Favicon -->
 {{--<link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">--}}
@@ -165,9 +165,9 @@
                     </a>
                 </li>
                 {{--<li class="nav-item">--}}
-                    {{--<a class="nav-link" href="{{route('admin.server.show')}}">--}}
-                        {{--<i class="ni ni-money-coins text-indigo"></i> 推广管理--}}
-                    {{--</a>--}}
+                {{--<a class="nav-link" href="{{route('admin.server.show')}}">--}}
+                {{--<i class="ni ni-money-coins text-indigo"></i> 推广管理--}}
+                {{--</a>--}}
                 {{--</li>--}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('user.recharge')}}">
@@ -280,7 +280,8 @@
             <div class="row align-items-center justify-content-xl-between">
                 <div class="col-xl-6">
                     <div class="copyright text-center text-xl-left text-muted">
-                       {{$websiteName}} &copy; 2018 <a href="{{url('/')}}" class="font-weight-bold ml-1" target="_blank">{{$copyright}}</a>
+                        {{$websiteName}} &copy; 2018 <a href="{{url('/')}}" class="font-weight-bold ml-1"
+                                                        target="_blank">{{$copyright}}</a>
                     </div>
                 </div>
                 <div class="col-xl-6">
@@ -295,8 +296,17 @@
                         {{--<a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>--}}
                         {{--</li>--}}
                         <li class="nav-item">
-                            <a href="https:///mercycloud.com" class="nav-link" target="_blank">MercyCloud</a>
+                            <a href="{{$websiteKfUrl}}" class="nav-link" target="_blank">客服帮助</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{$privacyPolicy}}" class="nav-link" target="_blank">服务协议</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{$userAgreements}}" class="nav-link" target="_blank">隐私协议</a>
+                        </li>
+                        {{--<li class="nav-item">--}}
+                        {{--<a href="https:///mercycloud.com" class="nav-link" target="_blank">MercyCloud</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
             </div>
@@ -319,7 +329,7 @@
             swal({
                 type: 'error',
                 title: 'Error',
-                text: '操作失败',
+                text:'{{session('text')??"操作失败"}}',
             })
         </script>
     @endif

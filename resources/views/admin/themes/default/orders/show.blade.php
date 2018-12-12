@@ -79,14 +79,14 @@
                                             @switch($item->status)
                                                 @case(3)
                                                 <a href="" onclick="event.preventDefault();
-                                                        document.getElementById('re-create-host-{{$item->id}}').submit();"
+                                                        document.getElementById('re-create-host-{{$item->no}}').submit();"
                                                    class="btn btn-primary btn-sm">尝试开通</a>
 
-                                                <form id="re-create-host-{{$item->id}}"
+                                                <form id="re-create-host-{{$item->no}}"
                                                       action="{{ action('HostController@reCreateHost') }}" method="POST"
                                                       style="display: none;">
                                                     {{csrf_field()}}
-                                                    <input type="hidden" name="id" value="{{$item->id}}">
+                                                    <input type="hidden" name="no" value="{{$item->no}}">
                                                 </form>
                                                 @break
                                             @endswitch

@@ -70,7 +70,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                             </div>
-                                            <input class="form-control" placeholder="Password" type="password" name="password_confirmation" required >
+                                            <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required >
                                         </div>
                                     </div>
                                     {{--<div class="text-muted font-italic">--}}
@@ -84,7 +84,7 @@
                                                 <input class="custom-control-input" id="customCheckRegister" checked name="agreement" type="checkbox">
                                                 <label class="custom-control-label" for="customCheckRegister">
                                                     <span>我同意
-                                                    <a href="" onclick="alert('与我签订契约成为马猴烧酒吧，QwQ')">服务协议</a>
+                                                    <a href="{{$userAgreements}}">服务协议</a>
                                                     </span>
                                                 </label>
                                             </div>

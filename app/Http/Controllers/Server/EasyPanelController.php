@@ -14,7 +14,7 @@ class EasyPanelController extends Controller
 {
 
     public $diyConfigureFrom = false;//使用自定义表单
-    public $type = "vm"; //服务器插件类型
+    public $type             = "vm"; //服务器插件类型
 
     /**
      * CURL GET请求
@@ -38,11 +38,14 @@ class EasyPanelController extends Controller
      */
     public function makeGetUrl()
     {
-        $server = ServerModel::where([
-            ['status', '!-', '0'],
-            ['plugin', 'easypanel'],
-//            ['id',$id]
-        ])->get();
+        $server = ServerModel::where(
+            [
+                ['status', '!-', '0'],
+                ['plugin', 'easypanel'],
+                //            ['id',$id]
+            ]
+        )->get()
+        ;
         !$server->isEmpty() ?: $server = null;
         return $server;
     }
@@ -59,8 +62,8 @@ class EasyPanelController extends Controller
         return md5($action . $key . $rand);
     }
 
-//    protected function
-    protected $suffix = '/api/index.php';
+    //    protected function
+    protected $suffix   = '/api/index.php';
     protected $protocol = 'http://';
 
     /**
@@ -72,9 +75,9 @@ class EasyPanelController extends Controller
     {
         !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
         $serverUrl = $server->ip;
-        $rand = mt_rand(1000, 9999);
-        $url = $this->protocol . $serverUrl . ":" . $port . '?c=whm&a=info&json=1&r=' . $rand . '&s=' . $this->makeSign('info', $server->key, $rand);
-        $result = $this->curlGet($url);
+        $rand      = mt_rand(1000, 9999);
+        $url       = $this->protocol . $serverUrl . ":" . $port . '?c=whm&a=info&json=1&r=' . $rand . '&s=' . $this->makeSign('info', $server->key, $rand);
+        $result    = $this->curlGet($url);
         if ($result) {
             $result = json_decode($result, true);
             if ($result['result'] == '200') {
@@ -103,11 +106,11 @@ class EasyPanelController extends Controller
     public function createHost($server, $configure, $order)
     {
         !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
-        $serverUrl = $server->ip;
-        $rand = mt_rand(1000, 9999);
-        $sign = $this->makeSign('add_vh', $server->key, $rand);
-        $name = date('y') . $rand . substr(time(), 4);
-        $password = substr(md5($rand . $configure->title . time() . $serverUrl), 16);
+        $serverUrl    = $server->ip;
+        $rand         = mt_rand(1000, 9999);
+        $sign         = $this->makeSign('add_vh', $server->key, $rand);
+        $name         = date('y') . $rand . substr(time(), 4);
+        $password     = substr(md5($rand . $configure->title . time() . $serverUrl), 16);
         $configureUrl = '&json=1';
         // 判断设置是否存在 ? 默认值（可空）: 连接
         //构建URL请求接口URL
@@ -122,22 +125,22 @@ class EasyPanelController extends Controller
         !$configure->templete ? $configureUrl .= "&templete=php" : $configureUrl .= "&templete=" . $configure->templete;
         !$configure->module ? $configureUrl .= "&module=php" : $configureUrl .= "&module=" . $configure->module;
         !$configure->mysql_verison ?: $configureUrl .= "&subtemplete=" . $configure->mysql_verison;
-//        !$configure->access ? $configureUrl .= "&access=access.xml": $configureUrl .= "&access=" . $configure->access;
-        !$configure->subdir_flag ?: $configureUrl .= "&subtemplete=" . $configure->mysql_verison;
-        $url = $this->protocol . $serverUrl . ':' . $port . '?c=whm&a=add_vh&r=' . $rand . '&s=' . $sign . "&name=" . $name . "&passwd=" . $password . "&init=1" . $configureUrl;
+        $url    = $this->protocol . $serverUrl . ':' . $port . '?c=whm&a=add_vh&r=' . $rand . '&s=' . $sign . "&name=" . $name . "&passwd=" . $password . "&init=1" . $configureUrl;
         $result = $this->curlGet($url);
         if ($result) {
             $result = json_decode($result, true);
             if ($result['result'] == 200) {
                 $tempPort = !empty($server->port) ? $server->port : ":3312/vhost/";
-                $host = HostModel::create([
-                    'order_id' => $order->id,
-                    'user_id' => $order->user_id,
-                    'host_name' => $name,
-                    'host_pass' => $password,
-                    'host_panel' => 'EasyPanel',
-                    'host_url' => $this->protocol . $serverUrl . $tempPort
-                ]);
+                $host     = HostModel::create(
+                    [
+                        'order_id'   => $order->id,
+                        'user_id'    => $order->user_id,
+                        'host_name'  => $name,
+                        'host_pass'  => $password,
+                        'host_panel' => 'EasyPanel',
+                        'host_url'   => $this->protocol . $serverUrl . $tempPort
+                    ]
+                );
                 return $host;
             }
             Log::info('EasyPanel Create Host Errror', ['url' => $url]);
@@ -151,9 +154,9 @@ class EasyPanelController extends Controller
     {
         !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
         $serverUrl = $server->ip;
-        $rand = mt_rand(1000, 9999);
-        $sign = $this->makeSign('add_vh', $server->key, $rand);
-        $url = $this->protocol . $serverUrl . ':' . $port . "";
+        $rand      = mt_rand(1000, 9999);
+        $sign      = $this->makeSign('add_vh', $server->key, $rand);
+        $url       = $this->protocol . $serverUrl . ':' . $port . "";
     }
 
     /**
@@ -172,14 +175,14 @@ class EasyPanelController extends Controller
      * @param $host
      * @return bool
      */
-    public function openHost($server,$host)
+    public function openHost($server, $host)
     {
         !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
         $serverUrl = $server->ip;
-        $rand = mt_rand(1000, 9999);
-        $sign = $this->makeSign('update_vh', $server->key, $rand);
-        $url = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=update_vh&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&status=0&json=1";
-        $result = $this->curlGet($url);
+        $rand      = mt_rand(1000, 9999);
+        $sign      = $this->makeSign('update_vh', $server->key, $rand);
+        $url       = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=update_vh&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&status=0&json=1";
+        $result    = $this->curlGet($url);
         if ($result) {
             $result = json_decode($result, true);
             if ($result['result'] == 200) {
@@ -201,10 +204,10 @@ class EasyPanelController extends Controller
     {
         !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
         $serverUrl = $server->ip;
-        $rand = mt_rand(1000, 9999);
-        $sign = $this->makeSign('update_vh', $server->key, $rand);
-        $url = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=update_vh&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&status=1&json=1";
-        $result = $this->curlGet($url);
+        $rand      = mt_rand(1000, 9999);
+        $sign      = $this->makeSign('update_vh', $server->key, $rand);
+        $url       = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=update_vh&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&status=1&json=1";
+        $result    = $this->curlGet($url);
         if ($result) {
             $result = json_decode($result, true);
             if ($result['result'] == 200) {

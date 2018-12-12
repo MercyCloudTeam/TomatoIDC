@@ -37,8 +37,9 @@
                                             <div class="col-lg-3  text-center" style="margin: 3rem 0">
                                                 <h2 class="card-title mb-4">{{$item->title}}</h2>
                                                 <h5 class="card-subtitle mb-2">{{$item->subtitle}}</h5>
-                                                <p class="card-text">{{$item->description}}</p>
-                                                <a href="{{route('good.buy',['id'=>$item->id])}}" class="btn btn-primary">立即购买</a>
+                                                <p class="card-text">{!! $item->description !!}</p>
+                                                <a href="{{route('good.buy',['id'=>$item->id])}}"
+                                                   class="btn btn-primary">立即购买</a>
                                             </div>
                                         @endif
                                     @endforeach
@@ -63,7 +64,7 @@
                                 <div class="col-lg-3  text-center" style="margin: 3rem 0">
                                     <h2 class="card-title mt-4">{{$good->title}}</h2>
                                     <h5 class="card-subtitle mb-2">{{$good->subtitle}}</h5>
-                                    <p class="card-text ">{{$good->description}}</p>
+                                    <p class="card-text ">{!! $good->description!!}</p>
                                     <a href="{{route('good.buy',['id'=>$good->id])}}" class="btn btn-primary">立即购买</a>
                                 </div>
                             @endforeach

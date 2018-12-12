@@ -217,8 +217,10 @@
                     </table>
                 </div>
                 <div class="card-footer py-4">
-                    <a href="{{route('admin.good.configure.add')}}" class="btn btn-primary">新增配置</a>
-                    <a href="{{route('admin.good.configure.add')}}" class="btn btn-secondary">新增插件专属配置</a>
+                    {{--<a href="{{route('admin.good.configure.add')}}" class="btn btn-primary">新增配置</a>--}}
+                    <a href="{{route('admin.good.configure.add',['type'=>'virtual_host'])}}" class="btn btn-primary">新增空间配置</a>
+                    <a href="{{route('admin.good.configure.add',['type'=>'virtual_private_server'])}}" class="btn btn-neutral">新增VPS配置</a>
+                    <a href="" onclick="swal('未完成','该功能未完成','error')" class="btn btn-success">新增代理配置</a>
                 </div>
             </div>
         </div>

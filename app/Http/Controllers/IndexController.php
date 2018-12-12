@@ -191,8 +191,8 @@ class IndexController extends Controller
         $hostController = new HostController();
         $payController = new PayController();
         $hosts = $hostController->autoCheckHostStatus();
-        $pay = $payController->autoCheckOrderStatus();
-        $hosts = null;
+        $order = $payController->autoCheckOrderStatus();
+        $recharge = $payController->autoCheckRechargeStatus();
         return time();
     }
 

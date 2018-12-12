@@ -1,10 +1,10 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.4/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.5/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md)
 
-[Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) 
+[Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) |[🚧官方文档](https://www.yuque.com/mercycloud/eg1gz6)
 
 ## 介绍
 
@@ -21,6 +21,7 @@
 
   - 支持（支付，服务器，功能）插件
   - 支持多种模版
+  - 支持SPA模板
 
 - 功能强大
 
@@ -46,7 +47,9 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 
 
 
-目前版本V0.1.4 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
+目前版本V0.1.5 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
+
+关于框架版本：框架采用laravel最新版本
 
 
 
@@ -84,7 +87,7 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
   - XML
   - Ctype
   - JSON
-  - fileinfo
+  - **fileinfo**
 
 删除 PHP 函数限制（常见错误解决）
 
@@ -196,18 +199,21 @@ location / {
 
 ### 短信验证码
 
-- 阿里云
+- 施工中🚧
 
 ### 服务器面板
 
 当前支持的服务器管理面板
 
 - [Easypanel ](https://www.kanglesoft.com/)
+- [Cpanel](https://cpanel.net)
 
 ### 微信公众号
 
 - 绑定账号
 - 机器人自动回复（查询余额）
+
+
 
 ### TODO
 
@@ -215,13 +221,20 @@ location / {
   - 服务器组
   - 售卖VPS
   - 服务器插件
-  - ~~售卖Shadowsocks~~（考虑到ss长久不更新可能会做类似的）
+  - ~~售卖Shadowsocks~~（考虑到ss长久不更新可能会做V2ray）
 - 用户
   - aff推广
 - 优惠卷
 - 用户等级
 - 阿里云OSS文件存储
 - 自定义页面
+
+
+
+### 模板
+
+- default(Argon源自[CreativeTim](https://www.creative-tim.com/))
+- SPA支持
 
 
 
@@ -248,6 +261,7 @@ location / {
 - V0.1.2 添加对mariadb支持 （未测试），表结构更改，添加微信官方支付， 有赞云支付【支付宝官方（未测试）】，移除BLK模版，更新界面[详见](https://dev.fanqieui.com/d/10-tomatoidc-v0-1-2)
 - V0.1.3 设置项列表更改，添加邮件设置,添加注册邮件验证，购买，开通邮件发送,优化安装体验,添加无服务器插件,修复了一些bug又添加了很多bug
 - V0.1.4 添加微信公众号支持，可以绑定账户，查询余额
+- V0.1.5 添加Cpanel插件，工单可选优先级以及商品，商品功能添加库存
 
 
 
@@ -363,3 +377,4 @@ TomatoIDC 是基于 GNU General Public License version 3 开放源代码的自�
 
 [MercyCloudTeam](https://mercycloud.com)
 
+[Hostloc](https://www.hostloc.com)

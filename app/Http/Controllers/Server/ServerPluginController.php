@@ -26,6 +26,22 @@ class ServerPluginController extends Controller
     }
 
 
+    /**
+     * 快捷登录管理员面板
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function managePanelLogin($server,$host)
+    {
+        $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
+        $plugin = new $controllerName();
+        if (method_exists($plugin,'managePanelLogin')){
+            return $plugin->managePanelLogin($server,$host);
+        }
+        return false;
+    }
+
     public function getServerPluginForm()
     {
 
@@ -84,6 +100,13 @@ class ServerPluginController extends Controller
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
         $plugin = new $controllerName();
         return $plugin->closeHost($server, $host);
+    }
+
+    public function openHost($server, $host)
+    {
+        $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
+        $plugin = new $controllerName();
+        return $plugin->openHost($server, $host);
     }
 
 }

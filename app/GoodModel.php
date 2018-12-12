@@ -8,7 +8,7 @@ class GoodModel extends Model
 {
     protected $table = 'goods';
 
-    protected $fillable = ['title', 'subtitle', 'price', 'description', 'level', 'display', 'configure_id', 'categories_id', 'server_id'];
+    protected $fillable = ['title', 'subtitle', 'price', 'description', 'level', 'display', 'configure_id', 'categories_id', 'server_id','purchase_limit','inventory','domain_config'];
 
     /**
      * 获取此商品所属分组
@@ -44,7 +44,8 @@ class GoodModel extends Model
     {
         if (empty($value)) {
             return '未分组';
-        } else {
+        }
+        else {
             return GoodCategoriesModel::find($value)->title;
         }
     }

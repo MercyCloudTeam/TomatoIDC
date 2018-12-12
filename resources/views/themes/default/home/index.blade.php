@@ -120,29 +120,33 @@
                           @endswitch
                       </span>
                                     </td>
-                                    <td>
-                                        @if(empty($order->host->deadline))
-                                        永久
-                                        @else
-                                        {{substr($order->host->deadline,0,11)}}
-                                        @endif
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                @if($order->status == 2 && !empty($order->host_id))
+                                    @if(!empty($order->host))
+                                        <td>
+                                            @if(empty($order->host->deadline))
+                                                永久
+                                            @else
+                                                {{substr($order->host->deadline,0,11)}}
+                                            @endif
+                                        </td>
+                                        <td class="text-left">
+                                            <div class="dropdown">
+                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    @if($order->status == 2 && !empty($order->host_id))
+                                                        <a class="dropdown-item"
+                                                           href="{{route('host.detailed',['id'=>$order->host->id])}}">信息/管理</a>
+                                                        <a class="dropdown-item"
+                                                           href="{{$order->host->host_url}}">主机面板</a>
+                                                    @endif
                                                     <a class="dropdown-item"
-                                                       href="{{route('host.detailed',['id'=>$order->host->id])}}">信息/管理</a>
-                                                    <a class="dropdown-item" href="{{$order->host->host_url}}">主机面板</a>
-                                                @endif
-                                                <a class="dropdown-item" href="{{route('order.detailed',['no'=>$order->no])}}">订单详细</a>
+                                                       href="{{route('order.detailed',['no'=>$order->no])}}">订单详细</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         @endif

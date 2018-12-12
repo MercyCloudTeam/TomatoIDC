@@ -148,7 +148,7 @@ ajax.onreadystatechange = function () {
                                         {{$server->ip}}
                                     </td>
                                     <td>
-                                        {{$server->host->count()}}
+{{--                                        {{$server->host->count()}}--}}
                                     </td>
                                     <td>
                                    <span class="badge badge-dot mr-4">

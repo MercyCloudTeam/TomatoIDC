@@ -28,24 +28,29 @@ class UserController extends Controller
      */
     public function userProfileAction(Request $request)
     {
-        $this->validate($request, [
-            'password' => 'nullable|string|min:6',
-            'name' => 'nullable|string|max:16',
-            'qq' => 'digits_between:5,11|integer|nullable',
-            'phone' => 'digits_between:6,15|integer|nullable',
+        $this->validate(
+            $request, [
+            'password'  => 'nullable|string|min:6',
+            'name'      => 'nullable|string|max:16',
+            'qq'        => 'digits_between:5,11|integer|nullable',
+            'phone'     => 'digits_between:6,15|integer|nullable',
             'signature' => 'min:3|max:999|string|nullable'
-        ]);
+        ]
+        );
 
         $user = User::where('id', Auth::id())->first();
         if ($user->name != $request['name']) { //验证是否重名
-            $this->validate($request, [
+            $this->validate(
+                $request, [
                 'name' => 'unique:users,name'
-            ]);
+            ]
+            );
         }
         //TODO 提高性能
         if (!empty($request['password'])) {
             User::where('id', Auth::id())
-                ->update(['password' => Hash::make($request['password'])]);
+                ->update(['password' => Hash::make($request['password'])])
+            ;
             Auth::logout();
         }
         $user->name == $request['name'] ?: User::where('id', Auth::id())->update(['name' => $request['name']]);
@@ -65,33 +70,38 @@ class UserController extends Controller
     public function userEditAction(Request $request)
     {
         AdminController::checkAdminAuthority(Auth::user());
-        $this->validate($request, [
-            'password' => 'nullable|string|min:6',
-            'name' => 'nullable|string|max:16',
-            'qq' => 'digits_between:5,11|integer|nullable',
-            'phone' => 'digits_between:6,15|integer|nullable',
-            'account' => 'numeric|nullable',
+        $this->validate(
+            $request, [
+            'password'  => 'nullable|string|min:6',
+            'name'      => 'nullable|string|max:16',
+            'qq'        => 'digits_between:5,11|integer|nullable',
+            'phone'     => 'digits_between:6,15|integer|nullable',
+            'account'   => 'numeric|nullable',
             'signature' => 'min:3|max:999|string|nullable',
-            'id' => 'exists:users,id|required'
-        ]);
+            'id'        => 'exists:users,id|required'
+        ]
+        );
 
         $user = User::where('id', $request['id'])->first();
         if ($user->name != $request['name']) { //验证是否重名
-            $this->validate($request, [
+            $this->validate(
+                $request, [
                 'name' => 'unique:users,name'
-            ]);
+            ]
+            );
         }
         //TODO 提高性能
         if (!empty($request['password'])) {
             User::where('id', Auth::id())
-                ->update(['password' => Hash::make($request['password'])]);
+                ->update(['password' => Hash::make($request['password'])])
+            ;
             Auth::logout();
         }
         $user->name == $request['name'] ?: User::where('id', $request['id'])->update(['name' => $request['name']]);
         $user->qq == $request['qq'] ?: User::where('id', $request['id'])->update(['qq' => $request['qq']]);
         $user->phone == $request['phone'] ?: User::where('id', $request['id'])->update(['phone' => $request['phone']]);
         $user->signature == $request['signature'] ?: User::where('id', $request['id'])->update(['signature' => $request['signature']]);
-        $user->account == $request['account'] ?: User::where('id', $request['id'])->update(['account' => round(abs($request['account']),2)]);
+        $user->account == $request['account'] ?: User::where('id', $request['id'])->update(['account' => sprintf("%01.2f", $request['account'])]);
 
         return back();
     }
@@ -103,8 +113,8 @@ class UserController extends Controller
      */
     protected function encryptUserEmailValidateUrl($user)
     {
-        $encrypt = md5($user->email.substr(env('APP_KEY'),15,31).$user->id.$user->updated_at);//如果用户更新信息，那么URL将失效
-        $url = action('IndexController@userEmailTokenValidate',['token'=>$encrypt,'id'=>Auth::id()]);
+        $encrypt = md5($user->email . substr(env('APP_KEY'), 15, 31) . $user->id . $user->updated_at);//如果用户更新信息，那么URL将失效
+        $url     = action('IndexController@userEmailTokenValidate', ['token' => $encrypt, 'id' => Auth::id()]);
         return $url;
     }
 
@@ -114,21 +124,23 @@ class UserController extends Controller
      */
     public function userEmailValidateSendAction($user = null)
     {
-//        dd(123);
-        if (empty($user)){
+        //        dd(123);
+        if (empty($user)) {
             $user = Auth::user();
         }
 
-        if (!empty($user->email_vaildate)){
+        if (!empty($user->email_vaildate)) {
             return redirect('/home');
         }
 
-        $url = $this->encryptUserEmailValidateUrl($user);
+        $url  = $this->encryptUserEmailValidateUrl($user);
         $mail = new UserMailController();
-        $mail->sendMailFun(Auth::user(),'UserEmailValidate',$url);
-        return response()->json([
-            'status' => 'success',
-            'date' => []
-        ]);
+        $mail->sendMailFun(Auth::user(), 'UserEmailValidate', $url);
+        return response()->json(
+            [
+                'status' => 'success',
+                'date'   => []
+            ]
+        );
     }
 }

@@ -14,6 +14,8 @@ class ImageHandle implements EventHandlerInterface
 //        if (!empty($payload['MsgType']) && !empty($payload['MediaId'])) {
 //            return new Image($payload['MediaId']);
 //        }
+        if (!empty($payload['MsgType'])) {
         return new Text('看不懂.jpg');
+        }
     }
 }

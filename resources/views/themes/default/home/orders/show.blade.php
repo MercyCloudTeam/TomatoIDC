@@ -77,12 +77,6 @@
                                                class="btn btn-info btn-sm">详细</a>
                                             @break
                                         @endswitch
-                                        @if($order->status == 2 && !empty($order->host->host_url))
-                                            <a href="{{$order->host->host_url}}" class="btn btn-info btn-sm">管理</a>
-                                        @endif
-                                        {{--<button type="button" class="btn btn-primary">Primary</button>--}}
-                                        {{--<button type="button" class="btn btn-secondary">Secondary</button>--}}
-                                        {{--<button type="button" class="btn btn-info">Info</button>--}}
                                     </td>
                                 </tr>
                         @endforeach

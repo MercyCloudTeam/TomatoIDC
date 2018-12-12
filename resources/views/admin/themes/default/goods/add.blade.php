@@ -106,7 +106,47 @@
                                         </select>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-email">商品组内升级</label>
+                                        <select class="custom-select" id="wad">
+                                            <option value="">未完成</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">库存</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               name="inventory"
+                                               value="{{old('purchase_limit')}}"
+                                               placeholder="商品库存，不填则为无限"
+                                               oninput="value=value.replace(/[^\d]/g,'')">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-email">限购</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               name="purchase_limit"
+                                               value="{{old('purchase_limit')}}"
+                                               placeholder="每个用户限购多少个，不填/0则为无限"
+                                               oninput="value=value.replace(/[^\d]/g,'')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-email">输入域名</label>
+                                        <select class="custom-select" id="inputGroupSelewct02" name="domain_config">
+                                            <option value="0" {{old('domain_config')?'selected':''}}>不需要</option>
+                                            <option value="1" {{old('domain_config')?'selected':''}} >需要</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr class="my-4"/>

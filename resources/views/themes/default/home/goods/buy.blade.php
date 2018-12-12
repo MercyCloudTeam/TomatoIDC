@@ -74,6 +74,24 @@
                                 </div>
                             </div>
                             <div class="row">
+                                @if($good->domain_config)
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-first-name">绑定域名</label>
+                                        <input type="text" id="input-first-name"
+                                             name="domain" value="{{old('domain')}}"  placeholder="domain.com"  class="form-control form-control-alternative">
+                                    </div>
+                                </div>
+                                @endif
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-last-name">推荐者</label>--}}
+                                        {{--<input type="text" id="input-last-name"--}}
+                                               {{--class="form-control form-control-alternative">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <label class="form-control-label" for="input-last-name">订单支付方式</label>
                                     <div class="custom-control custom-radio mb-3">

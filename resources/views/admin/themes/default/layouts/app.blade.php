@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-    <meta name="author" content="Creative Tim">
+    <meta name="description" content="{{$websiteSubtitle}}">
+    <meta name="author" content="Creative Tim & MercyCloud">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$websiteName}} - {{$websiteSubtitle}}</title>
     <!-- Favicon -->
 {{--<link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">--}}
@@ -177,11 +178,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.server.show')}}">
-                        <i class="ni ni-building text-purple"></i> 服务器管理
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.prepaid.key.show')}}">
                         <i class="ni ni-credit-card text-blue"></i> 卡密管理
                     </a>
@@ -196,6 +192,17 @@
                         <i class="ni ni-ungroup text-cyan"></i> 用户中心
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.server.show')}}">
+                        <i class="ni ni-building text-purple"></i> 服务器管理
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.diy.page.show')}}">
+                        <i class="ni ni-ruler-pencil text-pink"></i> 自定义页面
+                    </a>
+                </li>
+
             </ul>
             <!-- Divider -->
             <hr class="my-3">

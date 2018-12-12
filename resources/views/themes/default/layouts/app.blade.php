@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with a Design System for Bootstrap 4.">
+    <meta name="description" content="{{$websiteSubtitle}}">
     <meta name="author" content="Creative Tim & yranarf">
     <title>{{$websiteName}} - {{$websiteSubtitle}}</title>
     <!-- Favicon -->
@@ -109,7 +109,13 @@
             <div class="col-md-6">
                 <ul class="nav nav-footer justify-content-end">
                     <li class="nav-item">
-                        <a href="" class="nav-link" target="_blank">QQ</a>
+                        <a href="{{$websiteKfUrl}}" class="nav-link" target="_blank">客服帮助</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{$privacyPolicy}}" class="nav-link" target="_blank">服务协议</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{$userAgreements}}" class="nav-link" target="_blank">隐私协议</a>
                     </li>
                 </ul>
             </div>

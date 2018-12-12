@@ -27,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         'setting.website.currency.unit'=>'currencyUnit',
         'setting.website.kf.url'=>'websiteKfUrl',
         'setting.website.logo.url'=>'websiteLogoUrl',
+        'setting.website.privacy.policy'=>'privacyPolicy',
+        'setting.website.user.agreements'=>'userAgreements',
     ];
 
     protected  function viewVariable()

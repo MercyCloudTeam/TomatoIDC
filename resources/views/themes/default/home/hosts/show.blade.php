@@ -62,20 +62,21 @@
                                         @endif
                                     </td>
                                     <td class="text-left">
-                                        {{--@switch($host->status)--}}
-                                        {{--@case(1)--}}
-
-                                        {{--@break--}}
-                                        {{--@endswitch--}}
-                                        @if($host->status == 1 && !empty($host->host_url))
+                                        @if($host->status == 1 )
                                             <a href="{{route('host.detailed',['id'=>$host->id])}}"
                                                class="btn btn-primary btn-sm">信息/管理</a>
-                                            <a href="{{$host->host_url}}" class="btn btn-success btn-sm">主机面板</a>
-                                            <a href="{{route('host.renew',['id'=>$host->id])}}" class="btn btn-warning btn-sm">续费</a>
+                                            <button onclick="event.preventDefault();
+                                                    document.getElementById('host-panel-{{$host->id}}').submit();"
+                                               class="btn btn-success btn-sm">主机面板</button>
+                                            <a href="{{route('host.renew',['id'=>$host->id])}}"
+                                               class="btn btn-warning btn-sm">续费</a>
+                                            <form id="host-panel-{{$host->id}}"
+                                                  action="{{ route('host.panel.login') }}" method="POST"
+                                                  style="display: none;">
+                                                {{csrf_field()}}
+                                                <input type="hidden" name="id" value="{{$host->id}}">
+                                            </form>
                                         @endif
-                                        {{--<button type="button" class="btn btn-primary">Primary</button>--}}
-                                        {{--<button type="button" class="btn btn-secondary">Secondary</button>--}}
-                                        {{--<button type="button" class="btn btn-info">Info</button>--}}
                                     </td>
                                 </tr>
                         @endforeach

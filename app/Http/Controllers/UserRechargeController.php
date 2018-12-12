@@ -89,8 +89,8 @@ class UserRechargeController extends Controller
         if ($status == $order->status){
             $user_id =$order->user_id;
             $user = User::where('id',$user_id)->first();
-//            dd(round(abs($user->account+= $order->money)));
-            User::where('id',$user_id)->update(['account'=>round(abs($user->account+= $order->money),2)]);//充值操作
+//            dd(round(abs($user->account+= $order->money))); //round(abs($user->account+= $order->money),2)
+            User::where('id',$user_id)->update(['account'=>bcadd($user->account,$order->money,2)]);//充值操作
             UserRechargeModel::where('no',$no)->update(['status'=>2]);
         }
 
@@ -115,7 +115,7 @@ class UserRechargeController extends Controller
             'no'=>$no,
             'user_id'=>$user_id,
             'type'=>$type,
-            'money'=>abs(round($money,2))
+            'money'=>sprintf("%01.2f", abs($money))
         ]);
         return $userRecharge;
     }

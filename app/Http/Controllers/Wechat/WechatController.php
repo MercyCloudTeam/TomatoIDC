@@ -14,6 +14,7 @@ use EasyWeChat\Kernel\Messages\Text;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use EasyWeChat\Kernel\Messages\Message;
 
@@ -31,17 +32,18 @@ class WechatController extends Controller
     public function wechatApi(Request $request)
     {
         //Dev log
-        Log::info('request arrived.',[$request]);
+//        Log::info('request arrived.',[$request]);
 
         $config = $this->getOfficialAccountConfigArr();
 
         $app = Factory::officialAccount($config);
-
+                $app->server->push(function ($message) {
+                    return "蛤";
+                });
         $app->server->push(TextHandle::class,Message::TEXT);
         $app->server->push(ImageHandle::class,Message::IMAGE);
         $app->server->push(EventController::class,Message::EVENT);
         $app->server->push(TuringController::class,Message::TEXT|Message::IMAGE);
-//        $app->server->push()
 
         $response = $app->server->serve();
 

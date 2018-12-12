@@ -20,6 +20,7 @@ use App\WorkOrderModel;
 use App\WorkOrderReplyModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  *  * 管理页面以及全局设置页面及操作
@@ -154,6 +155,18 @@ class AdminController extends Controller
     }
 
     /**
+     * 获取自定义页面
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
+     */
+    protected function getDiyPage()
+    {
+        $diyPage = DB::table('diy_page')->where('status','!=','0')->
+        orderBy('created_at', 'desc')->paginate(10);
+        !$diyPage->isEmpty() ?: $diyPage = null;
+        return $diyPage;
+    }
+
+    /**
      * 获取主机
      */
     protected function getHosts()
@@ -205,10 +218,29 @@ class AdminController extends Controller
      * 添加商品配置页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function goodConfigureAddPage()
+    public function goodConfigureAddPage($type)
     {
+        $type = htmlspecialchars(trim($type));
+        $goods= new GoodController();
+        $input = $goods->getConfigureFromInput($type);
+        return view(ThemeController::backAdminThemePath('add_configure', 'goods'),compact('input','type'));
+    }
 
-        return view(ThemeController::backAdminThemePath('add_configure', 'goods'));
+    /**
+     * 编辑商品配置页面
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function goodConfigureEditPage($id)
+    {
+        $configure = GoodConfigureModel::where('id', $id)->get();
+        if (!$configure->isEmpty()) {
+            $configure = $configure->first();
+            $goods= new GoodController();
+            $input = $goods->getConfigureFromInput($configure->type);
+            return view(ThemeController::backAdminThemePath('edit_configure', 'goods'), compact('configure','input'));
+        }
+        return redirect(route('admin.good.show')); //错误返回
     }
 
     /**
@@ -226,20 +258,7 @@ class AdminController extends Controller
         return redirect(route('admin.good.show')); //错误返回
     }
 
-    /**
-     * 编辑商品分类页面
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
-     */
-    public function goodConfigureEditPage($id)
-    {
-        $configure = GoodConfigureModel::where('id', $id)->get();
-        if (!$configure->isEmpty()) {
-            $configure = $configure->first();
-            return view(ThemeController::backAdminThemePath('edit_configure', 'goods'), compact('configure'));
-        }
-        return redirect(route('admin.good.show')); //错误返回
-    }
+
 
     /**
      * 编辑商品页面
@@ -440,6 +459,37 @@ class AdminController extends Controller
         return view(ThemeController::backAdminThemePath('add', 'prepaid_key'));
     }
 
+    /**
+     * 添加自定义页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function diyPageAddPage()
+    {
+        return view(ThemeController::backAdminThemePath('add','diy_page'));
+    }
+
+    /**
+     * 编辑自定义页面
+     */
+    public function diyPageEditAction($hash)
+    {
+        $page = DB::table('diy_page')->where('hash', $hash)->get();
+        if (!$page->isEmpty()) {
+            $page = $page->first();
+            return view(ThemeController::backAdminThemePath('edit', 'diy_page'), compact('page'));
+        }
+        return redirect(route('admin.diy.page.show')); //错误返回
+    }
+
+    /**
+     * 自定义页面列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function diyPageShowPage()
+    {
+        $pages = $this->getDiyPage();
+        return view(ThemeController::backAdminThemePath('show','diy_page'),compact('pages'));
+    }
 
     /**
      * 编辑网站配置操作
@@ -503,6 +553,10 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * 微信配置页面
+     * @return array|bool|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function wechatConfigPage()
     {
         $mailDrive = new WechatController();

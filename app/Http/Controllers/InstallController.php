@@ -91,15 +91,16 @@ class InstallController extends Controller
         'setting.website.title' => 'yfsama',
         'setting.website.copyright' => 'yranarf',
         'setting.website.kf.url' => '/',
+        'setting.website.good.inventory' => 1,//商品库存模式
         'setting.website.aff.status' => false,
-        'setting.website.user.agreements' => null,//url
-        'setting.website.privacy.policy' => null,//url
+        'setting.website.user.agreements' => null,//url 用户协议
+        'setting.website.privacy.policy' => null,//url 隐私协议
         'setting.website.spa.status' => false,//SPA单页模板 启用全部指向index
         'setting.website.user.email.validate' => false,//邮箱验证
         'setting.website.user.phone.validate' => false,//手机验证
         'setting.website.admin.sales.notice' => false,//管理销售通知
         'setting.website.user.email.notice' => false,//用户邮件通知
-        'setting.website.version' => 'V0.1.4',
+        'setting.website.version' => 'V0.1.5',
 
         'setting.mail.drive' => null,//邮件驱动
         'setting.website.sms.facilitator' => null,//短信服务商

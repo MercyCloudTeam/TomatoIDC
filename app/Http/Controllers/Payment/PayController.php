@@ -22,22 +22,29 @@ class PayController extends Controller
      */
     public static function getPayPluginArr()
     {
-        $path = app_path('Http/Controllers/Payment/');
+        $path     = app_path('Http/Controllers/Payment/');
         $fileTemp = scandir($path);
         $fileList = [];
         foreach ($fileTemp as $value) {
-            if ($value != '.' && $value != '..' && $value != "PayController.php") {
-                $value = str_replace('Controller.php', '', $value);//排除后缀
+            if (
+                $value != '.'
+                && $value != '..'
+                && $value != "PayController.php"
+                //Dev
+                && $value != "NilController.php"
+            ) {
+                $value          = str_replace('Controller.php', '', $value);//排除后缀
                 $controllerName = __NAMESPACE__ . '\\' . $value . "Controller";
-                $plugin = new $controllerName();//动态调用控制器
+                $plugin         = new $controllerName();//动态调用控制器
 
                 if (property_exists($plugin, 'pluginName')) {
                     $plugName = $plugin->pluginName;
-                } else {
+                }
+                else {
                     $plugName = $value;
                 }
-//                dd($plugName);
-//                $plugName = $plugin->pluginName;
+                //                dd($plugName);
+                //                $plugName = $plugin->pluginName;
                 array_push($fileList, [$plugName => $value]);
             }
         }
@@ -53,10 +60,10 @@ class PayController extends Controller
     {
         switch ($payPage['type']) { //判断插件返回值
             case "qrcode_base64":
-                return view(ThemeController::backThemePath('pay', 'home'),compact('payPage'));
+                return view(ThemeController::backThemePath('pay', 'home'), compact('payPage'));
                 break;
             case "qrcode_string": //二维码
-                return view(ThemeController::backThemePath('pay', 'home'),compact('payPage'));
+                return view(ThemeController::backThemePath('pay', 'home'), compact('payPage'));
                 break;
             case "redirect": //跳转
                 return redirect($payPage['url']);
@@ -70,13 +77,14 @@ class PayController extends Controller
      * @param $order
      * @return bool|mixed
      */
-    public function makePay($payment,$order){
+    public function makePay($payment, $order)
+    {
         $payPlugin = SettingModel::where('name', 'setting.website.payment.' . $payment)->first();
         $payPlugin = $payPlugin['value'];
         if (!empty($payPlugin)) {
             $order->price = $order->money; //解决数据键名不一
-            $payPage = $this->orderPay($payPlugin, $payment, $order);
-//            dd($payPage);
+            $payPage      = $this->orderPay($payPlugin, $payment, $order);
+            //            dd($payPage);
             return $payPage;
         }
         return false;
@@ -92,7 +100,7 @@ class PayController extends Controller
     public function orderPay($payPlugin, $payment, $order)
     {
         $controllerName = __NAMESPACE__ . '\\' . $payPlugin . "Controller";
-        $plugin = new $controllerName();//动态调用控制器
+        $plugin         = new $controllerName();//动态调用控制器
         return $plugin->Pay($order, $payment);
     }
 
@@ -105,7 +113,7 @@ class PayController extends Controller
      */
     public function notify(Request $request, string $payment)
     {
-//        Log::info('Payment Log', ['request' => $request, 'payment' => $payment]);
+        //        Log::info('Payment Log', ['request' => $request, 'payment' => $payment]);
         $payment = htmlspecialchars(trim($payment));
         switch ($payment) {
             case "wechat":
@@ -120,9 +128,9 @@ class PayController extends Controller
             default:
                 Log::info('Notify Error', ['payment' => $payment]);
         }
-        $payPlugin = $payPlugin->value;
+        $payPlugin      = $payPlugin->value;
         $controllerName = __NAMESPACE__ . '\\' . $payPlugin . "Controller";
-        $plugin = new $controllerName();//动态调用控制器
+        $plugin         = new $controllerName();//动态调用控制器
         if ($no = $plugin->notify($request, $payment)) {
             return $this->paySuccessAction($no);
         }
@@ -134,23 +142,23 @@ class PayController extends Controller
      * @param $no
      * @return bool
      */
-    public function getOrder($no,$api_no=null)
+    public function getOrder($no, $api_no = null)
     {
-        $key = 'no';
+        $key   = 'no';
         $value = $no;
-        if (!empty(htmlspecialchars(trim($api_no)))){ //使用第三方订单号查询
-            $key = 'api_no';
+        if (!empty(htmlspecialchars(trim($api_no)))) { //使用第三方订单号查询
+            $key   = 'api_no';
             $value = $api_no;
         }
         //订单
-        $order = OrderModel::where($key,$value)->get();
+        $order = OrderModel::where($key, $value)->get();
         if (!$order->isEmpty()) {//订单支付
             return $order->first();
         }
         //用户充值
-        $userRecharge = UserRechargeModel::where($key,$value)->get();
+        $userRecharge = UserRechargeModel::where($key, $value)->get();
         if (!$userRecharge->isEmpty()) {//充值支付
-           return $userRecharge->first();
+            return $userRecharge->first();
         }
         return false;
     }
@@ -163,17 +171,19 @@ class PayController extends Controller
     protected function paySuccessAction($no)
     {
         //订单
-        $order = OrderModel::where('no',$no)->get();
+        $order = OrderModel::where('no', $no)->get();
         if (!$order->isEmpty()) {//订单支付
             if ($order->first()->status == 1) {
                 OrderModel::where('no', $no)->update(['status' => 2]);
                 $action = new OrderController();
+                //                dd($order->status);
+                $action->subGoodInventory($no); //扣除库存
                 $action->orderCheckStatusFun($no);
                 return redirect(route('order.status', ['no' => $no]));
             }
         }
         //用户充值
-        $userRecharge = UserRechargeModel::where('no',$no)->get();
+        $userRecharge = UserRechargeModel::where('no', $no)->get();
         if (!$userRecharge->isEmpty()) {//充值支付
             if ($userRecharge->first()->status == 1) {//当订单状态还是未支付再进行更改
                 UserRechargeModel::where('no', $no)->update(['status' => 3]);
@@ -186,28 +196,53 @@ class PayController extends Controller
     }
 
     /**
-     * 自动查询订单状态
+     * 自动查询商品订单状态
      * @return bool
      */
     public function autoCheckOrderStatus()
     {
-        $orders = OrderModel::where([
-            ['status',1],
-            ['created_at','>=',Carbon::now()->subHour()]
-        ])->get();
+        $orders = OrderModel::where(
+            [
+                ['status', 1],
+                ['created_at', '>=', Carbon::now()->subHour()]
+            ]
+        )->get()
+        ;
+        return $this->autoCheckOrderAction($orders);
+    }
+
+
+    /**
+     * 自动查询用户充值订单状态
+     * @return bool
+     */
+    public function autoCheckRechargeStatus()
+    {
+        $orders = UserRechargeModel::where(
+            [
+                ['status', 1],
+                ['created_at', '>=', Carbon::now()->subHour()]
+            ]
+        )->get()
+        ;
+        return $this->autoCheckOrderAction($orders);
+    }
+
+    protected function autoCheckOrderAction($orders)
+    {
         if (!$orders->isEmpty()) {
             $alipayPayPlugin = SettingModel::where('name', 'setting.website.payment.alipay')->first()->value;
             $wechatPayPlugin = SettingModel::where('name', 'setting.website.payment.wechat')->first()->value;
-            $controllers = [$alipayPayPlugin,$wechatPayPlugin];
-            foreach ($controllers as $controller){ //查询
-                if (empty($controller)){//未设置的时候跳过
+            $controllers     = [$alipayPayPlugin, $wechatPayPlugin];
+            foreach ($controllers as $controller) { //查询
+                if (empty($controller)) {//未设置的时候跳过
                     continue;
                 }
                 $controllerName = __NAMESPACE__ . '\\' . $controller . "Controller";
-                $plugin = new $controllerName;
+                $plugin         = new $controllerName;
                 foreach ($orders as $order) {//每笔订单都查询一边
                     $status = $plugin->checkOrderStatus($order);
-                    if ($status){//支付成功操作
+                    if ($status) {//支付成功操作
                         $this->paySuccessAction($order->no);
                     }
                 }
@@ -228,7 +263,7 @@ class PayController extends Controller
         $controllerName = __NAMESPACE__ . '\\' . $pluginName . "Controller";
         if (class_exists($controllerName)) {
             $plugin = new $controllerName();//动态调用控制器
-            if (method_exists($plugin,'pluginConfigInputForm')) {
+            if (method_exists($plugin, 'pluginConfigInputForm')) {
                 return $plugin->pluginConfigInputForm($payment);
             }
         }
@@ -280,11 +315,13 @@ class PayController extends Controller
             return redirect(route('admin.setting.index'));
         }
         foreach ($form as $key => $value) {
-            $this->validate($request, [
-                $key => 'string|nullable'
-            ]);
+            $this->validate(
+                $request, [
+                            $key => 'string|nullable'
+                        ]
+            );
             SettingModel::where('name', $value)->update(['value' => $request[$key]]);
         }
-        return back()->with('status','success');
+        return back()->with('status', 'success');
     }
 }

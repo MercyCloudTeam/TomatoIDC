@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServerModel extends Model
 {
     protected $table = 'servers';
-    protected $fillable = ['title', 'ip', 'key', 'plugin', 'port'];
+    protected $fillable = ['title', 'ip', 'key', 'plugin', 'port','token','username','password'];
 
     public function order()
     {

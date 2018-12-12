@@ -33,23 +33,21 @@
                             @endif
                         @endforeach
                     @endif
-                    @if($workOrder->status == 2)
-                        <hr class="my-4"/>
-                        <h6 class="heading-small text-muted mb-4">回复工单</h6>
-                        <form method="post" action="{{route('work.order.reply')}}">
-                            {{csrf_field()}}
-                            <input type="hidden" value="{{$workOrder->id}}" name="id">
-                            <div class="pl-lg-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-last-name">内容</label>
-                                    <textarea rows="4" class="form-control form-control-alternative"
-                                              name="content">{{old('content')}}</textarea>
-                                </div>
+                    <hr class="my-4"/>
+                    <h6 class="heading-small text-muted mb-4">回复工单</h6>
+                    <form method="post" action="{{route('work.order.reply')}}">
+                        {{csrf_field()}}
+                        <input type="hidden" value="{{$workOrder->id}}" name="id">
+                        <div class="pl-lg-4">
+                            <div class="form-group">
+                                <label class="form-control-label" for="input-last-name">内容</label>
+                                <textarea rows="4" class="form-control form-control-alternative"
+                                          name="content">{{old('content')}}</textarea>
                             </div>
-                            @include('admin.themes.default.layouts.errors')
-                            <input type="submit" class="btn btn-primary" value="回复">
-                            @endif
-                        </form>
+                        </div>
+                        @include('admin.themes.default.layouts.errors')
+                        <input type="submit" class="btn btn-primary" value="回复">
+                    </form>
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkOrderModel extends Model
 {
-    protected $fillable = ['title', 'content', 'user_id'];
+    protected $fillable = ['title', 'content', 'user_id','order_no','priority'];
     protected $table = 'work_order';
 
     public function user()

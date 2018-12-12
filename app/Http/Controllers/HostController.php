@@ -12,10 +12,15 @@ use App\OrderModel;
 use App\ServerModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HostController extends Controller
 {
 
+
+    /**
+     * TODO 开通主机，版本更新设计思路，当用户下单购买主机调用fun时，应异步向api发送请求并通过数据表缓存主机名，开通成功调用函数再更新订单，若未返回，应主动查询主机信息
+     */
 
     /**
      * 操作代码 Action
@@ -81,18 +86,20 @@ class HostController extends Controller
     public function reCreateHost(Request $request)
     {
         $this->validate($request, [
-            'id' => 'exists:orders,id|required'
+            'no' => 'exists:orders,no|required'
         ]);
-        $order = OrderModel::where('id', $request['id'])->first();
+        $order = OrderModel::where('no', $request['no'])->first();
+//        dd($order);
+//        dd($order->status);
         //TODO 切换成switch判断
         if ($order->status == 3 && $order->type == "new") {
             $status = $this->createHost($order);
             if ($status) {
-                OrderModel::where('id', $request['id'])->update(['status' => '2']);
-                return back();
+                OrderModel::where('no', $request['no'])->update(['status' => '2']);
+                return back()->with(['status'=>'success']);
             }
         }
-        return back();
+        return back()->with(['status'=>'failure']);
     }
 
 
@@ -120,8 +127,76 @@ class HostController extends Controller
         }
     }
 
+
     /**
-     * 续费主机 TODO
+     * 管理面板登录
+     * @param $id
+     */
+    public function managePanelLogin(Request $request)
+    {
+        //验证
+        $this->validate($request,[
+            'id'=>'exists:hosts|numeric'
+        ]);
+        $host = HostModel::where('id',$request['id'])->first();
+        $this->authorize('view',$host);
+        //逻辑
+        $server = $host->order->good->server;
+        $serverController = new ServerPluginController();
+        $result = $serverController->managePanelLogin($server, $host);
+        if (!empty($result)){
+            return redirect($result);
+        }
+        return redirect($host->host_url);
+    }
+
+    /**
+     * 禁用主机
+     */
+    public function closeHost(Request $request)
+    {
+        AdminController::checkAdminAuthority(Auth::user());
+        $this->validate($request,[
+            'id'=>'exists:hosts|required'
+        ]);
+        $host = HostModel::where('id',$request['id'])->first();
+        $server = $host->order->good->server;
+        $serverController = new ServerPluginController();
+        $status = $serverController->closeHost($server, $host);
+        if ($status) {
+            HostModel::where('id', $host->id)->update(['status' => 2]);//标记已停用
+            return 1;
+        } else {
+            HostModel::where('id', $host->id)->update(['status' => 3]);//标记出错
+            return response('error',500);
+        }
+
+    }
+
+    /**
+     * 取消禁用
+     */
+    public function openHost(Request $request)
+    {
+        AdminController::checkAdminAuthority(Auth::user());
+        $this->validate($request,[
+           'id'=>'exists:hosts|required'
+        ]);
+        $host = HostModel::where('id',$request['id'])->first();
+        $server = $host->order->good->server;
+        $serverController = new ServerPluginController();
+        $status = $serverController->openHost($server, $host);
+        if ($status) {
+            HostModel::where('id', $host->id)->update(['status' => 1,'deadline'=>null]);//标记正常,并清空到期时间
+            return 1;
+        } else {
+            HostModel::where('id', $host->id)->update(['status' => 3]);//标记出错
+            return response('error',500);
+        }
+    }
+
+    /**
+     * 续费主机 TODO （181212补充，我当时没写TODO啥 现在我忘了要TODO啥了）
      * @param $order
      * @return bool
      */

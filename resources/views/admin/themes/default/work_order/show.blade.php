@@ -18,6 +18,7 @@
                             <th scope="col">用户</th>
                             <th scope="col">标题</th>
                             <th scope="col">状态</th>
+                            <th scope="col">优先级</th>
                             <th scope="col">上次更新</th>
                             <th scope="col">操作</th>
                         </tr>
@@ -56,6 +57,19 @@
                               @break
                           @endswitch
                       </span>
+                                    </td>
+                                    <td>
+                                        @switch($item->priority)
+                                            @case(1)
+                                            低
+                                            @break
+                                            @case(2)
+                                            中
+                                            @break
+                                            @case(3)
+                                            高
+                                            @break
+                                        @endswitch
                                     </td>
                                     <td>
                                         {{$item->updated_at->format('M d , Y')}}

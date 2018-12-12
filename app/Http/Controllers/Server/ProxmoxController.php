@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
 
-class NilServerController extends Controller
+class ProxmoxController extends Controller
 {
 
     public $diyConfigureFrom = false;//使用自定义表单
@@ -35,6 +35,7 @@ class NilServerController extends Controller
      */
     public function createHost($server, $configure, $order)
     {
+
         $host = HostModel::create(
             [
                 'order_id'   => $order->id,
@@ -51,11 +52,11 @@ class NilServerController extends Controller
     //TODO 获取主机信息
     public function getVh($server, $host)
     {
+
     }
 
     /**
      * 续费主机
-     * ep面板没法限定时间
      * @return bool
      */
     public function renewHost()

@@ -27,7 +27,7 @@
                     {{--</span>--}}
                                     {{--<span class="btn-inner--text">Github</span>--}}
                                 {{--</a>--}}
-                                <a href="{{route('wechat.oauth')}}" class="btn btn-neutral btn-icon">
+                                <a href="" onclick="alert('未开放')" class="btn btn-neutral btn-icon">
                     <span class="btn-inner--icon">
                       <img src="{{asset('assets/themes/argon/img/icons/common/google.svg')}}">
                     </span>

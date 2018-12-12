@@ -24,10 +24,26 @@ class GoodConfigureModel extends Model
         'subdir',
         'subdir_flag',
         'db_type',
+        'type',
         'flow_limit',
         'max_subdir',
         'time',
-        'ftp'
+        'ftp',
+        'template',
+        'config_template',
+        'free_domain',
+        'language',
+        'useregns',
+        'hasuseregns',
+        'forcedns',
+        'reseller',
+        'maxsql',
+        'cgi',
+        'maxftp',
+        'maxpop',
+        'maxpark',
+        'maxaddon',
+        'customip',
     ];
 
     public function getGood()

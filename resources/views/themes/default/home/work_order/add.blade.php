@@ -29,6 +29,37 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">订单</label>
+                                        <select class="custom-select" id="inputGroupSelect0312" name="order_no">
+                                            @if(!empty($order = Auth::user()->order))
+                                                @foreach($order as $item)
+                                                    <option value="{{$item->no}}">{{$item->good->title}}-{{$item->no}}</option>
+                                                @endforeach
+                                            @endif
+                                                <option value="" selected>不选择订单</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">优先级</label>
+                                        <select class="custom-select" id="daw" name="priority">
+                                            <option value="3" >
+                                                高
+                                            </option>
+                                            <option value="2" >
+                                                中
+                                            </option>
+                                            <option value="1" selected>
+                                                低
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>描述</label>

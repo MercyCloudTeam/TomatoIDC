@@ -26,7 +26,10 @@ class ServerController extends Controller
             'key' => 'string|nullable|min:3|max:200',
             'plugin' => 'string|nullable|min:3|max:200',
             'port' => 'integer|nullable|min:1',
-            'id' => 'exists:servers,id|required'
+            'id' => 'exists:servers,id|required',
+            'token' => 'nullable|min:1|max:200',
+            'username' => 'nullable|min:1|max:200',
+            'password' => 'nullable|min:1|max:200',
         ]);
 
         ServerModel::where('id', $request['id'])->update([
@@ -34,7 +37,10 @@ class ServerController extends Controller
             'ip' => $request['ip'],
             'key' => $request['key'],
             'plugin' => $request['plugin'],
-            'port' => $request['port']
+            'port' => $request['port'],
+            'token' => $request['token'],
+            'username' => $request['username'],
+            'password' => $request['password'],
         ]);
 
         return redirect(route('admin.server.show'));
@@ -71,7 +77,10 @@ class ServerController extends Controller
             'ip' => 'min:3|string',
             'key' => 'string|nullable|min:3|max:200',
             'plugin' => 'string|nullable|min:3|max:200',
-            'port' => 'integer|nullable|min:1|max:200'
+            'port' => 'nullable|min:1|max:200',
+            'token' => 'nullable|min:1|max:200',
+            'username' => 'nullable|min:1|max:200',
+            'password' => 'nullable|min:1|max:200',
         ]);
 
         ServerModel::create([
@@ -79,7 +88,10 @@ class ServerController extends Controller
             'ip' => $request['ip'],
             'key' => $request['key'],
             'plugin' => $request['plugin'],
-            'port' => $request['port']
+            'port' => $request['port'],
+            'token' => $request['token'],
+            'username' => $request['username'],
+            'password' => $request['password'],
         ]);
 
         return redirect(route('admin.server.show'));

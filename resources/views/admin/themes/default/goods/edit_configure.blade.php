@@ -33,9 +33,9 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label">QPS</label>
-                                        <input type="text" name="qps" class="form-control form-control-alternative"
-                                               value="{{old('qps')?old('qps'):$configure->qps}}"
+                                        <label class="form-control-label">默认开通时长</label>
+                                        <input type="text" name="time" class="form-control form-control-alternative"
+                                               value="{{old('time')?old('time'):$configure->time}}"
                                                placeholder="根据不同服务器插件填写（可为空）">
                                     </div>
                                 </div>
@@ -43,187 +43,18 @@
                         </div>
                         <div class="pl-lg-4">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">PHP版本</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('php_version')?old('php_version'):$configure->php_version}}"
-                                               name="php_version">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">mysql版本</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('mysql_version')?old('mysql_version'):$configure->mysql_version}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="mysql_version">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">数据库大小</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('db_quota')?old('db_quota'):$configure->db_quota}}"
-                                               name="db_quota">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">Web空间大小</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('web_quota')?old('web_quota'):$configure->web_quota}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="web_quota">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">模块</label>
-                                        <input type="text" class="form-co ntrol form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）" value="{{old('module')}}"
-                                               name="module">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">类型</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('type')}}" placeholder="根据不同服务器插件填写（可为空）"
-                                               name="type">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">速度限制</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('speed_limit')?old('speed_limit'):$configure->speed_limit}}"
-                                               name="speed_limit">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">最大连接数</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('max_connect')?old('max_connect'):$configure->max_connect}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="max_connect">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">域名</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('domain')?old('domain'):$configure->domain}}" name="domain">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">主机主目录</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('doc_root')?old('doc_root'):$configure->doc_root}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="doc_root">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">是否开启日记分析</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('log_handle')?old('log_handle'):$configure->log_handle}}"
-                                               name="log_handle">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">流量限制</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('flow_limit')?old('flow_limit'):$configure->flow_limit}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="flow_limit">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">默认绑定目录</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('subdir')?old('subdir'):$configure->subdir}}" name="subdir">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">最多工作者</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('max_worker')?old('max_worker'):$configure->max_worker}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="max_worker">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">是否允许绑定子目录</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('subdir_flag')?old('subdir_flag'):$configure->subdir_flag}}"
-                                               name="subdir_flag">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">最多子目录数</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('max_subdir')?old('max_subdir'):$configure->max_subdir}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="max_subdir">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-username">开启FTP</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="根据不同服务器插件填写（可为空）"
-                                               value="{{old('ftp')?old('ftp'):$configure->ftp}}" name="ftp">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label">时长（天）</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               value="{{old('time')?old('time'):$configure->time}}"
-                                               placeholder="根据不同服务器插件填写（可为空）" name="time">
-                                    </div>
-                                </div>
+                                @if(!empty($input))
+                                    @foreach($input as $key=>$value)
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label"
+                                                       for="input-username">{{$value}}</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                       placeholder="根据服务器插件配置-可为空" value="{{old($key)?old($key):$configure->$key}}" name="{{$key}}">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         @include('admin.themes.default.layouts.errors')
