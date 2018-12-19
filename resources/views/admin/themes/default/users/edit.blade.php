@@ -107,7 +107,7 @@
                                         <label class="form-control-label" for="input-email">邮箱</label>
                                         <input type="email" id="input-email"
                                                class="form-control form-control-alternative" placeholder="Email"
-                                                value="{{old('email')??$user->email}}">
+                                               name="email" value="{{old('email')??$user->email}}">
                                     </div>
                                 </div>
                             </div>

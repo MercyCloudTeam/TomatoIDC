@@ -55,7 +55,17 @@
                             <i class="ni business_briefcase-24 mr-2"></i>创建日期: {{$host->created_at->format('M d , Y')}}
                         </div>
                         <hr class="my-4"/>
-                        <a target="_blank" href="{{$host->host_url}}">管理面板</a>
+                        <button class="btn btn-primary" type="button"
+                                onclick="event.preventDefault();
+                                document.getElementById('host-panel-{{$host->id}}').submit();"
+                                href="{{$host->host_url}}">管理面板
+                        </button>
+                        <form id="host-panel-{{$host->id}}"
+                              action="{{ route('host.panel.login') }}" method="POST"
+                              style="display: none;">
+                            {{csrf_field()}}
+                            <input type="hidden" name="id" value="{{$host->id}}">
+                        </form>
                     </div>
                 </div>
             </div>

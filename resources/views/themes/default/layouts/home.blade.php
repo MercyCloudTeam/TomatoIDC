@@ -333,6 +333,15 @@
             })
         </script>
     @endif
+    @if(session('info'))
+        <script>
+            swal({
+                type: 'info',
+                title: '提示',
+                text:'{{session('info')??"这是一个提示"}}',
+            })
+        </script>
+    @endif
 @endif
 
 <script src="{{asset('assets/themes/argon/vendor/jquery/dist/jquery.min.js')}}"></script>

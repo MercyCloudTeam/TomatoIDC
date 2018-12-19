@@ -93,7 +93,7 @@
                                         <select class="custom-select" id="inputGroupSelect02" name="plugin">
                                             @if(!empty($serverPlugin))
                                                 @foreach($serverPlugin as $plugin)
-                                                    <option value="{{$plugin}}">{{$plugin}}</option>
+                                                    <option value="{{$plugin}}" {{ old('plugin') ? old('plugin') == $plugin ?"selected": '' : ''}} >{{$plugin}}</option>
                                                 @endforeach
                                             @endif
                                         </select>

@@ -6,6 +6,7 @@ use App\WorkOrderModel;
 use App\WorkOrderReplyModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yansongda\Pay\Log;
 
 class WorkOrderController extends Controller
 {
@@ -24,12 +25,16 @@ class WorkOrderController extends Controller
     {
         $this->validate(
             $request, [
-            'title'    => 'string|min:3|max:200',
-            'content'  => 'string|min:3|max:999',
-            'order_no' => 'exists:orders,no|nullable',
-            'priority' => 'in:1,2,3|nullable'
-        ]
+                        'title'    => 'string|min:3|max:200',
+                        'content'  => 'string|min:3|max:999',
+                        'order_no' => 'exists:orders,no|nullable',
+                        'priority' => 'in:1,2,3|nullable'
+                    ]
         );
+
+        if (WorkOrderModel::where([['user_id', Auth::id()], ['status', '!=', 3]])->get()->count() >= 20) {
+            return redirect(route('work.order.show'))->with(['status' => 'failure', 'text' => "未处理的工单太多了"]);
+        }
 
         WorkOrderModel::create(
             [
@@ -56,8 +61,8 @@ class WorkOrderController extends Controller
         AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
-            'id' => 'exists:work_order,id|required'
-        ]
+                        'id' => 'exists:work_order,id|required'
+                    ]
         );
         WorkOrderModel::where('id', $request['id'])->update(['status' => 4]);
         return redirect(route('admin.work.order.show'));
@@ -74,9 +79,9 @@ class WorkOrderController extends Controller
         AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
-            'id'      => 'exists:work_order,id|required',
-            'content' => 'string|min:3|max:200'
-        ]
+                        'id'      => 'exists:work_order,id|required',
+                        'content' => 'string|min:3|max:200'
+                    ]
         );
         WorkOrderReplyModel::create(
             [
@@ -99,9 +104,9 @@ class WorkOrderController extends Controller
     {
         $this->validate(
             $request, [
-            'id'      => 'exists:work_order,id|required',
-            'content' => 'string|min:3|max:200'
-        ]
+                        'id'      => 'exists:work_order,id|required',
+                        'content' => 'string|min:3|max:200'
+                    ]
         );
         WorkOrderReplyModel::create(
             [

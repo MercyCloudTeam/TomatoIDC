@@ -14,7 +14,6 @@
                     <p class="text-white" style="font-size: 1rem">欢迎回来</p>
                     <h1 class="display-2 text-white">{{Auth::user()->name}}</h1>
                     <p class="text-white mt-0 mb-5">祝你开心每一天！</p>
-                    <a href="#!" class="btn btn-info">Edit profile</a>
                 </div>
             </div>
         </div>

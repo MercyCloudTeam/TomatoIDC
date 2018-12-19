@@ -75,7 +75,7 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="dropdown">
-                                            <a href="" class="btn btn-info btn-sm">管理</a>
+                                            <a href="{{route('admin.host.detailed',['id'=>$item->id])}}" class="btn btn-info btn-sm">管理</a>
                                             @switch($item->status)
                                                 @case(1)
                                                 <button onclick="closehost(this,{{$item->id}})" class="btn btn-danger btn-sm">停用主机</button>

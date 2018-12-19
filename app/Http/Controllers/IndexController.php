@@ -22,6 +22,8 @@ class IndexController extends Controller
      * 视图代码View
      */
 
+    public $version = "V0.1.6";//发布版本号
+
     /**
      * 返回首页视图
      */

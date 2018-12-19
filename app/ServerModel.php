@@ -14,8 +14,13 @@ class ServerModel extends Model
         return $this->belongsTo('App\GoodModel', 'server_id', 'id');
     }
 
-    public function host()
-    {
-        return $this->hasMany('App\GoodModel', 'server_id', 'id');
-    }
+//    public function host()
+//    {
+//        return $this->hasMany('App\HostModel', 'server_id', 'id');
+//    }
+
+//    public function getHosts()
+//    {
+//        return $this->hasMany('S')
+//    }
 }

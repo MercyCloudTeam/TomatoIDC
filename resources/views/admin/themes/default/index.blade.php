@@ -133,7 +133,6 @@ ajax.onreadystatechange = function () {
                         <tr>
                             <th scope="col">服务器名称</th>
                             <th scope="col">服务器IP</th>
-                            <th scope="col">主机数量</th>
                             <th scope="col">状态</th>
                         </tr>
                         </thead>
@@ -144,11 +143,8 @@ ajax.onreadystatechange = function () {
                                     <th scope="row">
                                         {{$server->title}}
                                     </th>
-                                    <td>
+                                    <td>s
                                         {{$server->ip}}
-                                    </td>
-                                    <td>
-{{--                                        {{$server->host->count()}}--}}
                                     </td>
                                     <td>
                                    <span class="badge badge-dot mr-4">
@@ -192,19 +188,19 @@ ajax.onreadystatechange = function () {
                         <tbody>
                         <tr>
                             <th scope="row">
-                                云中心
+                                正式版
                             </th>
                             <td>
                                 V1.0.0
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <span class="mr-2">1%</span>
+                                    <span class="mr-2">16%</span>
                                     <div>
                                         <div class="progress">
                                             <div class="progress-bar bg-gradient-success" role="progressbar"
                                                  aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"
-                                                 style="width: 1%;"></div>
+                                                 style="width: 16%;"></div>
                                         </div>
                                     </div>
                                 </div>

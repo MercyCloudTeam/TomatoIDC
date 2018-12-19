@@ -209,13 +209,19 @@
             <!-- Heading -->
             <h6 class="navbar-heading text-muted">帮助</h6>
             <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="ni ni-spaceship"></i> 联系客服
+                    <a class="nav-link" href="https://github.com/MercyCloudTeam/TomatoIDC/issues/new/choose">
+                        <i class="ni ni-spaceship"></i> 更新建议
                     </a>
                 </li>
-
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('admin/log-viewer')}}">
+                        <i class="ni ni-books"></i> 网站日志
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -300,7 +306,7 @@
             <div class="row align-items-center justify-content-xl-between">
                 <div class="col-xl-6">
                     <div class="copyright text-center text-xl-left text-muted">
-                        &copy; 2018 <a href="http://TomatoIDC.com" class="font-weight-bold ml-1"
+                        &copy; 2018 <a href="http://mercycloud.com" class="font-weight-bold ml-1"
                                        target="_blank">TomatoIDC</a>
                     </div>
                 </div>
@@ -342,6 +348,7 @@
 <script src="{{asset('assets/themes/argon/vendor/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{asset('assets/themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Optional JS -->
+<script src="{{asset('assets/themes/argon/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('assets/themes/argon/vendor/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('assets/themes/argon/vendor/chart.js/dist/Chart.extension.js')}}"></script>
 <!-- Argon JS -->

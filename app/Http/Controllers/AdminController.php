@@ -431,6 +431,23 @@ class AdminController extends Controller
         return view(ThemeController::backAdminThemePath('show', 'news'), compact('news'));
     }
 
+
+    /**
+     * 主机编辑页面
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function hostDetailedPage($id)
+    {
+
+        $host = HostModel::where('id',$id)->get();
+        if (!$host->isEmpty()) {
+            $host = $host->first();
+            return view(ThemeController::backAdminThemePath('detailed', 'hosts'), compact('host'));
+        }
+        return back(); //错误返回
+
+    }
     /**
      * 主机列表页面
      */

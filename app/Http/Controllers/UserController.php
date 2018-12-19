@@ -30,39 +30,37 @@ class UserController extends Controller
     {
         $this->validate(
             $request, [
-            'password'  => 'nullable|string|min:6',
-            'name'      => 'nullable|string|max:16',
-            'qq'        => 'digits_between:5,11|integer|nullable',
-            'phone'     => 'digits_between:6,15|integer|nullable',
-            'signature' => 'min:3|max:999|string|nullable'
-        ]
+                        'password'  => 'nullable|string|min:6',
+                        'name'      => 'nullable|string|max:16',
+                        'qq'        => 'digits_between:5,11|integer|nullable',
+                        'phone'     => 'digits_between:6,15|numeric|nullable',
+                        'signature' => 'min:3|max:999|string|nullable'
+                    ]
         );
 
         $user = User::where('id', Auth::id())->first();
         if ($user->name != $request['name']) { //验证是否重名
             $this->validate(
                 $request, [
-                'name' => 'unique:users,name'
-            ]
+                            'name' => 'unique:users,name'
+                        ]
             );
         }
         //TODO 提高性能
         if (!empty($request['password'])) {
-            User::where('id', Auth::id())
-                ->update(['password' => Hash::make($request['password'])])
-            ;
+            $user->password = Hash::make($request['password']);
             Auth::logout();
         }
-        $user->name == $request['name'] ?: User::where('id', Auth::id())->update(['name' => $request['name']]);
-        $user->qq == $request['qq'] ?: User::where('id', Auth::id())->update(['qq' => $request['qq']]);
-        $user->phone == $request['phone'] ?: User::where('id', Auth::id())->update(['phone' => $request['phone']]);
-        $user->signature == $request['signature'] ?: User::where('id', Auth::id())->update(['signature' => $request['signature']]);
-
+        $user->name == $request['name'] ?: $user->name = $request['name'];
+        $user->qq == $request['qq'] ?: $user->qq = $request['qq'];
+        $user->phone == $request['phone'] ?: $user->phone = $request['phone'];
+        $user->signature == $request['signature'] ?: $user->signature = $request['signature'];
+        $user->save();
         return back();
     }
 
     /**
-     * 用户更改个人信息操作
+     * 管理员更改个人信息操作
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
@@ -72,38 +70,46 @@ class UserController extends Controller
         AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
-            'password'  => 'nullable|string|min:6',
-            'name'      => 'nullable|string|max:16',
-            'qq'        => 'digits_between:5,11|integer|nullable',
-            'phone'     => 'digits_between:6,15|integer|nullable',
-            'account'   => 'numeric|nullable',
-            'signature' => 'min:3|max:999|string|nullable',
-            'id'        => 'exists:users,id|required'
-        ]
+                        'password'  => 'nullable|string|min:6',
+                        'name'      => 'nullable|string|max:16',
+                        'qq'        => 'digits_between:5,11|integer|nullable',
+                        'phone'     => 'digits_between:6,15|numeric|nullable',
+                        'account'   => 'numeric|nullable',
+                        'signature' => 'min:3|max:999|string|nullable',
+                        'id'        => 'exists:users,id|required',
+                        'email'     => 'string|email|nullable'
+                    ]
         );
 
         $user = User::where('id', $request['id'])->first();
         if ($user->name != $request['name']) { //验证是否重名
             $this->validate(
                 $request, [
-                'name' => 'unique:users,name'
-            ]
+                            'name' => 'unique:users,name'
+                        ]
             );
         }
-        //TODO 提高性能
+        $user = User::where('id', $request['id'])->first();
         if (!empty($request['password'])) {
-            User::where('id', Auth::id())
-                ->update(['password' => Hash::make($request['password'])])
-            ;
-            Auth::logout();
+            $user->password = Hash::make($request['password']);
         }
-        $user->name == $request['name'] ?: User::where('id', $request['id'])->update(['name' => $request['name']]);
-        $user->qq == $request['qq'] ?: User::where('id', $request['id'])->update(['qq' => $request['qq']]);
-        $user->phone == $request['phone'] ?: User::where('id', $request['id'])->update(['phone' => $request['phone']]);
-        $user->signature == $request['signature'] ?: User::where('id', $request['id'])->update(['signature' => $request['signature']]);
-        $user->account == $request['account'] ?: User::where('id', $request['id'])->update(['account' => sprintf("%01.2f", $request['account'])]);
+        if (!empty($request['email']) && $user->email !== $request['email']) {
+            $this->validate(
+                $request, [
+                            'email' => 'unique:users|required|email'
+                        ]
+            );
+            $user->email = $request['email'];
+        }
 
-        return back();
+        $user->name == $request['name'] ?: $user->name = $request['name'];
+        $user->qq == $request['qq'] ?: $user->qq = $request['qq'];
+        $user->phone == $request['phone'] ?: $user->phone = $request['phone'];
+        $user->signature == $request['signature'] ?: $user->signature = $request['signature'];
+        $user->account == $request['account'] ?: $user->account = sprintf("%01.2f", $request['account']);
+        $user->save();
+
+        return back()->with(['status', 'success']);
     }
 
     /**

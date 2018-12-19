@@ -114,6 +114,7 @@ class EasyPanelController extends Controller
         $configureUrl = '&json=1';
         // 判断设置是否存在 ? 默认值（可空）: 连接
         //构建URL请求接口URL
+        //http://www.kanglesoft.com:3312/api/?c=whm&a=add_vh&r=3333&s=sdfasdfsadfddaffsdf3&name=webtest&passwd=webpasswd&init=1&product_name=php100
         !$configure->web_quota ?: $configureUrl .= "&web_quota=" . $configure->web_quota;
         !$configure->db_quota ?: $configureUrl .= "&db_quota=" . $configure->db_quota;
         !$configure->ftp ? $configureUrl .= "&ftp=-1" : $configureUrl .= "&ftp=" . (int)$configure->ftp;
@@ -125,6 +126,11 @@ class EasyPanelController extends Controller
         !$configure->templete ? $configureUrl .= "&templete=php" : $configureUrl .= "&templete=" . $configure->templete;
         !$configure->module ? $configureUrl .= "&module=php" : $configureUrl .= "&module=" . $configure->module;
         !$configure->mysql_verison ?: $configureUrl .= "&subtemplete=" . $configure->mysql_verison;
+
+        if (!empty($configure->config_template)) {//使用模板开通
+            $configureUrl = "&product_name=" . $configure->config_template;
+        }
+
         $url    = $this->protocol . $serverUrl . ':' . $port . '?c=whm&a=add_vh&r=' . $rand . '&s=' . $sign . "&name=" . $name . "&passwd=" . $password . "&init=1" . $configureUrl;
         $result = $this->curlGet($url);
         if ($result) {

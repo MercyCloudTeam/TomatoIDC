@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="post" id="add-form" action="{{action('GoodController@goodConfigureAddAction')}}">
+                    <form method="post" id="add-form" action="{{action('GoodConfigureController@goodConfigureAddAction')}}">
                         <input type="hidden" value="{{$type}}" name="type">
                         {{csrf_field()}}
                         <h6 class="heading-small text-muted mb-4">根据服务器插件不同需要填写内容不同，若配置不正确，可能会出现问题</h6>

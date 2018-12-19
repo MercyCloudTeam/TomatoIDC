@@ -1,10 +1,10 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.5/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.6/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
-[简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md)
+语言: [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md) | 
 
-[Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) |[🚧官方文档](https://www.yuque.com/mercycloud/eg1gz6)
+导航: [Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) |[🚧官方文档](https://www.yuque.com/mercycloud/eg1gz6) | [Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg) | [QQ群](http//shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)
 
 ## 介绍
 
@@ -55,11 +55,13 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 
 ### 演示站
 
-[默认](https://dev.moe.beer/)
+[演示站-1](https://dev.moe.beer/)
+
+[演示站-2](https://demo.tomatoidc.com)
 
 > 都还没什么人的项目，建个演示站都要被人打:(
 
-会不定期清空数据库，不建议疯狂往里面冲钱:)
+会不定期清空数据库，不建议往里面冲钱:)
 
 欢迎大家搭建一下w来给新人玩耍
 
@@ -109,10 +111,10 @@ cd TomatoIDC;
 #编辑配置文件,编辑数据库连接部分即可
 cp .env.example .env
 vi .env
-#完成数据库迁移
-php artisan migrate
 #依赖安装
 composer install --no-dev
+#完成数据库迁移
+php artisan migrate
 #初始化程序密匙
 php artisan key:g
 #访问安装页面完成安装
@@ -170,8 +172,8 @@ location / {
 1. 添加站点
 2. 上传代码（GIT克隆 /压缩包 二选一）
 3. 配置.env文件
-4. 运行php artisan migrate 完成数据库迁移
-5. 安装依赖（压缩包安装跳过）
+4. 安装依赖（压缩包安装跳过）
+5. 运行php artisan migrate 完成数据库迁移
 6. 运行php artisan key:g 生成加密密匙
 7. 设置网站目录 运行目录设置为/public
 8. 设置伪静态（Apache基本不用配置即可使用）
@@ -207,6 +209,8 @@ location / {
 
 - [Easypanel ](https://www.kanglesoft.com/)
 - [Cpanel](https://cpanel.net)
+- [DirectAdmin](https://www.directadmin.com/)
+- [SolusVM](https://solusvm.com/)
 
 ### 微信公众号
 
@@ -222,12 +226,21 @@ location / {
   - 售卖VPS
   - 服务器插件
   - ~~售卖Shadowsocks~~（考虑到ss长久不更新可能会做V2ray）
+
 - 用户
+
   - aff推广
+
 - 优惠卷
+
+- 文档完善
+
+- 教程完善
+
 - 用户等级
+
 - 阿里云OSS文件存储
-- 自定义页面
+
 
 
 
@@ -262,6 +275,7 @@ location / {
 - V0.1.3 设置项列表更改，添加邮件设置,添加注册邮件验证，购买，开通邮件发送,优化安装体验,添加无服务器插件,修复了一些bug又添加了很多bug
 - V0.1.4 添加微信公众号支持，可以绑定账户，查询余额
 - V0.1.5 添加Cpanel插件，工单可选优先级以及商品，商品功能添加库存
+- V0.1.6 添加SolusVM DirectAdmin支持 添加Log-viewer，添加了一些Bug
 
 
 
@@ -289,6 +303,8 @@ location / {
 
 群号：927933095
 
+[Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg)
+
 
 
 ### 求支持
@@ -301,7 +317,7 @@ location / {
 
 里面可以看到我疯狂挖的新坑，以及一些好玩的BUG，以及一些先行的源代码
 
-![image_822582455182_4.jpg](https://sz.ali.ftc.red/ftc/2018/11/27/image_822582455182_4.jpg)
+[知识星球二维码](https://sz.ali.ftc.red/ftc/2018/11/27/image_822582455182_4.jpg)
 
 
 
@@ -309,7 +325,7 @@ location / {
 
 >以下为我目前使用的服务器，仅代表个人。推广链接可领优惠卷
 
-[阿里云Aliyun](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=rdnyjbu6)
+[Aliyun](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=rdnyjbu6)
 
 [Vultr](https://www.vultr.com/?ref=7244417) 
 
@@ -323,8 +339,9 @@ location / {
 
 ### 废话
 
-本项目刚刚起步，需要大家的支持(一颗小星星就可以了)，如果大家想从其他主机销售系统转过来，需要什么功能欢迎提出来~~（挖墙脚）~~ 
+本项目刚刚起步，需要大家的支持(一颗小星星就可以了)，如果大家想从其他主机销售系统转过来，需要什么功能欢迎提出来 ~~挖墙脚~~  
 
+```
 
 
 {\__/}
@@ -356,6 +373,7 @@ location / {
 / > 🛒 快来开启你的主机商之旅吧
 
 
+```
 
 ### 版权
 
@@ -367,14 +385,4 @@ TomatoIDC 是基于 GNU General Public License version 3 开放源代码的自�
 
 ### 感谢
 
-[Laravel](https://laravel.com/)
-
-[CreativeTim](https://www.creative-tim.com/)
-
-[printempw](https://blessing.studio/)
-
-[番茄UI](https://www.fanqieui.com)
-
-[MercyCloudTeam](https://mercycloud.com)
-
-[Hostloc](https://www.hostloc.com)
+[Laravel](https://laravel.com/)   [Laravel-China](https://laravel-china.org/)  [CreativeTim](https://www.creative-tim.com/)  [printempw](https://blessing.studio/)  [番茄UI](https://www.fanqieui.com)  [MercyCloudTeam](https://mercycloud.com)  [Hostloc](https://www.hostloc.com)  [魔王](http://idc.la) [Overtrue](https://github.com/overtrue)

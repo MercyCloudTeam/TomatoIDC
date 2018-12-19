@@ -74,7 +74,9 @@ Route::prefix('admin')->group(function () {//管理路由
                 Route::get('show', 'AdminController@hostShowPage')->name('host.show');
                 //Recreate host action
                 Route::post('create/host/re', 'HostController@reCreateHost')->where(['id' => '^[0-9]*$']);
-
+                //Host Edit
+                Route::get('detailed/{id}','AdminController@hostDetailedPage')->where(['id' => '^[0-9]*$'])->name('host.detailed');
+                Route::post('detailed','HostController@hostEditAction');
                 //host manager
                 Route::post('open','HostController@openHost')->name('host.open');
                 Route::post('close','HostController@closeHost')->name('host.close');
@@ -114,12 +116,12 @@ Route::prefix('admin')->group(function () {//管理路由
                 Route::post('categories/del', 'GoodController@goodCategoriesDelAction')->name('good.categories.del');
                 //Goods configure add
                 Route::get('configure/add/{type}', 'AdminController@goodConfigureAddPage')->name('good.configure.add');
-                Route::post('configure/add', 'GoodController@goodConfigureAddAction');
+                Route::post('configure/add', 'GoodConfigureController@goodConfigureAddAction');
                 //Goods configure del
-                Route::post('configure/del', 'GoodController@goodConfigureDelAction')->name('good.configure.del');
+                Route::post('configure/del', 'GoodConfigureController@goodConfigureDelAction')->name('good.configure.del');
                 //Goods configure edit
                 Route::get('configure/edit/{id}', 'AdminController@goodConfigureEditPage')->name('good.configure.edit')->where(['id' => '^[0-9]*$']);
-                Route::post('configure/edit', 'GoodController@goodConfigureEditAction');
+                Route::post('configure/edit', 'GoodConfigureController@goodConfigureEditAction');
                 //Goods add
                 Route::get('add', 'AdminController@goodAddPage')->name('good.add');
                 Route::post('add', 'GoodController@goodAddAction');

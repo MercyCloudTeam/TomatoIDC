@@ -57,9 +57,15 @@ class CpanelController extends Controller
         !$configure->cgi ? $cgi = 1 : $cgi = $configure->cgi;
         !$configure->useregns ? $useregns = 1 : $useregns = $configure->useregns;
         !$configure->hasuseregns ? $hasuseregns = 1 : $hasuseregns = $configure->hasuseregns;
+
         $url .= "
             &username=" . $username . "
-            &domain=" . $domain . "
+            &domain=" . $domain;
+        if (!empty($configure->config_template)) {//使用模板开通
+            $url .= "&plan=" . $configure->config_template;
+        }
+        else {
+            $url .= "
             &featurelist=default
             &quota=" . $quoto . "
             &password=" . $password . "
@@ -84,6 +90,7 @@ class CpanelController extends Controller
             &max_email_per_hour=500
             &max_defer_fail_percentage=80
             ";
+        }
         $url = trim(str_replace("\r\n", '', $url));//去除换行
         $url = trim(str_replace(" ", '', $url));//去除空格=
         try {

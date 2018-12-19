@@ -135,7 +135,7 @@ class OrderController extends Controller
         }
 
         OrderModel::where('no', $order->no)->update(['host_id' => $host->id]);
-
+    
         if (!$order) { //错误提醒
             return redirect(route('order.show'))->with(['status' => 'failure', 'text' => "超过限购或库存已空"]);
         }
@@ -150,8 +150,7 @@ class OrderController extends Controller
             $status = $this->accountPay($order, Auth::user());
             if ($status) {
                 return $status;
-            }
-            else {
+            } else {
                 return redirect(route('order.show'))->with(['status' => 'failure', 'text' => '余额不足']);
             }
         }
@@ -192,8 +191,7 @@ class OrderController extends Controller
                         ]
             );
 
-        }
-        else {
+        } else {
             $this->validate(
                 $request, [
                             'domain' => 'nullable|unique:orders|string|min:3|max:100'
@@ -220,8 +218,7 @@ class OrderController extends Controller
             $status = $this->accountPay($order, Auth::user());
             if ($status) {
                 return $status;
-            }
-            else {
+            } else {
                 return redirect(route('order.show'))->with(['status' => 'failure', 'text' => '余额不足']);
             }
         }
@@ -276,8 +273,7 @@ class OrderController extends Controller
             $status = $this->accountPay($order, Auth::user());
             if ($status) {
                 return $status;
-            }
-            else {
+            } else {
                 return redirect(route('order.show'))->with(['status' => 'failure', 'text' => '余额不足']);
             }
         }
@@ -395,12 +391,12 @@ class OrderController extends Controller
         AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
-                        'no'    => 'exists:orders,no|required',
-                        'price' => 'numeric|required',
-                        'domain'=>'string|unique:orders|nullable'
+                        'no'     => 'exists:orders,no|required',
+                        'price'  => 'numeric|required',
+                        'domain' => 'string|unique:orders|nullable'
                     ]
         );
-        OrderModel::where('no', $request['no'])->update(['price' => $request['price'],'domain'=>$request['domain']]);
+        OrderModel::where('no', $request['no'])->update(['price' => $request['price'], 'domain' => $request['domain']]);
         return redirect(route('admin.order.show'));
     }
 }
