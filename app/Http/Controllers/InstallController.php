@@ -100,7 +100,7 @@ class InstallController extends Controller
         'setting.website.user.phone.validate' => false,//手机验证
         'setting.website.admin.sales.notice' => false,//管理销售通知
         'setting.website.user.email.notice' => false,//用户邮件通知
-        'setting.website.version' => 'V0.1.6',
+        'setting.website.version' => 'V0.1.7',
 
         'setting.mail.drive' => null,//邮件驱动
         'setting.website.sms.facilitator' => null,//短信服务商
@@ -108,6 +108,8 @@ class InstallController extends Controller
         'setting.wechat.service.status' => false,//微信服务状态
         'setting.wechat.robot.status' => false,//微信机器人状态
         'setting.wechat.robot.drive' => 'Turing',
+
+        'setting.expire.terminate.host.data' => 7,//过期多久后完全删除主机
     ];
 
     /**

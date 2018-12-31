@@ -143,7 +143,7 @@ ajax.onreadystatechange = function () {
                                     <th scope="row">
                                         {{$server->title}}
                                     </th>
-                                    <td>s
+                                    <td>
                                         {{$server->ip}}
                                     </td>
                                     <td>

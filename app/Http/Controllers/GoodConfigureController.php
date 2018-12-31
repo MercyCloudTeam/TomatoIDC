@@ -11,6 +11,7 @@ class GoodConfigureController extends Controller
 
     public $virtual_host_configure_form
         = [
+            'config_template' => '面板配置模板（重点）',
             'php_version'     => 'PHP版本',
             'mysql_version'   => 'Mysql版本',
             'db_quota'        => '数据库大小',
@@ -28,7 +29,6 @@ class GoodConfigureController extends Controller
             'max_subdir'      => '最多子目录(域)数',
             'ftp'             => '开启FTP',
             'template'        => '面板页面主题',
-            'config_template' => '面板配置模板',
             'free_domain'     => '免费二级域名',
             'language'        => '默认语言',
             'useregns'        => '是否为域使用注册的域名服务器',

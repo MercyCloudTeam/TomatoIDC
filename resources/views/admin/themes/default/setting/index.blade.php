@@ -430,6 +430,26 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <label class="form-control-label" for="input-username">到期多久后永久删除主机</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               value="{{old('terminate_host_data')? old('terminate_host_data'):$setting->where('name','setting.expire.terminate.host.data')->first()->value }}"
+                                               name="terminate_host_data">
+                                    </div>
+                                </div>
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-username">隐私策略URL</label>--}}
+                                        {{--<input type="text" class="form-control form-control-alternative"--}}
+                                               {{--value="{{old('privacy_policy')? old('privacy_policy'):$setting->where('name','setting.website.privacy.policy')->first()->value }}"--}}
+                                               {{--name="privacy_policy">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            </div>
+                        </div>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="input-username">用户条款URL</label>
                                         <input type="text" class="form-control form-control-alternative"
                                                value="{{old('user_agreements')? old('user_agreements'):$setting->where('name','setting.website.user.agreements')->first()->value }}"

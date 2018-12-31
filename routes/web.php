@@ -18,6 +18,7 @@
 //Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 //Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+//Route::get('auth/reset/pass', 'IndexController@resetFormPage')->name('password.request');
 
 Route::middleware(['check.install.status', 'throttle:60,1'])->group(function () {//安装路由
     //Install
@@ -80,6 +81,7 @@ Route::prefix('admin')->group(function () {//管理路由
                 //host manager
                 Route::post('open','HostController@openHost')->name('host.open');
                 Route::post('close','HostController@closeHost')->name('host.close');
+                Route::post('terminate','HostController@terminateHost')->name('host.terminate');
             });
             Route::prefix('work/order')->group(function () { //工单 Work order
                 //show
@@ -211,6 +213,7 @@ Route::prefix('home')->group(function () {//首页路由
         Route::post('workorder/add', 'WorkOrderController@workOrderAddAction')->name('work.order.add');//工单添加
         //Host
         Route::get('host/show', 'HomeController@hostShowPage')->name('host.show');//host list view
+        Route::post('host/reset/pass', 'HostController@resetPassHost')->name('host.pass.reset');//host reset password
         Route::get('host/detailed/{id}', 'HomeController@hostDetailedPage')->name('host.detailed');//host detailed view
 
         Route::post('host/panel/login','HostController@managePanelLogin')->where(['id' => '^[0-9]*$'])->name('host.panel.login');        //manager panel login action
@@ -230,6 +233,8 @@ Route::prefix('home')->group(function () {//首页路由
         Route::post('user/recharge/pay','UserRechargeController@userRechargePayAction')->name('user.recharge.pay');//用户操作 //user pay action
         Route::any('user/recharge/status','UserRechargeController@userRechargeCheckStatusAction')->name('user.recharge.status'); //User recharge status check action
         Route::post('user/recharge/prepaid/key','PrepaidKeyController@rechargePrepaidKeyAction')->name('prepaid.key');//卡米充值 Key recharge action
+//diy Page
+//        Route::get('diy/page/temp/{hash?}{code?}','DiyPageController@diyPageTempPage')->name('diy.page.temp');
     });
 });
 

@@ -202,7 +202,6 @@
                         <i class="ni ni-ruler-pencil text-pink"></i> 自定义页面
                     </a>
                 </li>
-
             </ul>
             <!-- Divider -->
             <hr class="my-3">
@@ -220,6 +219,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('admin/log-viewer')}}">
                         <i class="ni ni-books"></i> 网站日志
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.yuque.com/mercycloud/eg1gz6">
+                        <i class="ni ni-collection"></i> 帮助文档
                     </a>
                 </li>
             </ul>

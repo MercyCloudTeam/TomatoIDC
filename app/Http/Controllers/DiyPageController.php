@@ -8,16 +8,37 @@ use Illuminate\Support\Facades\DB;
 
 class DiyPageController extends Controller
 {
+    /**
+     * 首页返回
+     * @param $hash
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function indexPage($hash)
     {
         $hash = htmlspecialchars(trim($hash));
         if (DB::table('diy_page')->where([['hash', $hash], ['status', 1]])->exists()) {
             $page = DB::table('diy_page')->where([['hash', $hash], ['status', 1]])->first();
             return view(ThemeController::backThemePath('diy_page'), compact('page'));
-        }
-        else {
+        } else {
             return redirect('/');
         }
+    }
+
+    public function diyPageTempPage(string $code = null, string $hash = null)
+    {
+        dd($code);
+        $hash = (string)trim(htmlspecialchars($hash));
+
+        if (empty($code) && empty($hash)) {
+            return "diyPage";
+        }
+
+        if (!empty($code) && !empty($hash)) {
+            if ($hash == md5($code)) {
+                return $code;
+            }
+        }
+        return "diyPage";
     }
 
     /**
@@ -31,9 +52,9 @@ class DiyPageController extends Controller
         AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
-            'hash'    => 'min:2|unique:diy_page',
-            'content' => 'min:3|max:65535'
-        ]
+                        'hash'    => 'min:2|unique:diy_page',
+                        'content' => 'min:3|max:65535'
+                    ]
         );
         DB::table('diy_page')->insert(
             ['hash' => $request['hash'], 'content' => $request['content']]
@@ -48,14 +69,16 @@ class DiyPageController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function diyPageEditAction(Request $request)
-    {
+    public
+    function diyPageEditAction(
+        Request $request
+    ) {
         AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
-            'hash'    => 'min:2',
-            'content' => 'min:3|max:65535'
-        ]
+                        'hash'    => 'min:2',
+                        'content' => 'min:3|max:65535'
+                    ]
         );
         DB::table('diy_page')->where('hash', $request['hash'])->update(
             ['hash' => $request['hash'], 'content' => $request['content']]
@@ -70,13 +93,17 @@ class DiyPageController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function diyPageDelAction(Request $request)
-    {
+    public
+    function diyPageDelAction(
+        Request $request
+    ) {
         AdminController::checkAdminAuthority(Auth::user());
-//        dd($request);
-        $this->validate($request, [
-            'hash' => 'exists:diy_page,hash|required'
-        ]);
+        //        dd($request);
+        $this->validate(
+            $request, [
+                        'hash' => 'exists:diy_page,hash|required'
+                    ]
+        );
         DB::table('diy_page')->where('hash', $request['hash'])->update(['status' => 0]);
         return redirect(route('admin.diy.page.show'));
     }

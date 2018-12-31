@@ -1,6 +1,6 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.6/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.7/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 语言: [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md) | 
 
@@ -47,7 +47,7 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 
 
 
-目前版本V0.1.5 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
+目前版本V0.1.7 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
 
 关于框架版本：框架采用laravel最新版本
 
@@ -192,6 +192,7 @@ location / {
 - 支付宝官方（未测试，如果有人可以提供Key测试一下就好了）
 - 卡密充值
 - 番茄云支付
+- 码支付（未测试）
 
 更多支付方式，请自行进行支付插件开发
 
@@ -211,6 +212,8 @@ location / {
 - [Cpanel](https://cpanel.net)
 - [DirectAdmin](https://www.directadmin.com/)
 - [SolusVM](https://solusvm.com/)
+- [VestaCP](https://vestacp.com/)
+- [CyberPanel](https://cyberpanel.net/)
 
 ### 微信公众号
 
@@ -226,20 +229,15 @@ location / {
   - 售卖VPS
   - 服务器插件
   - ~~售卖Shadowsocks~~（考虑到ss长久不更新可能会做V2ray）
-
 - 用户
 
   - aff推广
-
 - 优惠卷
-
 - 文档完善
-
 - 教程完善
-
 - 用户等级
-
-- 阿里云OSS文件存储
+- 第三方文件存储
+- 多周期付费
 
 
 
@@ -276,6 +274,7 @@ location / {
 - V0.1.4 添加微信公众号支持，可以绑定账户，查询余额
 - V0.1.5 添加Cpanel插件，工单可选优先级以及商品，商品功能添加库存
 - V0.1.6 添加SolusVM DirectAdmin支持 添加Log-viewer，添加了一些Bug
+- V0.1.7 添加Vesta CyberPanel支持，多个服务器插件支持一键登录，重置主机密码，释放永久删除主机，码支付未测试
 
 
 
@@ -385,4 +384,4 @@ TomatoIDC 是基于 GNU General Public License version 3 开放源代码的自�
 
 ### 感谢
 
-[Laravel](https://laravel.com/)   [Laravel-China](https://laravel-china.org/)  [CreativeTim](https://www.creative-tim.com/)  [printempw](https://blessing.studio/)  [番茄UI](https://www.fanqieui.com)  [MercyCloudTeam](https://mercycloud.com)  [Hostloc](https://www.hostloc.com)  [魔王](http://idc.la) [Overtrue](https://github.com/overtrue)
+[Laravel](https://laravel.com/)   [Laravel-China](https://laravel-china.org/)  [CreativeTim](https://www.creative-tim.com/)  [printempw](https://blessing.studio/)  [番茄UI](https://www.fanqieui.com)  [MercyCloudTeam](https://mercycloud.com)  [Hostloc](https://www.hostloc.com)  [魔王](http://idc.la) [Overtrue](https://github.com/overtrue)  [Jcyt](s.iyt.li)

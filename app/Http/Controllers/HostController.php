@@ -10,9 +10,11 @@ use App\Http\Controllers\Server\ServerPluginController;
 use App\Mail\UserHostCreate;
 use App\OrderModel;
 use App\ServerModel;
+use App\SettingModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HostController extends Controller
 {
@@ -85,6 +87,7 @@ class HostController extends Controller
      */
     public function reCreateHost(Request $request)
     {
+        AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
                         'no' => 'exists:orders,no|required'
@@ -104,9 +107,96 @@ class HostController extends Controller
         return back()->with(['status' => 'failure']);
     }
 
+    /**
+     * 重设主机密码
+     * @param Request $request
+     * @return bool|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|string
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function resetPassHost(Request $request)
+    {
+        //验证
+        $this->validate(
+            $request, [
+                        'id' => 'exists:hosts|numeric'
+                    ]
+        );
+        $host = HostModel::where('id', $request['id'])->first();
+        $this->authorize('view', $host);
+        //逻辑
+        $server           = $host->order->good->server;
+        $serverController = new ServerPluginController();
+        $result           = $serverController->resetPassHost($server, $host);
+
+        if (!empty($result)) {
+            return 1;
+        }
+        return response('error', 500);
+    }
 
     /**
-     * 检测所有主机状态
+     * 释放主机
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|int
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function terminateHost(Request $request)
+    {
+        AdminController::checkAdminAuthority(Auth::user());
+        $this->validate(
+            $request, [
+                        'id' => 'exists:hosts|required'
+                    ]
+        );
+        $host             = HostModel::where('id', $request['id'])->first();
+        $server           = $host->order->good->server;
+        $serverController = new ServerPluginController();
+        $status           = $serverController->terminateHost($server, $host);
+        if ($status) {
+            HostModel::where('id', $host->id)->update(['status' => 4]);//标记已释放
+            return 1;
+        } else {
+            HostModel::where('id', $host->id)->update(['status' => 3]);//标记出错
+            return response('error', 500);
+        }
+    }
+
+    /**
+     * 自动永久删除主机
+     */
+    public function autoTerminateHost()
+    {
+        $setting = SettingModel::where('name', 'setting.expire.terminate.host.data')->get();
+        if ($setting->isEmpty()) {
+            $day = 10;
+        } else {
+            $day = (int)$setting->first()->value;
+        }
+        $hosts = HostModel::where(
+            [
+                ['status', '2'],
+                ['deadline', '<=', Carbon::now()->addDay($day)]
+            ]
+        )->get()
+        ;
+        if (!$hosts->isEmpty()) {
+            foreach ($hosts as $host) {
+                $server           = $host->order->good->server;
+                $serverController = new ServerPluginController();
+                $status           = $serverController->TerminateHost($server, $host);
+                if ($status) {
+                    HostModel::where('id', $host->id)->update(['status' => 4]);//标记资源已永久删除
+                } else {
+                    HostModel::where('id', $host->id)->update(['status' => 3]);//标记出错
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 检测所有主机状态 并自动停用
      */
     public function autoCheckHostStatus()
     {
@@ -135,7 +225,10 @@ class HostController extends Controller
 
     /**
      * 管理面板登录
-     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function managePanelLogin(Request $request)
     {
@@ -155,7 +248,13 @@ class HostController extends Controller
         $serverController = new ServerPluginController();
         $result           = $serverController->managePanelLogin($server, $host);
         if (!empty($result)) {
-            return redirect($result);
+            switch ($result['type']) {
+                case 'url':
+                    return redirect($result['content']);
+                    break;
+                case 'from_base64':
+                    return base64_decode($result['content']);
+            }
         }
         return back()->with(['status' => 'failure', 'text' => '该服务不支持']);
     }
@@ -209,8 +308,15 @@ class HostController extends Controller
         }
     }
 
+    /**
+     * 编辑主机
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function hostEditAction(Request $request)
     {
+        AdminController::checkAdminAuthority(Auth::user());
         $this->validate(
             $request, [
                         'deadline'  => ['string', 'min:3', 'max:100', 'regex:/[0-9]+\/[0-9]+\/[0-9]+/'],
@@ -270,6 +376,8 @@ class HostController extends Controller
                 $status = $serverController->renewHost($server, $configure, $order, $host);
             if ($status) {
                 //开通成功后执行代码
+                //更新订单
+                HostModel::where('id', $order->host_id)->update(['order_id' => $order->id]);
                 if (!empty($configure->time && !empty($host->deadline))) {//添加截止时间
                     HostModel::where('id', $host->id)->update(['deadline' => Carbon::parse($host->deadline)->addDays($configure->time)]);
                 }

@@ -136,15 +136,15 @@ class EasyPanelController extends Controller
         if ($result) {
             $result = json_decode($result, true);
             if ($result['result'] == 200) {
-                $tempPort = !empty($server->port) ? $server->port : ":3312/vhost/";
-                $host     = HostModel::create(
+                //                $tempPort = !empty($server->port) ? $server->port : ":3312/vhost/";
+                $host = HostModel::create(
                     [
                         'order_id'   => $order->id,
                         'user_id'    => $order->user_id,
                         'host_name'  => $name,
                         'host_pass'  => $password,
                         'host_panel' => 'EasyPanel',
-                        'host_url'   => $this->protocol . $serverUrl . $tempPort
+                        'host_url'   => null
                     ]
                 );
                 return $host;
@@ -166,6 +166,32 @@ class EasyPanelController extends Controller
     }
 
     /**
+     * 主机面板管理
+     * @param $server
+     * @param $host
+     * @return array
+     */
+    public function managePanelLogin($server, $host)
+    {
+        $input  = '
+       
+        <form action="http://' . $server->ip . ':3312/vhost/?c=session&a=login" method="post">
+        <input type="hidden" name="username" value="' . $host->host_name . '" />
+        <input type="hidden" name="passwd" value="' . $host->host_pass . '" />
+        <input type="submit"  id="login" value="登录虚拟主机控制面板" />
+        </form>
+        <script>
+              setTimeout(function(){
+                  var login = document.getElementById(\'login\');//给你的a标签加一个id :btnBuy
+                  login.click();
+              },200);
+        </script>
+        ';
+        $base64 = base64_encode($input);
+        return ['type' => 'from_base64', 'content' => $base64];
+    }
+
+    /**
      * 续费主机
      * ep面板没法限定时间
      * @return bool
@@ -173,6 +199,59 @@ class EasyPanelController extends Controller
     public function renewHost()
     {
         return true;
+    }
+
+    /**
+     * 永久删除主机
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function terminateHost($server, $host)
+    {
+        !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
+        $serverUrl = $server->ip;
+
+        $rand   = mt_rand(1000, 9999);
+        $sign   = $this->makeSign('del_vh', $server->key, $rand);
+        $url    = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=del_vh&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&name=" . $host->host_name . "&json=1";
+        $result = $this->curlGet($url);
+        if ($result) {
+            $result = json_decode($result, true);
+            if ($result['result'] == 200) {
+                return $host;
+            }
+            Log::info('EasyPanel TerminateHost error', ['url' => $url]);
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * 重新设置密码
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function resetPassHost($server, $host)
+    {
+        !empty($server->port) ? $port = $server->port : $port = "3312" . $this->suffix;
+        $serverUrl = $server->ip;
+        $password  = str_random();
+        $rand      = mt_rand(1000, 9999);
+        $sign      = $this->makeSign('change_password', $server->key, $rand);
+        $url       = $this->protocol . $serverUrl . ':' . $port . "?c=whm&a=change_password&&r=" . $rand . "&s=" . $sign . "&name=" . $host->host_name . "&passwd=" . $password . "&json=1";
+        $result    = $this->curlGet($url);
+        if ($result) {
+            $result = json_decode($result, true);
+            if ($result['result'] == 200) {
+                HostModel::where('id', $host->id)->update(['host_pass' => $password]);
+                return $host;
+            }
+            Log::info('EasyPanel resetPassHost error', ['url' => $url]);
+            return false;
+        }
+        return false;
     }
 
     /**

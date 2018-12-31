@@ -63,8 +63,7 @@ class CpanelController extends Controller
             &domain=" . $domain;
         if (!empty($configure->config_template)) {//使用模板开通
             $url .= "&plan=" . $configure->config_template;
-        }
-        else {
+        } else {
             $url .= "
             &featurelist=default
             &quota=" . $quoto . "
@@ -125,6 +124,80 @@ class CpanelController extends Controller
 
     }
 
+
+    /**
+     * 永久删除主机
+     * @param $server
+     * @param $host
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function terminateHost($server, $host)
+    {
+        $url    = $server->ip . ":" . $server->port;
+        $client = new Client();
+        $url    .= "/json-api/removeacct?api.version=1&user=" . $host->host_name;
+        try {
+            $response = $client->request(
+                'GET', $url, [
+                         'headers' => ['Authorization' => 'whm ' . $server->username . ':' . $server->token]
+                     ]
+            );
+        }
+        catch (\Exception $e) {
+            Log::error('Cpanel reset pass host error', [$e, $url]);
+            return false;
+        }
+        $data = $response->getBody()->getContents();
+        $data = json_decode($data);
+        if ($data->metadata->result) {
+            return $host;
+        }
+        Log::error('Cpanel error', [$data]);
+        return false;
+    }
+
+    /**
+     * 重新设置密码
+     * @param $server
+     * @param $host
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function resetPassHost($server, $host)
+    {
+        $url      = $server->ip . ":" . $server->port;
+        $client   = new Client();
+        $password = str_random();
+        $url      .= "/json-api/passwd?api.version=1&user=" . $host->host_name . "&password=" . $password;
+        try {
+            $response = $client->request(
+                'GET', $url, [
+                         'headers' => ['Authorization' => 'whm ' . $server->username . ':' . $server->token]
+                     ]
+            );
+        }
+        catch (\Exception $e) {
+            Log::error('Cpanel reset pass host error', [$e, $url]);
+            return false;
+        }
+        $data = $response->getBody()->getContents();
+        $data = json_decode($data);
+        if ($data->metadata->result) {
+            HostModel::where('id', $host->id)->update(['host_pass' => $password]);
+            return $host;
+        }
+        Log::error('Cpanel error', [$data]);
+        return false;
+    }
+
+    /**
+     * 一键登录管理面板
+     * @param $server
+     * @param $host
+     * @return array|bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function managePanelLogin($server, $host)
     {
         $url    = $server->ip . ":" . $server->port;
@@ -145,7 +218,7 @@ class CpanelController extends Controller
         $data = $response->getBody()->getContents();
         $data = json_decode($data);
         if ($data->metadata->result) {
-            return $data->data->url;
+            return ['type' => 'url', 'content' => $data->data->url];
         }
         Log::error('Cpanel error', [$data]);
         return false;
@@ -171,6 +244,7 @@ class CpanelController extends Controller
      * @param $server
      * @param $host
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function openHost($server, $host)
     {
@@ -202,6 +276,7 @@ class CpanelController extends Controller
      * @param $server
      * @param $host
      * @return false|object
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function closeHost($server, $host)
     {

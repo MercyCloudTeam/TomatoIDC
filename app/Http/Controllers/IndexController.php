@@ -22,7 +22,15 @@ class IndexController extends Controller
      * 视图代码View
      */
 
-    public $version = "V0.1.6";//发布版本号
+    public $version = "V0.1.7";//发布版本号
+
+    /**
+     * 返回重置密码表单
+     */
+    public function resetFormPage()
+    {
+        return view(ThemeController::backThemePath('auth.reset'));
+    }
 
     /**
      * 返回首页视图
@@ -193,6 +201,7 @@ class IndexController extends Controller
         $hostController = new HostController();
         $payController = new PayController();
         $hosts = $hostController->autoCheckHostStatus();
+        $hostController->autoTerminateHost();
         $order = $payController->autoCheckOrderStatus();
         $recharge = $payController->autoCheckRechargeStatus();
         return time();

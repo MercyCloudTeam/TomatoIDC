@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Server;
 
+/**
+ * TODO 优化代码(代码太多重复了)
+ */
+
 use App\HostModel;
 use App\Http\Controllers\Controller;
 use App\OrderModel;
@@ -29,6 +33,44 @@ class SolusvmController extends Controller
 
     protected $protocol = 'https://';
 
+
+    public function resetPassHost($server, $host)
+    {
+        $url      = $this->protocol . $server->ip . ":" . $server->port . "/api/admin/command.php";
+        $password = str_random();
+        $params   = [ //提交
+                      'form_params' => [
+                          'rdtype'   => 'json',
+                          'key'      => $server->key,
+                          'id'       => $server->token,
+                          'action'   => 'client-updatepassword',
+                          'username' => $host->host_name,
+                          'password' => $password
+                      ],
+                      'verify'      => false //不验证证书
+        ];
+
+        try {
+            $client   = new Client(['timeout' => 60]);
+            $response = $client->request(
+                'POST', $url, $params
+            );
+        }
+        catch (\Exception $e) {//错误返回
+            Log::error('Solusvm resetPassHost error', [$e, $server, $host]);
+            return false;
+        }
+
+        $result = $response->getBody()->getContents();
+        $result = json_decode($result);
+        if (!empty($result) && $result->status == "success") { //成功
+            HostModel::where('id', $host->id)->update(['host_pass' => $password]);
+            return $host;
+        }
+        //错误返回
+        Log::error('Solusvm resetPassHost error', [$result, $server, $host]);
+        return false;
+    }
 
     /**
      * 创建主机
@@ -176,44 +218,6 @@ class SolusvmController extends Controller
     public function managePanelLogin($server, $host)
     {
         return false;
-        //        $url      = $this->protocol . $server->ip . ":" . $server->port . "/api/admin/command.php";
-        //        $params = [ //提交
-        //                    'form_params' => [
-        //                        'rdtype' => 'json',
-        //                        'action'=>'client-key-login',
-        //                        'key'    => $server->key,
-        //                        'id'     => $server->token,
-        //                        'returnurl'=>$this->protocol . $server->ip,
-        //                        'forward '=>1,
-        //                        'username'=>$host->host_name,
-        //                    ],
-        //                    'verify'      => false //不验证证书
-        //        ];
-        //
-        //        try {
-        //            $client = new Client(['timeout' => 60]);
-        //            $response = $client->request(
-        //                'POST', $url, $params
-        //            );
-        //        }
-        //        catch (\Exception $e) {//错误返回
-        //            Log::error('Solusvm client-key-logi error', [$e, $server, $host]);
-        //            return false;
-        //        }
-        //        $data = $response->getBody()->getContents();
-        //        $data = json_decode($data);
-        //        if ($data->status == "success"){
-        //
-        //            Cookie::make('hasha',$server->hasha);
-        //            Cookie::make('hashb',$server->hashb);
-        //            dd($this->protocol . $server->ip);
-        ////            return redirect($this->protocol . $server->ip);
-        //        }
-        //        dd($data);
-        ////        if ($data->metadata->result) {
-        ////            return $data->data->url;
-        ////        }
-        //        Log::error('Solusvm client-key-logi error', [$data]);
     }
 
     /**
@@ -284,6 +288,55 @@ class SolusvmController extends Controller
         }
         //错误返回
         Log::error('Solusvm editVirtualServerStatus error', [$result, $server, $host]);
+        return false;
+    }
+
+
+    /**
+     * 删除主机
+     * @param $server
+     * @param $host
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function terminateHost($server, $host)
+    {
+        if (empty($host->server_id)) {
+            //TODO 根据host_name获取服务器ID
+            Log::error('Solusvm TerminateHost server id is null', [$host, $server]);
+            return false;
+        }
+
+        $url    = $this->protocol . $server->ip . ":" . $server->port . "/api/admin/command.php";
+        $params = [ //提交
+                    'form_params' => [
+                        'rdtype'    => 'json',
+                        'key'       => $server->key,
+                        'id'        => $server->token,
+                        'action'    => 'vserver-terminate',
+                        'vserverid' => $host->server_id
+                    ],
+                    'verify'      => false //不验证证书
+        ];
+
+        try {
+            $client   = new Client(['timeout' => 60]);
+            $response = $client->request(
+                'POST', $url, $params
+            );
+        }
+        catch (\Exception $e) {//错误返回
+            Log::error('Solusvm TerminateHost error', [$e, $server, $host]);
+            return false;
+        }
+
+        $result = $response->getBody()->getContents();
+        $result = json_decode($result);
+        if (!empty($result) && $result->status == "success") { //成功
+            return $host;
+        }
+        //错误返回
+        Log::error('Solusvm TerminateHost error', [$result, $server, $host]);
         return false;
     }
 

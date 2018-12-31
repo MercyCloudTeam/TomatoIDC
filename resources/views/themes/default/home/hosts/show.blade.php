@@ -45,8 +45,11 @@
                               @case(2)
                               <i class="bg-warning"></i> 已过期
                               @break
+                              @case(4)
+                              <i class="bg-danger"></i> 已释放
+                              @break
                               @default
-                              <i class="bg-danger"></i> 未定义
+                              <i class="bg-primary"></i> 处理中
                               @break
                           @endswitch
                       </span>
@@ -68,18 +71,27 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             @if($host->status == 1 )
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="{{route('host.detailed',['id'=>$host->id])}}">信息/管理</a>
-                                                <a class="dropdown-item" href="{{route('host.renew',['id'=>$host->id])}}">续费</a>
-                                                <button class="dropdown-item" onclick="event.preventDefault();
-                                                        document.getElementById('host-panel-{{$host->id}}').submit();" >主机面板</button>
-                                            </div>
-                                            <form id="host-panel-{{$host->id}}"
-                                                  action="{{ route('host.panel.login') }}" method="POST"
-                                                  style="display: none;">
-                                                {{csrf_field()}}
-                                                <input type="hidden" name="id" value="{{$host->id}}">
-                                            </form>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item"
+                                                       href="{{route('host.detailed',['id'=>$host->id])}}">信息/管理</a>
+                                                    <a class="dropdown-item"
+                                                       href="{{route('host.renew',['id'=>$host->id])}}">续费</a>
+                                                    <button class="dropdown-item" onclick="event.preventDefault();
+                                                            document.getElementById('host-panel-{{$host->id}}').submit();">
+                                                        主机面板
+                                                    </button>
+                                                </div>
+                                                <form id="host-panel-{{$host->id}}"
+                                                      action="{{ route('host.panel.login') }}" method="POST"
+                                                      style="display: none;">
+                                                    {{csrf_field()}}
+                                                    <input type="hidden" name="id" value="{{$host->id}}">
+                                                </form>
+                                            @else
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item"
+                                                       href="{{route('order.detailed',['id'=>$host->order->no])}}">查看订单</a>
+                                                </div>
                                             @endif
                                         </div>
                                     </td>

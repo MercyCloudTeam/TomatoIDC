@@ -117,7 +117,7 @@ class DirectAdminController extends Controller
                     'host_name'  => $userName,
                     'host_pass'  => $password,
                     'host_panel' => 'DirectAdmin',
-                    'host_url'   => 'http://'.$server->ip.':'.$port
+                    'host_url'   => null
                 ]
             );
             return $host;
@@ -132,12 +132,109 @@ class DirectAdminController extends Controller
 
     }
 
+    public function getUrl($server)
+    {
+        $port = $server->port ?? "2222";
+        //判断是否填写前缀
+        preg_match("/(http|https):\/\//", $server->ip, $arr);
+        if (empty($arr)) {
+            $protocol = "http://";
+        } else {
+            $protocol = '';
+        }
+        return $url = $protocol . $server->ip . ':' . $port;
+    }
+
+    /**
+     * 登录管理面板
+     * @param $server
+     * @param $host
+     * @return array|bool
+     */
     public function managePanelLogin($server, $host)
     {
-//        print_r($this->closeHost($server, $host));
+        $url    = $this->getUrl($server);
+        $input  = '
+        <form action="' . $url . '/CMD_LOGIN" method="post">
+        <input type="hidden" name="username" value="' . $host->host_name . '" />
+        <input type="hidden" name="password" value="' . $host->host_pass . '" />
+        <input type="submit"  id="login" value="登录虚拟主机控制面板" />
+        </form>
+        <script>
+              setTimeout(function(){
+                  var login = document.getElementById(\'login\');//给你的a标签加一个id :btnBuy
+                  login.click();
+              },100);
+        </script>
+        ';
+        $base64 = base64_encode($input);
+        return ['type' => 'from_base64', 'content' => $base64];
+    }
+
+
+    /**
+     * 永久删除主机
+     * @param $server
+     * @param $host
+     * @return bool
+     * CMD_SELECT_API_USERS原本是这个也是不可以用
+     *去掉API又可以用了
+     */
+    public function terminateHost($server, $host)
+    {
+        $port = $server->port ?? $port = 2222;
+        $this->connect($server->ip, $port);
+        $this->set_login($server->username, $server->password);
+        $this->set_method('POST');
+        $arr2 = [
+            'location'  => 'CMD_API_SELECT_USERS',
+            'confirmed' => 'Confirm',
+            'delete'    => 'yes',
+            'select0'   => $host->host_name
+        ];
+
+        $this->query('/CMD_API_SELECT_USERS', $arr2);
+        $result = $this->fetch_parsed_body();
+        //        Log::info('da', $result);
+        if ($result['error'] == 0) {
+            return $host;
+        }
+        Log::error('DirectAdmin error', [$result]);
         return false;
     }
 
+    /**
+     * 重新设置密码
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function resetPassHost($server, $host)
+    {
+        $port = $server->port ?? $port = 2222;
+        $this->connect($server->ip, $port);
+        $pass = str_random();
+        $this->set_login($server->username, $server->password);
+        $this->set_method('POST');
+        $arr2 = [
+            'username' => $host->host_name,
+            'passwd'   => $pass,
+            'passwd2'  => $pass,
+        ];
+
+        $this->query('/CMD_API_USER_PASSWD', $arr2);
+        //        $this->query('/CMD_API_USER_PASSWD', $arr2); ???佛了 为什么每个api都这样 去掉api就正常
+        $result = $this->fetch_parsed_body();
+//                Log::info('da', [$result]);
+        if ( empty($result) or $result['error'] != 0) {
+            Log::error('DirectAdmin error', [$result]);
+            return false;
+        }
+//        Log::error('DirectAdmin error', [$result]);
+        HostModel::where('id', $host->id)->update(['host_pass' => $pass]);
+        return $host;
+
+    }
 
     /**
      * 续费主机

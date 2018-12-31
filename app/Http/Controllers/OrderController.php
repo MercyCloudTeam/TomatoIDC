@@ -134,8 +134,8 @@ class OrderController extends Controller
             return back()->with(['status' => 'failure', 'text' => "无法下单"]);
         }
 
-        OrderModel::where('no', $order->no)->update(['host_id' => $host->id]);
-    
+        OrderModel::where('no', $order->no)->update(['host_id' => $host->id, 'domain' => $host->order->domain]);
+
         if (!$order) { //错误提醒
             return redirect(route('order.show'))->with(['status' => 'failure', 'text' => "超过限购或库存已空"]);
         }

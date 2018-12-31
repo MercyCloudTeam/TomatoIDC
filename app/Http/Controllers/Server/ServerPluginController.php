@@ -13,7 +13,7 @@ class ServerPluginController extends Controller
      */
     public static function getServerPluginArr()
     {
-        $path = app_path('Http/Controllers/Server/');
+        $path     = app_path('Http/Controllers/Server/');
         $fileTemp = scandir($path);
         $fileList = [];
         foreach ($fileTemp as $value) {
@@ -32,12 +32,12 @@ class ServerPluginController extends Controller
      * @param $host
      * @return bool
      */
-    public function managePanelLogin($server,$host)
+    public function managePanelLogin($server, $host)
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
-        $plugin = new $controllerName();
-        if (method_exists($plugin,'managePanelLogin')){
-            return $plugin->managePanelLogin($server,$host);
+        $plugin         = new $controllerName();
+        if (method_exists($plugin, 'managePanelLogin')) {
+            return $plugin->managePanelLogin($server, $host);
         }
         return false;
     }
@@ -55,7 +55,7 @@ class ServerPluginController extends Controller
     public function serverStatus($server)
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
-        $plugin = new $controllerName();
+        $plugin         = new $controllerName();
         return $plugin->serverStatus($server);
 
     }
@@ -70,7 +70,7 @@ class ServerPluginController extends Controller
     public function createHost($server, $configure, $order)
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
-        $plugin = new $controllerName();
+        $plugin         = new $controllerName();
         return $plugin->createHost($server, $configure, $order);
     }
 
@@ -85,8 +85,46 @@ class ServerPluginController extends Controller
     public function renewHost($server, $configure, $order, $host = null)
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
-        $plugin = new $controllerName();
+        $plugin         = new $controllerName();
         return $plugin->renewHost($server, $configure, $order);
+    }
+
+
+    /**
+     * 停止主机
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function terminateHost($server, $host)
+    {
+        $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
+        if (class_exists($controllerName)) {//检测是否有该class
+            $plugin = new $controllerName();//动态调用控制器
+            if (method_exists($plugin, 'terminateHost')) {
+                return $plugin->terminateHost($server, $host);
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 重置主机密码
+     * @param $server
+     * @param $host
+     * @return bool
+     */
+    public function resetPassHost($server, $host)
+    {
+        $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
+        if (class_exists($controllerName)) {//检测是否有该class
+            $plugin = new $controllerName();//动态调用控制器
+            if (method_exists($plugin, 'resetPassHost')) {
+                return $plugin->resetPassHost($server, $host);
+            }
+        }
+        return false;
     }
 
     /**
@@ -98,14 +136,21 @@ class ServerPluginController extends Controller
     public function closeHost($server, $host)
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
-        $plugin = new $controllerName();
+        $plugin         = new $controllerName();
         return $plugin->closeHost($server, $host);
     }
 
+    /**
+     * //TODO 更改命名
+     * 开启主机
+     * @param $server
+     * @param $host
+     * @return mixed
+     */
     public function openHost($server, $host)
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
-        $plugin = new $controllerName();
+        $plugin         = new $controllerName();
         return $plugin->openHost($server, $host);
     }
 

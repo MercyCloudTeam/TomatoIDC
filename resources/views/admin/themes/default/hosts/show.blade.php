@@ -67,6 +67,9 @@
                               @case(2)
                               <i class="bg-warning"></i> 已过期
                               @break
+                              @case(4)
+                              <i class="bg-danger"></i> 已释放
+                              @break
                               @default
                               <i class="bg-danger"></i> 未定义
                               @break
@@ -75,17 +78,31 @@
                                     </td>
                                     <td class="text-left">
                                         <div class="dropdown">
-                                            <a href="{{route('admin.host.detailed',['id'=>$item->id])}}" class="btn btn-info btn-sm">管理</a>
-                                            @switch($item->status)
-                                                @case(1)
-                                                <button onclick="closehost(this,{{$item->id}})" class="btn btn-danger btn-sm">停用主机</button>
-                                                @break
-                                                @case(2)
-                                                <button onclick="openhost(this,{{$item->id}})" class="btn btn-success btn-sm">开启主机</button>
-                                                @break
-                                            @endswitch
-
-                                        </div>
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a href="{{route('admin.host.detailed',['id'=>$item->id])}}"
+                                                   class="dropdown-item">管理</a>
+                                                @switch($item->status)
+                                                    @case(1)
+                                                    <button onclick="closehost(this,{{$item->id}})"
+                                                            class="dropdown-item">停用主机
+                                                    </button>
+                                                    @break
+                                                    @case(2)
+                                                    <button onclick="openhost(this,{{$item->id}})"
+                                                            class="dropdown-item">开启主机
+                                                    </button>
+                                                    @break
+                                                @endswitch
+                                                @if($item->status !=4)
+                                                    <button onclick="terminateHost(this,{{$item->id}})"
+                                                            class="dropdown-item">释放主机
+                                                    </button>
+                                                @endif
+                                            </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -95,9 +112,9 @@
                 </div>
 
                 <script>
-                    function openhost(obj,id) {
+                    function openhost(obj, id) {
                         // var thisObj=$(obj);
-                        obj.setAttribute('disabled',true);
+                        obj.setAttribute('disabled', true);
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -106,16 +123,16 @@
                             url: '{{route('admin.host.open')}}',
                             dataType: 'json',
                             async: true,
-                            data:"id="+id,
+                            data: "id=" + id,
                             success: function (data) {
                                 // obj.removeAttribute("disabled");
                                 obj.innerHTML = "开启成功";
                                 console.log(data);
-                                swal('成功','操作成功','success')
+                                swal('成功', '操作成功', 'success')
                             },
                             error: function (data) {
-                                if (data.status !=200) {
-                                    swal('失败','出现奇怪的错误了','error');
+                                if (data.status != 200) {
+                                    swal('失败', '出现奇怪的错误了', 'error');
                                     console.log(data);
                                     obj.removeAttribute("disabled");
                                 }
@@ -124,9 +141,38 @@
                         });
                     }
 
-                    function closehost(obj,id) {
+                    //释放
+                    function terminateHost(obj, id) {
+                        obj.setAttribute('disabled', true);
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'POST',
+                            url: '{{route('admin.host.terminate')}}',
+                            dataType: 'json',
+                            async: true,
+                            data: "id=" + id,
+                            success: function (data) {
+                                // obj.removeAttribute("disabled");
+                                obj.innerHTML = "释放成功";
+                                console.log(data);
+                                swal('成功', '操作成功', 'success')
+                            },
+                            error: function (data) {
+                                if (data.status != 200) {
+                                    swal('失败', '出现奇怪的错误了', 'error');
+                                    console.log(data);
+                                    obj.removeAttribute("disabled");
+                                }
+                                // console.log(data);
+                            }
+                        });
+                    }
+
+                    function closehost(obj, id) {
                         // var thisObj=$(obj);
-                        obj.setAttribute('disabled',true);
+                        obj.setAttribute('disabled', true);
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -135,16 +181,16 @@
                             url: '{{route('admin.host.close')}}',
                             dataType: 'json',
                             async: true,
-                            data:"id="+id,
+                            data: "id=" + id,
                             success: function (data) {
                                 // obj.removeAttribute("disabled");
                                 obj.innerHTML = "停用成功";
                                 console.log(data);
-                                swal('成功','操作成功','success')
+                                swal('成功', '操作成功', 'success')
                             },
                             error: function (data) {
-                                if (data.status !=200) {
-                                    swal('失败','出现奇怪的错误了','error');
+                                if (data.status != 200) {
+                                    swal('失败', '出现奇怪的错误了', 'error');
                                     console.log(data);
                                     obj.removeAttribute("disabled");
                                 }

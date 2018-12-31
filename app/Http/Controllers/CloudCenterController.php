@@ -7,8 +7,10 @@ namespace App\Http\Controllers;
  * 获取更新，检测版本号， 协助社区发展
  */
 
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Yansongda\Pay\Log;
 
 
 class CloudCenterController extends Controller
@@ -16,27 +18,35 @@ class CloudCenterController extends Controller
     //云中心连接
     //请不要做个伪云中心服务器:)
     protected $serverUrl = "api.localhost.com";
-    protected $protocol = 'http'; //HTTP/HTTPS
+    protected $protocol  = 'https'; //HTTP/HTTPS
 
     //获取云中心URL
-    protected function serverUrl( $serverUrl ="localhost",$protocol = "http")
+    protected function serverUrl($serverUrl = "localhost", $protocol = "http")
     {
         return $protocol . "://" . $serverUrl;
     }
 
-    protected function clientCloudGet($url){
-        $client = new Client([
-            'base_uri' => $this->serverUrl(),
-            'timeout'  => 5.0,
-        ]);
-        $response = $client->get($url);
+    protected function clientCloudGet($url)
+    {
+        try {
+            $client   = new Client(
+                [
+                    'base_uri' => $this->serverUrl(),
+                    'timeout'  => 5.0,
+                ]
+            );
+            $response = $client->get($url);
+        }
+        catch (RequestException $e) {
+            Log::error('Cloud Center connect error', [$e, $url]);
+            return false;
+        }
         return $response;
     }
 
     protected function makeEncrypt()
     {
-        $rand = md5(config('app.name').time().mt_rand(0,9999).date('y'));
-        $encrypt = encrypt($rand);
+//        $encrypt = encrypt();
     }
 
     public function getCloudVersion()

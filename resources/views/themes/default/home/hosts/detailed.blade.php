@@ -57,8 +57,8 @@
                         <hr class="my-4"/>
                         <button class="btn btn-primary" type="button"
                                 onclick="event.preventDefault();
-                                document.getElementById('host-panel-{{$host->id}}').submit();"
-                                href="{{$host->host_url}}">管理面板
+                                        document.getElementById('host-panel-{{$host->id}}').submit();"
+                        >管理面板
                         </button>
                         <form id="host-panel-{{$host->id}}"
                               action="{{ route('host.panel.login') }}" method="POST"
@@ -75,14 +75,45 @@
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
                         <div class="col-12">
-                            <h3 class="mb-0">主机信息</h3>
+                            <h3 class="mb-0">主机管理</h3>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-
+                    <button type="button" onclick="resetpass({{$host->id}})" class="btn btn-secondary">重置密码</button>
+                    <button type="button" onclick="event.preventDefault();
+                            document.getElementById('host-panel-{{$host->id}}').submit();"
+                            class="btn btn-info">管理面板
+                    </button>
+                    <a href="{{route('order.detailed',['id'=>$host->order->no])}}" class="btn btn-primary">订单详细</a>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function resetpass(id) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                type: 'POST',
+                url: '{{route('host.pass.reset')}}',
+                dataType: 'json',
+                async: true,
+                data: "id=" + id,
+                success: function (data) {
+                    // console.log(data);
+                    swal('成功', '重新设置密码成功', 'success')
+                    location.reload()
+                },
+                error: function (data) {
+                    if (data.status != 200) {
+                        swal('失败', '出现奇怪的错误了', 'error');
+                        console.log(data);
+                    }
+                    // console.log(data);
+                }
+            });
+        }
+    </script>
 @endsection

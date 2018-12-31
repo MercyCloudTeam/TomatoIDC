@@ -542,6 +542,7 @@ class AdminController extends Controller
             'logo' => 'string|nullable|min:1|max:200',
             'logourl' => 'string|nullable|min:1|max:200',
             'wechat_service' => 'string|nullable',
+            'terminate_host_data' => 'string|nullable',
         ]);
 
         //TODO 垃圾代码
@@ -566,6 +567,7 @@ class AdminController extends Controller
         SettingModel::where('name', 'setting.mail.drive')->first()->value == $request['mailDrive'] ?: SettingModel::where('name', 'setting.mail.drive')->update(['value' => $request['mailDrive']]);
         SettingModel::where('name', 'setting.website.aff.status')->first()->value == $request['aff_status'] ?: SettingModel::where('name', 'setting.website.aff.status')->update(['value' => $request['aff_status']]);
         SettingModel::where('name', 'setting.wechat.service.status')->first()->value == $request['wechat_service'] ?: SettingModel::where('name', 'setting.wechat.service.status')->update(['value' => $request['wechat_service']]);
+        SettingModel::where('name', 'setting.expire.terminate.host.data')->first()->value == $request['terminate_host_data'] ?: SettingModel::where('name', 'setting.expire.terminate.host.data')->update(['value' => $request['terminate_host_data']]);
         return redirect(route('admin.setting.index'))->with('status','success');
     }
 

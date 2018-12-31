@@ -138,8 +138,16 @@
                                                     @if($order->status == 2 && !empty($order->host_id))
                                                         <a class="dropdown-item"
                                                            href="{{route('host.detailed',['id'=>$order->host->id])}}">信息/管理</a>
-                                                        <a class="dropdown-item"
-                                                           href="{{$order->host->host_url}}">主机面板</a>
+                                                        <button class="dropdown-item" onclick="event.preventDefault();
+                                                                document.getElementById('host-panel-{{$order->host->id}}').submit();">
+                                                            主机面板
+                                                        </button>
+                                                        <form id="host-panel-{{$order->host->id}}"
+                                                              action="{{ route('host.panel.login') }}" method="POST"
+                                                              style="display: none;">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" name="id" value="{{$order->host->id}}">
+                                                        </form>
                                                     @endif
                                                     <a class="dropdown-item"
                                                        href="{{route('order.detailed',['no'=>$order->no])}}">订单详细</a>
