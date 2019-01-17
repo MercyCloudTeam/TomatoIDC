@@ -91,13 +91,14 @@ class AddTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('users_aff', function (Blueprint $table) {//推荐者
-            $table->string('no');
-            $table->integer('user_id');
-            $table->integer('status')->default(1);
-            $table->integer('sale')->default(0);
-            $table->timestamps();
-        });
+//        V0.1.8已废弃此表，改为user_aff
+//        Schema::create('users_aff', function (Blueprint $table) {//推荐者
+//            $table->string('no');
+//            $table->integer('user_id');
+//            $table->integer('status')->default(1);
+//            $table->integer('sale')->default(0);
+//            $table->timestamps();
+//        });
 
         Schema::create('servers', function (Blueprint $table) { //服务器
             $table->increments('id');
@@ -234,7 +235,6 @@ class AddTables extends Migration
         Schema::dropIfExists('plugins');
         Schema::dropIfExists('work_order');
         Schema::dropIfExists('work_order_reply');
-        Schema::dropIfExists('users_aff');
         Schema::dropIfExists('message');
         Schema::dropIfExists('prepaid_keys');
         Schema::dropIfExists('goods');

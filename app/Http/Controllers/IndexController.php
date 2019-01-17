@@ -37,7 +37,8 @@ class IndexController extends Controller
      */
     public function indexPage()
     {
-        $this->middleware('check.install.status');
+//        dd(config('database.connections.mysql'));
+//        $this->middleware('check.install.status');
         return view(ThemeController::backThemePath('index'));
     }
 
@@ -204,6 +205,7 @@ class IndexController extends Controller
         $hostController->autoTerminateHost();
         $order = $payController->autoCheckOrderStatus();
         $recharge = $payController->autoCheckRechargeStatus();
+        $asyncCreateHost = $hostController->autoCheckAsyncCreateHost();
         return time();
     }
 

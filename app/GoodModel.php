@@ -37,6 +37,20 @@ class GoodModel extends Model
         return $this->hasOne('App\ServerModel', 'id', 'server_id');
     }
 
+    public function order()
+    {
+        return $this->hasMany('App\OrderModel','good_id','id');
+    }
+
+    /**
+     * 获取计费
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function charging()
+    {
+        return $this->hasMany('App\ChargingModel','good_id','id');
+    }
+
 
     /**
      * 商品类别修改器

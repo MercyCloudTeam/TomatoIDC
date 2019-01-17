@@ -45,6 +45,19 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <label class="form-control-label" for="input-username">关键词</label>
+                                        <input type="text" class="form-control form-control-alternative"
+                                               placeholder="关键词"
+                                               value="{{old('website_keyword')? old('website_keyword'):$setting->where('name','setting.website.index.keyword')->first()->value }}"
+                                               name="website_keyword">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
                                         <label class="form-control-label" for="input-email">主题</label>
                                         <select class="custom-select" id="inputGroupSelect2102" name="theme">
                                             @if(!empty($themes))
@@ -436,14 +449,19 @@
                                                name="terminate_host_data">
                                     </div>
                                 </div>
-                                {{--<div class="col-lg-6">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label class="form-control-label" for="input-username">隐私策略URL</label>--}}
-                                        {{--<input type="text" class="form-control form-control-alternative"--}}
-                                               {{--value="{{old('privacy_policy')? old('privacy_policy'):$setting->where('name','setting.website.privacy.policy')->first()->value }}"--}}
-                                               {{--name="privacy_policy">--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">异步开通主机</label>
+                                        <select class="custom-select" id="inputGroupSelect02s1422" name="async_create_host">
+                                            <option value="1" {{ (old('async_create_host') ? old('async_create_host'): $setting->where('name','setting.async.create.host')->first()->value) == 1 ? 'selected' :"" }} >
+                                                启用
+                                            </option>
+                                            <option value="0" {{ (old('async_create_host') ? old('async_create_host'): $setting->where('name','setting.async.create.host')->first()->value) == 0 ? 'selected' :"" }} >
+                                                关闭
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="pl-lg-4">

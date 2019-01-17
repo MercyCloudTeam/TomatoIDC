@@ -127,7 +127,7 @@ class AdminController extends Controller
         $themes = ThemeController::getThemeArr();
         $adminThemes = ThemeController::getAdminThemeArr();
         $payPlugins = PayController::getPayPluginArr();
-        return view(ThemeController::backAdminThemePath('index', 'setting'), compact('setting', 'themes', 'payPlugins', 'adminThemes','mailDrive'));
+        return view(ThemeController::backAdminThemePath('index', 'setting'), compact('setting', 'themes', 'payPlugins', 'adminThemes', 'mailDrive'));
     }
 
     /**
@@ -160,7 +160,7 @@ class AdminController extends Controller
      */
     protected function getDiyPage()
     {
-        $diyPage = DB::table('diy_page')->where('status','!=','0')->
+        $diyPage = DB::table('diy_page')->where('status', '!=', '0')->
         orderBy('created_at', 'desc')->paginate(10);
         !$diyPage->isEmpty() ?: $diyPage = null;
         return $diyPage;
@@ -205,6 +205,25 @@ class AdminController extends Controller
         return view(ThemeController::backAdminThemePath('add', 'goods'), compact('goodsConfigure', 'goods_categories', 'servers'));
     }
 
+
+    /**
+     * 产品价格配置
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function goodChargingPage($id)
+    {
+        $goods = GoodModel::where('id', $id)->get();
+        if (!$goods->isEmpty()) {
+            $goods = $goods->first();
+            $tempGoodsController = new GoodController();
+            $charging = $tempGoodsController->getCharging($goods->id);
+//            dd($goods->charging);
+            return view(ThemeController::backAdminThemePath('charging', 'goods'), compact('goods'));
+        }
+        return redirect(route('admin.good.show')); //错误返回
+    }
+
     /**
      * 添加商品分类页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -221,9 +240,9 @@ class AdminController extends Controller
     public function goodConfigureAddPage($type)
     {
         $type = htmlspecialchars(trim($type));
-        $goods= new GoodController();
+        $goods = new GoodController();
         $input = $goods->getConfigureFromInput($type);
-        return view(ThemeController::backAdminThemePath('add_configure', 'goods'),compact('input','type'));
+        return view(ThemeController::backAdminThemePath('add_configure', 'goods'), compact('input', 'type'));
     }
 
     /**
@@ -236,9 +255,9 @@ class AdminController extends Controller
         $configure = GoodConfigureModel::where('id', $id)->get();
         if (!$configure->isEmpty()) {
             $configure = $configure->first();
-            $goods= new GoodController();
+            $goods = new GoodController();
             $input = $goods->getConfigureFromInput($configure->type);
-            return view(ThemeController::backAdminThemePath('edit_configure', 'goods'), compact('configure','input'));
+            return view(ThemeController::backAdminThemePath('edit_configure', 'goods'), compact('configure', 'input'));
         }
         return redirect(route('admin.good.show')); //错误返回
     }
@@ -257,7 +276,6 @@ class AdminController extends Controller
         }
         return redirect(route('admin.good.show')); //错误返回
     }
-
 
 
     /**
@@ -440,7 +458,7 @@ class AdminController extends Controller
     public function hostDetailedPage($id)
     {
 
-        $host = HostModel::where('id',$id)->get();
+        $host = HostModel::where('id', $id)->get();
         if (!$host->isEmpty()) {
             $host = $host->first();
             return view(ThemeController::backAdminThemePath('detailed', 'hosts'), compact('host'));
@@ -448,6 +466,7 @@ class AdminController extends Controller
         return back(); //错误返回
 
     }
+
     /**
      * 主机列表页面
      */
@@ -482,7 +501,7 @@ class AdminController extends Controller
      */
     public function diyPageAddPage()
     {
-        return view(ThemeController::backAdminThemePath('add','diy_page'));
+        return view(ThemeController::backAdminThemePath('add', 'diy_page'));
     }
 
     /**
@@ -505,8 +524,142 @@ class AdminController extends Controller
     public function diyPageShowPage()
     {
         $pages = $this->getDiyPage();
-        return view(ThemeController::backAdminThemePath('show','diy_page'),compact('pages'));
+        return view(ThemeController::backAdminThemePath('show', 'diy_page'), compact('pages'));
     }
+
+    /**
+     * 190114 V0.1.8 优化代码新增
+     * 设置存储的配置Arr
+     * @var array
+     */
+    protected $settingArr = [
+        'setting.website.payment.wechat' => [
+            'validate' => 'string|nullable',
+            'title' => 'wechatplugin',
+            'type' => 'diy'
+        ],
+        'setting.website.payment.alipay' => [
+            'validate' => 'string|nullable',
+            'title' => 'alipayplugin',
+            'type' => 'diy'
+        ],
+        'setting.website.payment.qqpay' => [
+            'validate' => 'string|nullable',
+            'title' => 'qqpayplugin',
+            'type' => 'diy'
+        ],
+        'setting.website.payment.diy' => [
+            'validate' => 'string|nullable',
+            'title' => 'diyplugin',
+            'type' => 'diy'
+        ],
+        'setting.website.user.email.validate' => [
+            'validate' => 'string|nullable',
+            'title' => 'email_validate',
+            'type' => 'select'
+        ],
+        'setting.mail.drive' => [
+            'validate' => 'string|nullable',
+            'title' => 'mailDrive',
+            'type' => 'diy'
+        ],
+        'setting.website.spa.status' => [
+            'validate' => 'string|nullable',
+            'title' => 'spa',
+            'type' => 'select'
+        ],
+        'setting.website.user.email.notice' => [
+            'validate' => 'string|nullable',
+            'title' => 'email_notice',
+            'type' => 'select'
+        ],
+        'setting.website.admin.sales.notice' => [
+            'validate' => 'string|nullable',
+            'title' => 'sales_notice',
+            'type' => 'select'
+        ],
+        'setting.website.admin.theme' => [
+            'validate' => 'string|nullable',
+            'title' => 'admintheme',
+            'type' => 'diy'
+        ],
+        'setting.website.theme' => [
+            'validate' => 'string|nullable',
+            'title' => 'theme',
+            'type' => 'diy'
+        ],
+        'setting.website.aff.status' => [
+            'validate' => 'string|nullable',
+            'title' => 'aff_status',
+            'type' => 'select'
+        ],
+        'setting.website.title' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'title',
+            'type' => 'text'
+        ],
+        'setting.website.kf.url' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'kfurl',
+            'type' => 'text'
+        ],
+        'setting.website.privacy.policy' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'privacy_policy',
+            'type' => 'text'
+
+        ],
+        'setting.website.user.agreements' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'user_agreements',
+            'type' => 'text'
+        ],
+        'setting.website.subtitle' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'subtitle',
+            'type' => 'text'
+        ],
+        'setting.website.copyright' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'copyright',
+            'type' => 'text'
+        ],
+        'setting.website.currency.unit' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'currencyunit',
+            'type' => 'text'
+        ],
+        'setting.website.logo' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'logo',
+            'type' => 'text'
+        ],
+        'setting.website.logo.url' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'logourl',
+            'type' => 'text'
+        ],
+        'setting.wechat.service.status' => [
+            'validate' => 'string|nullable',
+            'title' => 'wechat_service',
+            'type' => 'text'
+        ],
+        'setting.expire.terminate.host.data' => [
+            'validate' => 'string|nullable',
+            'title' => 'terminate_host_data',
+            'type' => 'text'
+        ],
+        'setting.async.create.host' => [
+            'validate' => 'string|nullable',
+            'title' => 'async_create_host',
+            'type' => 'text'
+        ],
+        'setting.website.index.keyword' => [
+            'validate' => 'string|nullable|min:1|max:200',
+            'title' => 'website_keyword',
+            'type' => 'text'
+        ],
+    ];
 
     /**
      * 编辑网站配置操作
@@ -517,58 +670,22 @@ class AdminController extends Controller
 //        $themes = ThemeController::getThemeArr();
 //        $adminThemes = ThemeController::getAdminThemeArr();
 //        $payPlugins = PayController::getPayPluginArr();
+        $vaildateArr = [];
+        foreach ($this->settingArr as $item) {
+            $vaildateArr[$item['title']] = $item['validate'];
+        }
+
+        $this->validate($request, $vaildateArr);
 
 
-        $this->validate($request, [
-            'wechatplugin' => 'string|nullable',
-            'alipayplugin' => 'string|nullable',
-            'qqpayplugin' => 'string|nullable',
-            'diyplugin' => 'string|nullable',
-            'email_validate' => 'string|nullable',
-            'mailDrive' => 'string|nullable',
-            'spa' => 'string|nullable',
-            'email_notice' => 'string|nullable',
-            'sales_notice' => 'string|nullable',
-            'admintheme' => 'string|nullable',
-            'theme' => 'string|nullable',
-            'aff_status' => 'string|nullable',
-            'title' => 'string|nullable|min:1|max:200',
-            'kfurl' => 'string|nullable|min:1|max:200',
-            'privacy_policy' => 'string|nullable|min:1|max:200',
-            'user_agreements' => 'string|nullable|min:1|max:200',
-            'subtitle' => 'string|nullable|min:1|max:200',
-            'copyright' => 'string|nullable|min:1|max:200',
-            'currencyunit' => 'string|nullable|min:1|max:200',
-            'logo' => 'string|nullable|min:1|max:200',
-            'logourl' => 'string|nullable|min:1|max:200',
-            'wechat_service' => 'string|nullable',
-            'terminate_host_data' => 'string|nullable',
-        ]);
+        foreach ($this->settingArr as $key => $value) {
+            if (SettingModel::where('name', $key)->first()->value == $request[$value['title']]) {
+                continue;
+            };
+            SettingModel::where('name', $key)->update(['value' => $request[$value['title']]]);
+        }
 
-        //TODO 垃圾代码
-        SettingModel::where('name', 'setting.website.title')->first()->value == $request['title'] ?: SettingModel::where('name', 'setting.website.title')->update(['value' => $request['title']]);
-        SettingModel::where('name', 'setting.website.subtitle')->first()->value == $request['subtitle'] ?: SettingModel::where('name', 'setting.website.subtitle')->update(['value' => $request['subtitle']]);
-        SettingModel::where('name', 'setting.website.copyright')->first()->value == $request['copyright'] ?: SettingModel::where('name', 'setting.website.copyright')->update(['value' => $request['copyright']]);
-        SettingModel::where('name', 'setting.website.logo')->first()->value == $request['logo'] ?: SettingModel::where('name', 'setting.website.logo')->update(['value' => $request['logo']]);
-        SettingModel::where('name', 'setting.website.logo.url')->first()->value == $request['logourl'] ?: SettingModel::where('name', 'setting.website.logo.url')->update(['value' => $request['logourl']]);
-        SettingModel::where('name', 'setting.website.payment.wechat')->first()->value == $request['wechatplugin'] ?: SettingModel::where('name', 'setting.website.payment.wechat')->update(['value' => $request['wechatplugin']]);
-        SettingModel::where('name', 'setting.website.payment.qqpay')->first()->value == $request['qqpayplugin'] ?: SettingModel::where('name', 'setting.website.payment.qqpay')->update(['value' => $request['qqpayplugin']]);
-        SettingModel::where('name', 'setting.website.payment.diy')->first()->value == $request['diyplugin'] ?: SettingModel::where('name', 'setting.website.payment.diy')->update(['value' => $request['diyplugin']]);
-        SettingModel::where('name', 'setting.website.payment.alipay')->first()->value == $request['alipayplugin'] ?: SettingModel::where('name', 'setting.website.payment.alipay')->update(['value' => $request['alipayplugin']]);
-        SettingModel::where('name', 'setting.website.admin.theme')->first()->value == $request['admintheme'] ?: SettingModel::where('name', 'setting.website.admin.theme')->update(['value' => $request['admintheme']]);
-        SettingModel::where('name', 'setting.website.theme')->first()->value == $request['theme'] ?: SettingModel::where('name', 'setting.website.theme')->update(['value' => $request['theme']]);
-        SettingModel::where('name', 'setting.website.spa.status')->first()->value == $request['spa'] ?: SettingModel::where('name', 'setting.website.spa.status')->update(['value' => $request['spa']]);
-        SettingModel::where('name', 'setting.website.user.email.validate')->first()->value == $request['email_validate'] ?: SettingModel::where('name', 'setting.website.user.email.validate')->update(['value' => $request['email_validate']]);
-        SettingModel::where('name', 'setting.website.user.email.notice')->first()->value == $request['email_notice'] ?: SettingModel::where('name', 'setting.website.user.email.notice')->update(['value' => $request['email_notice']]);
-        SettingModel::where('name', 'setting.website.admin.sales.notice')->first()->value == $request['sales_notice'] ?: SettingModel::where('name', 'setting.website.admin.sales.notice')->update(['value' => $request['sales_notice']]);
-        SettingModel::where('name', 'setting.website.kf.url')->first()->value == $request['kfurl'] ?: SettingModel::where('name', 'setting.website.kf.url')->update(['value' => $request['kfurl']]);
-        SettingModel::where('name', 'setting.website.privacy.policy')->first()->value == $request['privacy_policy'] ?: SettingModel::where('name', 'setting.website.privacy.policy')->update(['value' => $request['privacy_policy']]);
-        SettingModel::where('name', 'setting.website.user.agreements')->first()->value == $request['user_agreements'] ?: SettingModel::where('name', 'setting.website.user.agreements')->update(['value' => $request['user_agreements']]);
-        SettingModel::where('name', 'setting.mail.drive')->first()->value == $request['mailDrive'] ?: SettingModel::where('name', 'setting.mail.drive')->update(['value' => $request['mailDrive']]);
-        SettingModel::where('name', 'setting.website.aff.status')->first()->value == $request['aff_status'] ?: SettingModel::where('name', 'setting.website.aff.status')->update(['value' => $request['aff_status']]);
-        SettingModel::where('name', 'setting.wechat.service.status')->first()->value == $request['wechat_service'] ?: SettingModel::where('name', 'setting.wechat.service.status')->update(['value' => $request['wechat_service']]);
-        SettingModel::where('name', 'setting.expire.terminate.host.data')->first()->value == $request['terminate_host_data'] ?: SettingModel::where('name', 'setting.expire.terminate.host.data')->update(['value' => $request['terminate_host_data']]);
-        return redirect(route('admin.setting.index'))->with('status','success');
+        return redirect(route('admin.setting.index'))->with('status', 'success');
     }
 
 
@@ -580,7 +697,7 @@ class AdminController extends Controller
     {
         $mailDrive = new WechatController();
         $form = $mailDrive->configInputForm();
-        if (is_array($form)){
+        if (is_array($form)) {
             $setting = SettingModel::all();
             return view(ThemeController::backAdminThemePath('wechat', 'setting'), compact('form', 'setting'));
         }
@@ -595,7 +712,7 @@ class AdminController extends Controller
     {
         $mailDrive = new UserMailController();
         $form = $mailDrive->configInputForm();
-        if (is_array($form)){
+        if (is_array($form)) {
             $setting = SettingModel::all();
             return view(ThemeController::backAdminThemePath('mail', 'setting'), compact('form', 'setting'));
         }
@@ -610,7 +727,7 @@ class AdminController extends Controller
      */
     public function paymentPluginConfigPage($payment)
     {
-        $pay =new PayController();
+        $pay = new PayController();
         $form = $pay->getPayPluginInputForm($payment);
         if (!empty($form)) {
             $setting = SettingModel::all();

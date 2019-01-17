@@ -29,19 +29,22 @@ class AppServiceProvider extends ServiceProvider
         'setting.website.logo.url'=>'websiteLogoUrl',
         'setting.website.privacy.policy'=>'privacyPolicy',
         'setting.website.user.agreements'=>'userAgreements',
+        'setting.website.index.keyword'=>'keywords',
     ];
 
     protected  function viewVariable()
     {
-        if (Schema::hasTable('settings'))//当数据表存在才返回
-        {
-            foreach ($this->getSetting as $key=>$value){
-                $tmp = SettingModel::where('name','=',$key)->get();
-                !$tmp->isEmpty() ? $tmp = $tmp->first()->value :$tmp = null;
-                View::share($value , $tmp);
+        if (!empty(config('database.connections.mysql.database'))) { //数据表未设置
+            if (Schema::hasTable('settings'))//当数据表存在才返回
+            {
+                foreach ($this->getSetting as $key => $value) {
+                    $tmp = SettingModel::where('name', '=', $key)->get();
+                    !$tmp->isEmpty() ? $tmp = $tmp->first()->value : $tmp = null;
+                    View::share($value, $tmp);
+                }
+            } else {
+                return null;
             }
-        }else{
-            return null;
         }
     }
 

@@ -31,12 +31,27 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-email">价格</label>
-                                        <input type="text" class="form-control form-control-alternative" name="price"
-                                               value="{{old('price')? old('price') :$goods->price}}"
-                                               placeholder="{{$currencyUnit}}">
+                                        <label class="form-control-label" for="input-email">输入域名</label>
+                                        <select class="custom-select" id="inputGroupSelewct02" name="domain_config">
+                                            <option
+                                                value="0" {{old('domain_config')?'selected':$goods->domain_config ?'selected':''}}>
+                                                不需要
+                                            </option>
+                                            <option
+                                                value="1" {{old('domain_config')?'selected':$goods->domain_config ?'selected':''}} >
+                                                需要
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-email">价格</label>--}}
+                                        {{--<input type="text" class="form-control form-control-alternative" name="price"--}}
+                                               {{--value="{{old('price')? old('price') :$goods->price}}"--}}
+                                               {{--placeholder="{{$currencyUnit}}">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -51,10 +66,12 @@
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-email">显示</label>
                                         <select class="custom-select" id="inputGroupSelect02" name="display">
-                                            <option value="1" {{ (old('display') ? old('display'): $goods->display) == 1 ? "checked" :"" }}>
+                                            <option
+                                                value="1" {{ (old('display') ? old('display'): $goods->display) == 1 ? "checked" :"" }}>
                                                 显示
                                             </option>
-                                            <option value="0" {{ (old('display') ? old('display'): $goods->display) == 0 ? "checked" :"" }}>
+                                            <option
+                                                value="0" {{ (old('display') ? old('display'): $goods->display) == 0 ? "checked" :"" }}>
                                                 隐藏
                                             </option>
                                         </select>
@@ -70,8 +87,8 @@
                                             @if(!empty($servers))
                                                 @foreach($servers as $server)
                                                     <option
-                                                            value="{{$server->id}}"
-                                                            {{old('server') ? (old('server') == $server->id ? "selected" : "") : ($goods->server_id == $server->id ? "selected" : "")}}
+                                                        value="{{$server->id}}"
+                                                        {{old('server') ? (old('server') == $server->id ? "selected" : "") : ($goods->server_id == $server->id ? "selected" : "")}}
                                                     >{{$server->title}}</option>
                                                 @endforeach
                                             @endif
@@ -86,8 +103,8 @@
                                             @if(!empty($goods_categories))
                                                 @foreach($goods_categories as $category)
                                                     <option
-                                                            value="{{$category->id}}"
-                                                            {{old('categories') ? (old('categories') == $category->id ? "selected" : "") : ($goods->categories_id == $category->title ? "selected" : "")}}
+                                                        value="{{$category->id}}"
+                                                        {{old('categories') ? (old('categories') == $category->id ? "selected" : "") : ($goods->categories_id == $category->title ? "selected" : "")}}
 
                                                     >{{$category->title}}</option>
                                                 @endforeach
@@ -105,8 +122,8 @@
                                             @if(!empty($goodsConfigure))
                                                 @foreach($goodsConfigure as $configure)
                                                     <option
-                                                            value="{{$configure->id}}"
-                                                            {{old('configure') ? (old('configure') == $configure->id ? "selected" : "") : ($goods->configure_id == $configure->id ? "selected" : "")}}
+                                                        value="{{$configure->id}}"
+                                                        {{old('configure') ? (old('configure') == $configure->id ? "selected" : "") : ($goods->configure_id == $configure->id ? "selected" : "")}}
                                                     >{{$configure->title}}</option>
                                                 @endforeach
                                             @endif
@@ -145,15 +162,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">输入域名</label>
-                                        <select class="custom-select" id="inputGroupSelewct02" name="domain_config">
-                                            <option value="0" {{old('domain_config')?'selected':$goods->domain_config ?'selected':''}}>不需要</option>
-                                            <option value="1" {{old('domain_config')?'selected':$goods->domain_config ?'selected':''}} >需要</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <hr class="my-4"/>

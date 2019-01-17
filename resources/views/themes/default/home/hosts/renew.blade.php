@@ -50,10 +50,16 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-email">价格</label>
-                                        <input type="text" id="input-email"
-                                               class="form-control form-control-alternative" disabled
-                                               value="{{$host->order->good->price}}  {{$currencyUnit}}">
+                                        <label class="form-control-label" for="input-email">购买时长</label>
+                                        <select class="custom-select" id="inputGroupSelect02" name="time">
+                                            @if(!empty($charging))
+                                                @foreach($charging as $item)
+                                                    <option
+                                                        value="{{$item['type']}}-{{$item['id']}}"
+                                                    >{{$item['price']}} {{$currencyUnit}} | {{$item['time']}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
                             </div>

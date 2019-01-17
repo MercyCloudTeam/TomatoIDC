@@ -4,7 +4,7 @@
 
 语言: [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md) | 
 
-导航: [Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) |[🚧官方文档](https://www.yuque.com/mercycloud/eg1gz6) | [Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg) | [QQ群](http//shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)
+导航: [Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) |[🚧官方文档](https://www.yuque.com/mercycloud/eg1gz6) | [Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg) | [QQ群](http://shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)
 
 ## 介绍
 
@@ -47,7 +47,7 @@ TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协�
 
 
 
-目前版本V0.1.7 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
+目前版本V0.1.8 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
 
 关于框架版本：框架采用laravel最新版本
 
@@ -101,7 +101,9 @@ proc_get_status
 
 
 
-#### Git安装
+#### Git
+
+安装V0.1.8以前
 
 ```shell
 #克隆代码（国内用户可选Coding/Gitee）
@@ -121,9 +123,26 @@ php artisan key:g
 https://domain/install
 ```
 
+V0.1.8以及以后
+
+```bash
+#克隆代码（国内用户可选Coding/Gitee）
+git clone --depth=1  https://github.com/MercyCloudTeam/TomatoIDC.git;
+#移动到目录
+cd TomatoIDC;
+#依赖安装
+composer install --no-dev
+#复制.env.example
+cp .env.example .env
+#访问安装页面完成安装
+https://domain/install
+```
+
 
 
 #### 压缩包安装
+
+安装V0.1.8以前
 
 ```	shell
 #下载并解压压缩包
@@ -134,6 +153,16 @@ vi .env
 php artisan migrate
 #初始化程序密匙
 php artisan key:g
+#访问安装页面完成安装
+https://domain/install
+```
+
+V0.1.8以后
+
+```shell
+#下载并解压压缩包
+🚧压缩包服务器找不到啦
+#配置运行目录，伪静态，复制.env.example 成.env
 #访问安装页面完成安装
 https://domain/install
 ```
@@ -171,13 +200,20 @@ location / {
 
 1. 添加站点
 2. 上传代码（GIT克隆 /压缩包 二选一）
-3. 配置.env文件
-4. 安装依赖（压缩包安装跳过）
-5. 运行php artisan migrate 完成数据库迁移
-6. 运行php artisan key:g 生成加密密匙
-7. 设置网站目录 运行目录设置为/public
-8. 设置伪静态（Apache基本不用配置即可使用）
-9. 访问 https://domain/install 进行最后安装
+3. composer install安装依赖（压缩包安装跳过）
+4. 复制.env.example 成.env
+
+(V0.1.8之前版本请进行下面三步)
+
+1. 配置.env文件
+2. 运行php artisan migrate 完成数据库迁移
+3. 运行php artisan key:g 生成加密密匙
+
+
+
+5. 设置网站目录 运行目录设置为/public
+6. 设置伪静态（Apache基本不用配置即可使用）
+7. 访问 https://domain/install 进行最后安装
 
 
 
@@ -214,6 +250,7 @@ location / {
 - [SolusVM](https://solusvm.com/)
 - [VestaCP](https://vestacp.com/)
 - [CyberPanel](https://cyberpanel.net/)
+- [SwapIDC](http://www.swapidc.cn/)
 
 ### 微信公众号
 
@@ -255,7 +292,7 @@ location / {
 
 ### PRO版计划？
 
-我们暂无Pro版计划，我们可能会推出技术支持插件定制开发的，但如果是兼容面板，支付，我们会一步步进行开发，大家可以通过[交流论坛](https://dev.fanqieui.com)或者[交流群](https://shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)内提出
+我们暂无Pro版计划，我们可能会推出技术支持插件定制开发的，但如果是兼容面板，支付，我们会一步步进行开发，大家可以通过[交流论坛](https://dev.fanqieui.com)或者[交流群](https://jq.qq.com/?_wv=1027&k=52Llnjp)内提出
 
 
 
@@ -275,6 +312,7 @@ location / {
 - V0.1.5 添加Cpanel插件，工单可选优先级以及商品，商品功能添加库存
 - V0.1.6 添加SolusVM DirectAdmin支持 添加Log-viewer，添加了一些Bug
 - V0.1.7 添加Vesta CyberPanel支持，多个服务器插件支持一键登录，重置主机密码，释放永久删除主机，码支付未测试
+- V0.1.8 开通主机可改为异步，费用计算改动，添加Swapidc分销，安装简化，以及添加了很多未发现的特性（bug）
 
 
 

@@ -85,6 +85,11 @@ class InstallController extends Controller
         'setting.website.currency.unit' => 'CNY',
         'setting.website.logo.url' => null,
         'setting.website.subtitle' => "中国领先虚拟主机销售系统",
+        'setting.website.index.keyword' => "虚拟主机,VPS,邮箱,服务器,独立服务器",
+        'setting.website.index.head.code' => "",
+        'setting.website.home.head.code' => "",
+        'setting.website.index.footer.code' => "",
+        'setting.website.home.footer.code' => "",
         'setting.website.logo' => null,
         'setting.website.admin.theme' => 'default',
         'setting.website.url' => 'https://mercycloud.com',
@@ -100,7 +105,7 @@ class InstallController extends Controller
         'setting.website.user.phone.validate' => false,//手机验证
         'setting.website.admin.sales.notice' => false,//管理销售通知
         'setting.website.user.email.notice' => false,//用户邮件通知
-        'setting.website.version' => 'V0.1.7',
+        'setting.website.version' => 'V0.1.8',
 
         'setting.mail.drive' => null,//邮件驱动
         'setting.website.sms.facilitator' => null,//短信服务商
@@ -110,6 +115,7 @@ class InstallController extends Controller
         'setting.wechat.robot.drive' => 'Turing',
 
         'setting.expire.terminate.host.data' => 7,//过期多久后完全删除主机
+        'setting.async.create.host' => false,//异步开通主机
     ];
 
     /**

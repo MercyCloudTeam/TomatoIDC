@@ -16,7 +16,7 @@
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">商品名</th>
-                            <th scope="col">价格</th>
+                            <th scope="col">销量</th>
                             <th scope="col">状态</th>
                             <th scope="col">分组</th>
                             <th scope="col">操作</th>
@@ -35,7 +35,7 @@
                                         </div>
                                     </th>
                                     <td>
-                                        {{$item->price}} {{$currencyUnit}}
+                                        {{$item->order->count()}}
                                     </td>
                                     <td>
                       <span class="badge badge-dot mr-4">
@@ -55,8 +55,12 @@
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 <a class="dropdown-item"
                                                    href="{{route('admin.good.edit',['id'=>$item->id])}}">编辑</a>
+                                                <a class="dropdown-item"
+                                                   href="{{route('admin.good.charging',['id'=>$item->id])}}">计费管理</a>
+                                                {{--<a class="dropdown-item"--}}
+                                                {{--                                                   href="{{route('admin.good.edit',['id'=>$item->id])}}">下架</a>--}}
                                                 <a class="dropdown-item" onclick="event.preventDefault();
-                                                        document.getElementById('del-goods-{{$item->id}}').submit();"
+                                                    document.getElementById('del-goods-{{$item->id}}').submit();"
                                                    href="">删除</a>
 
                                                 <form id="del-goods-{{$item->id}}"
@@ -131,7 +135,7 @@
                                                 <a class="dropdown-item"
                                                    href="{{route('admin.good.categories.edit',['id'=>$categories->id])}}">编辑</a>
                                                 <a class="dropdown-item" onclick="event.preventDefault();
-                                                        document.getElementById('del-goods-categories-{{$categories->id}}').submit();"
+                                                    document.getElementById('del-goods-categories-{{$categories->id}}').submit();"
                                                    href="">删除</a>
 
                                                 <form id="del-goods-categories-{{$categories->id}}"
@@ -198,7 +202,7 @@
                                                 <a class="dropdown-item"
                                                    href="{{route('admin.good.configure.edit',['id'=>$configure->id])}}">编辑</a>
                                                 <a class="dropdown-item" onclick="event.preventDefault();
-                                                        document.getElementById('del-goods-configure-{{$configure->id}}').submit();"
+                                                    document.getElementById('del-goods-configure-{{$configure->id}}').submit();"
                                                    href="">删除</a>
 
                                                 <form id="del-goods-configure-{{$configure->id}}"
@@ -219,7 +223,8 @@
                 <div class="card-footer py-4">
                     {{--<a href="{{route('admin.good.configure.add')}}" class="btn btn-primary">新增配置</a>--}}
                     <a href="{{route('admin.good.configure.add',['type'=>'virtual_host'])}}" class="btn btn-primary">新增空间配置</a>
-                    <a href="{{route('admin.good.configure.add',['type'=>'virtual_private_server'])}}" class="btn btn-neutral">新增VPS配置</a>
+                    <a href="{{route('admin.good.configure.add',['type'=>'virtual_private_server'])}}"
+                       class="btn btn-neutral">新增VPS配置</a>
                     <a href="" onclick="swal('未完成','该功能未完成','error')" class="btn btn-success">新增代理配置</a>
                 </div>
             </div>

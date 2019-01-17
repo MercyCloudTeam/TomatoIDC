@@ -11,7 +11,7 @@ class GoodConfigureController extends Controller
 
     public $virtual_host_configure_form
         = [
-            'config_template' => '面板配置模板（重点）',
+//            'config_template' => '面板配置模板（重点）',
             'php_version'     => 'PHP版本',
             'mysql_version'   => 'Mysql版本',
             'db_quota'        => '数据库大小',
@@ -48,7 +48,7 @@ class GoodConfigureController extends Controller
     public $virtual_private_server_configure_form
         = [
             'template'        => '面板页面模板',
-            'config_template' => '面板配置模板',
+//            'config_template' => '面板配置模板',
             'email_notice' => '邮箱通知',
             'module' => '虚拟化类型',
             'custommemory' => '自定义内存',

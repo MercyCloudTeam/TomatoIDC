@@ -14,7 +14,6 @@
                     <p class="text-white" style="font-size: 1rem">欢迎回来</p>
                     <h1 class="display-2 text-white">{{Auth::user()->name}}</h1>
                     <p class="text-white mt-0 mb-5">祝你开心每一天！</p>
-                    <a href="#!" class="btn btn-info">Edit profile</a>
                 </div>
             </div>
         </div>
@@ -50,12 +49,19 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-email">价格</label>
-                                        <input type="text" id="input-email"
-                                               class="form-control form-control-alternative" disabled
-                                               value="{{$good->price}}  {{$currencyUnit}}">
+                                        <label class="form-control-label" for="input-email">购买时长</label>
+                                        <select class="custom-select" id="inputGroupSelect02" name="time">
+                                            @if(!empty($charging))
+                                                @foreach($charging as $item)
+                                                    <option
+                                                        value="{{$item['type']}}-{{$item['id']}}"
+                                                    >{{$item['price']}} {{$currencyUnit}} | {{$item['time']}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -75,20 +81,21 @@
                             </div>
                             <div class="row">
                                 @if($good->domain_config)
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-first-name">绑定域名</label>
-                                        <input type="text" id="input-first-name"
-                                             name="domain" value="{{old('domain')}}"  placeholder="domain.com"  class="form-control form-control-alternative">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="input-first-name">绑定域名</label>
+                                            <input type="text" id="input-first-name"
+                                                   name="domain" value="{{old('domain')}}" placeholder="domain.com"
+                                                   class="form-control form-control-alternative">
+                                        </div>
                                     </div>
-                                </div>
                                 @endif
                                 {{--<div class="col-lg-6">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label class="form-control-label" for="input-last-name">推荐者</label>--}}
-                                        {{--<input type="text" id="input-last-name"--}}
-                                               {{--class="form-control form-control-alternative">--}}
-                                    {{--</div>--}}
+                                {{--<div class="form-group">--}}
+                                {{--<label class="form-control-label" for="input-last-name">推荐者</label>--}}
+                                {{--<input type="text" id="input-last-name"--}}
+                                {{--class="form-control form-control-alternative">--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
                             </div>
                             <div class="row">

@@ -80,7 +80,9 @@ class HomeController extends Controller
         if (!$host->isEmpty()) {
             $host = $host->first();
             $this->authorize('view', $host);
-            return view(ThemeController::backThemePath('renew', 'home.hosts'), compact('host'));
+            $goodController  = new GoodController();
+            $charging = $goodController->getCharging($host->order->good->id);
+            return view(ThemeController::backThemePath('renew', 'home.hosts'), compact('host','charging'));
         }
         return redirect(route('order.show')); //错误返回
     }
@@ -112,7 +114,9 @@ class HomeController extends Controller
         $good = GoodModel::where('id', $id)->get();
         if (!$good->isEmpty()) {
             $good = $good->first();
-            return view(ThemeController::backThemePath('buy', 'home.goods'), compact('good'));
+            $goodController  = new GoodController();
+            $charging = $goodController->getCharging($good->id);
+            return view(ThemeController::backThemePath('buy', 'home.goods'), compact('good','charging'));
         }
         return redirect(route('good.show')); //错误返回
     }

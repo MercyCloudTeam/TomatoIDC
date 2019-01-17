@@ -22,9 +22,10 @@
 
 Route::middleware(['check.install.status', 'throttle:60,1'])->group(function () {//安装路由
     //Install
-    Route::get('install', 'InstallController@installPage'); //Install View
-    Route::post('install', 'InstallController@installAction');//Install Action
+    Route::get('install/init', 'InstallController@installPage'); //Install View
+    Route::post('install/init', 'InstallController@installAction');//Install Action
 });
+
 
 Route::middleware(['throttle:60,1','check.install.status'])->group(function () {
     Route::get('/', "IndexController@indexPage");//首页视图
@@ -131,6 +132,11 @@ Route::prefix('admin')->group(function () {//管理路由
                 Route::get('edit/{id}', 'AdminController@goodEditPage')->name('good.edit');
                 Route::get('edit', 'AdminController@userEditPage');
                 Route::post('edit', 'GoodController@goodEditAction');
+
+                Route::get('charging/{id}','AdminController@goodChargingPage')->name('good.charging');
+                Route::post('charging/edit','GoodController@goodChargingEdit')->name('good.charging.edit');
+                Route::post('charging/add','GoodController@goodChargingAdd')->name('good.charging.add');
+                Route::post('charging/del','GoodController@goodChargingDel')->name('good.charging.del');
                 //Goods Del
                 Route::post('del', 'GoodController@goodDelAction')->name('good.del');
             });

@@ -30,11 +30,20 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-email">价格</label>
-                                        <input type="text" class="form-control form-control-alternative" name="price"
-                                               value="{{old('price')}}" placeholder="{{$currencyUnit}}">
+                                        <label class="form-control-label" for="input-email">输入域名</label>
+                                        <select class="custom-select" id="inputGroupSelewct02" name="domain_config">
+                                            <option value="0" {{old('domain_config')?'selected':''}}>不需要</option>
+                                            <option value="1" {{old('domain_config')?'selected':''}} >需要</option>
+                                        </select>
                                     </div>
                                 </div>
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-email">价格</label>--}}
+                                        {{--<input type="text" class="form-control form-control-alternative" name="price"--}}
+                                               {{--value="{{old('price')}}" placeholder="{{$currencyUnit}}">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -138,15 +147,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">输入域名</label>
-                                        <select class="custom-select" id="inputGroupSelewct02" name="domain_config">
-                                            <option value="0" {{old('domain_config')?'selected':''}}>不需要</option>
-                                            <option value="1" {{old('domain_config')?'selected':''}} >需要</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <hr class="my-4"/>

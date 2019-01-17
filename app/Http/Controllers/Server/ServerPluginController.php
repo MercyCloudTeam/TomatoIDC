@@ -86,7 +86,7 @@ class ServerPluginController extends Controller
     {
         $controllerName = __NAMESPACE__ . '\\' . $server->plugin . "Controller";
         $plugin         = new $controllerName();
-        return $plugin->renewHost($server, $configure, $order);
+        return $plugin->renewHost($server, $configure, $order,$host);
     }
 
 

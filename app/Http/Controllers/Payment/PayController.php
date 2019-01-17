@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HostController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\UserRechargeController;
@@ -22,7 +23,7 @@ class PayController extends Controller
      */
     public static function getPayPluginArr()
     {
-        $path     = app_path('Http/Controllers/Payment/');
+        $path = app_path('Http/Controllers/Payment/');
         $fileTemp = scandir($path);
         $fileList = [];
         foreach ($fileTemp as $value) {
@@ -33,14 +34,13 @@ class PayController extends Controller
                 //Dev
                 && $value != "NilController.php"
             ) {
-                $value          = str_replace('Controller.php', '', $value);//排除后缀
+                $value = str_replace('Controller.php', '', $value);//排除后缀
                 $controllerName = __NAMESPACE__ . '\\' . $value . "Controller";
-                $plugin         = new $controllerName();//动态调用控制器
+                $plugin = new $controllerName();//动态调用控制器
 
                 if (property_exists($plugin, 'pluginName')) {
                     $plugName = $plugin->pluginName;
-                }
-                else {
+                } else {
                     $plugName = $value;
                 }
                 //                dd($plugName);
@@ -83,7 +83,7 @@ class PayController extends Controller
         $payPlugin = $payPlugin['value'];
         if (!empty($payPlugin)) {
             $order->price = $order->money; //解决数据键名不一
-            $payPage      = $this->orderPay($payPlugin, $payment, $order);
+            $payPage = $this->orderPay($payPlugin, $payment, $order);
             //            dd($payPage);
             return $payPage;
         }
@@ -100,7 +100,7 @@ class PayController extends Controller
     public function orderPay($payPlugin, $payment, $order)
     {
         $controllerName = __NAMESPACE__ . '\\' . $payPlugin . "Controller";
-        $plugin         = new $controllerName();//动态调用控制器
+        $plugin = new $controllerName();//动态调用控制器
         return $plugin->Pay($order, $payment);
     }
 
@@ -128,9 +128,9 @@ class PayController extends Controller
             default:
                 Log::info('Notify Error', ['payment' => $payment]);
         }
-        $payPlugin      = $payPlugin->value;
+        $payPlugin = $payPlugin->value;
         $controllerName = __NAMESPACE__ . '\\' . $payPlugin . "Controller";
-        $plugin         = new $controllerName();//动态调用控制器
+        $plugin = new $controllerName();//动态调用控制器
         if ($no = $plugin->notify($request, $payment)) {
             return $this->paySuccessAction($no);
         }
@@ -144,10 +144,10 @@ class PayController extends Controller
      */
     public function getOrder($no, $api_no = null)
     {
-        $key   = 'no';
+        $key = 'no';
         $value = $no;
         if (!empty(htmlspecialchars(trim($api_no)))) { //使用第三方订单号查询
-            $key   = 'api_no';
+            $key = 'api_no';
             $value = $api_no;
         }
         //订单
@@ -206,8 +206,7 @@ class PayController extends Controller
                 ['status', 1],
                 ['created_at', '>=', Carbon::now()->subHour()]
             ]
-        )->get()
-        ;
+        )->get();
         return $this->autoCheckOrderAction($orders);
     }
 
@@ -223,23 +222,28 @@ class PayController extends Controller
                 ['status', 1],
                 ['created_at', '>=', Carbon::now()->subHour()]
             ]
-        )->get()
-        ;
+        )->get();
         return $this->autoCheckOrderAction($orders);
     }
 
+    /**
+     * 带查询订单
+     * @param $orders
+     * @return bool
+     */
     protected function autoCheckOrderAction($orders)
     {
         if (!$orders->isEmpty()) {
+            //支付查询
             $alipayPayPlugin = SettingModel::where('name', 'setting.website.payment.alipay')->first()->value;
             $wechatPayPlugin = SettingModel::where('name', 'setting.website.payment.wechat')->first()->value;
-            $controllers     = [$alipayPayPlugin, $wechatPayPlugin];
+            $controllers = [$alipayPayPlugin, $wechatPayPlugin];
             foreach ($controllers as $controller) { //查询
                 if (empty($controller)) {//未设置的时候跳过
                     continue;
                 }
                 $controllerName = __NAMESPACE__ . '\\' . $controller . "Controller";
-                $plugin         = new $controllerName;
+                $plugin = new $controllerName;
                 foreach ($orders as $order) {//每笔订单都查询一边
                     $status = $plugin->checkOrderStatus($order);
                     if ($status) {//支付成功操作
@@ -317,8 +321,8 @@ class PayController extends Controller
         foreach ($form as $key => $value) {
             $this->validate(
                 $request, [
-                            $key => 'string|nullable'
-                        ]
+                    $key => 'string|nullable'
+                ]
             );
             SettingModel::where('name', $value)->update(['value' => $request[$key]]);
         }

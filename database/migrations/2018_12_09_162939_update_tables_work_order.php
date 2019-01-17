@@ -95,11 +95,6 @@ class UpdateTablesWorkOrder extends Migration
         }
         );
         Schema::table(
-            'users_aff', function (Blueprint $table) {
-            $table->softDeletes();//软删除
-        }
-        );
-        Schema::table(
             'news', function (Blueprint $table) {
             $table->softDeletes();//软删除
         }

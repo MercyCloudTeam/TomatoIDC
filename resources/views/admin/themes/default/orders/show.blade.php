@@ -71,6 +71,9 @@
                               @case(3)
                               <i class="bg-primary"></i> 等待审核
                               @break
+                              @case(4)
+                              <i class="bg-info"></i> 开通中
+                              @break
                           @endswitch
                       </span>
                                     </td>

@@ -20,7 +20,8 @@
                     <form method="post" id="add-form" action="{{action('GoodConfigureController@goodConfigureAddAction')}}">
                         <input type="hidden" value="{{$type}}" name="type">
                         {{csrf_field()}}
-                        <h6 class="heading-small text-muted mb-4">根据服务器插件不同需要填写内容不同，若配置不正确，可能会出现问题</h6>
+                        <h6 class="heading-small text-muted ">根据服务器插件不同需要填写内容不同，若配置不正确，可能会出现问题</h6>
+                        <h6 class="heading-small text-muted mb-4">具体填写请查阅插件文档，或提问，目前官方插件只有EP DA CP 支持除 面板配置模板（重点）以外的配置填写，全部服务器插件推荐在面板配置模板（重点）填写套餐名字即可</h6>
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -32,14 +33,23 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-username">默认开通时长</label>
-                                        <input type="text" class="form-control form-control-alternative"
-                                               placeholder="默认开通时长（可为空）" value="{{old('time')}}" name="time">
+                                        <label class="form-control-label">面板配置模板（重点）</label>
+                                        <input type="text" name="config_template" class="form-control form-control-alternative"
+                                               value="{{old('config_template')}}"
+                                               placeholder="填写服务器控制面板的资源包/套餐，根据服务器插件配置-可为空">
                                     </div>
                                 </div>
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-username">默认开通时长</label>--}}
+                                        {{--<input type="text" class="form-control form-control-alternative"--}}
+                                               {{--placeholder="默认开通时长（可为空）" value="{{old('time')}}" name="time">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                         </div>
-                        <div class="pl-lg-4">
+                        <button type="button" onclick="add_form()" class="btn btn-success" id="add_form_button">加载更多配置</button>
+                        <div class="pl-lg-4" style="display: none" id="configure">
                             <div class="row">
                                 @if(!empty($input))
                                     @foreach($input as $key=>$value)
@@ -58,8 +68,15 @@
                         @include('admin.themes.default.layouts.errors')
                         <input type="submit" class="btn btn-primary" value="保存">
                     </form>
-                </div>
 
+                </div>
+                <script>
+                    function add_form() {
+                        var obj = document.getElementById('configure');
+                        obj.style.display = "block";
+                        document.getElementById('add_form_button').style.display="none"
+                    }
+                </script>
             </div>
         </div>
     </div>
