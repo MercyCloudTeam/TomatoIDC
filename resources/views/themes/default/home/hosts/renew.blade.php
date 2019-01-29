@@ -45,7 +45,7 @@
                                         <label class="form-control-label" for="input-username">商品名称</label>
                                         <input type="text" id="input-username"
                                                class="form-control form-control-alternative" disabled
-                                               value="{{$host->order->good->title}}">
+                                               value="{{$host->order->good->title ?? "商品已下架"}}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

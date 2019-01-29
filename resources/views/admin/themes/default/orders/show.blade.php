@@ -54,7 +54,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{$item->good->title}}
+                                        {{$item->good->title ?? "商品已删除"}}
                                     </td>
                                     <td>
                                         {{$item->price}} {{$currencyUnit}}

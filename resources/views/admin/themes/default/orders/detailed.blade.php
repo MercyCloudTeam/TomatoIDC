@@ -33,7 +33,7 @@
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-username">商品</label>
                                         <input type="text" class="form-control form-control-alternative"
-                                               placeholder="商品" value="{{$order->good->title}}" disabled>
+                                               placeholder="商品" value="{{$order->good->title ?? "商品已删除"}}" disabled>
                                     </div>
                                 </div>
                             </div>

@@ -297,6 +297,7 @@ class GoodController extends Controller
             ]
         );
 
+        $purchase_limit=$request['purchase_limit'];
         !empty($purchase_limit) ?: $purchase_limit = 0;
 
         GoodModel::create(
@@ -346,6 +347,7 @@ class GoodController extends Controller
             ]
         );
 
+        $purchase_limit=$request['purchase_limit'];
         !empty($purchase_limit) ?: $purchase_limit = 0;
 
         GoodModel::where(

@@ -29,7 +29,7 @@
                                     <th scope="row">
                                         <div class="media align-items-center">
                                             <div class="media-body">
-                                                <span class="mb-0 text-sm">{{$host->order->good->title}}</span>
+                                                <span class="mb-0 text-sm">{{$host->order->good->title ?? "商品已下架"}}</span>
                                             </div>
                                         </div>
                                     </th>

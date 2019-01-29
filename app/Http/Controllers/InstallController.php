@@ -84,7 +84,7 @@ class InstallController extends Controller
         'setting.website.payment.diy' => null,
         'setting.website.currency.unit' => 'CNY',
         'setting.website.logo.url' => null,
-        'setting.website.subtitle' => "中国领先虚拟主机销售系统",
+        'setting.website.subtitle' => "中国领先主机销售服务商",
         'setting.website.index.keyword' => "虚拟主机,VPS,邮箱,服务器,独立服务器",
         'setting.website.index.head.code' => "",
         'setting.website.home.head.code' => "",

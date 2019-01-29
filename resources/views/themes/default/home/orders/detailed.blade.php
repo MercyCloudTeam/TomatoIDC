@@ -40,7 +40,7 @@
                     </div>
                     <div class="text-center">
                         <h2>
-                            {{$order->good->title}}<span class="font-weight-light"></span>
+                            {{$order->good->title ?? "商品已下架"}}<span class="font-weight-light"></span>
                         </h2>
                         <div class="h5 mt-4">
                             <i class="ni business_briefcase-24 mr-2"></i>创建日期: {{$order->created_at->format('M d , Y')}}
@@ -78,7 +78,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="form-control-label" for="input-username">商品名称</label>
-                                <p><strong>{{$order->good->title}}</strong></p>
+                                <p><strong>{{$order->good->title ?? "商品已下架"}}</strong></p>
                             </div>
                             <div class="col-lg-6">
                                 <label class="form-control-label" for="input-username">商品价格</label>

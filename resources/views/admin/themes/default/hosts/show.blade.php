@@ -49,7 +49,7 @@
                                         {{$item->host_panel}}
                                     </td>
                                     <td>
-                                        {{$item->order->good->server->title}}
+                                        {{$item->order->good->server->title ?? "商品已下架"}}
                                     </td>
                                     <td>
                                         @if(empty($item->deadline))

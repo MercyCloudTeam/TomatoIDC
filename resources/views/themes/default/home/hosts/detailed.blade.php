@@ -40,7 +40,7 @@
                     </div>
                     <div class="text-center">
                         <h2>
-                            {{$host->order->good->title}}<span class="font-weight-light"></span>
+                            {{$host->order->good->title ?? "商品已下架"}}<span class="font-weight-light"></span>
                         </h2>
                         <div class="h5 font-weight-300">
                             <i class="ni location_pin mr-2"></i>{{$host->host_panel}}

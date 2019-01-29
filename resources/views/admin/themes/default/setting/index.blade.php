@@ -355,36 +355,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pl-lg-4">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">手机号注册</label>
-                                        <select class="custom-select" id="inputGroupSelect02s142" name="sales_notice">
-                                            <option value="1" {{ (old('sales_notice') ? old('sales_notice'): $setting->where('name','setting.website.admin.sales.notice')->first()->value) == 1 ? 'selected' :"" }} >
-                                                启用
-                                            </option>
-                                            <option value="0" {{ (old('sales_notice') ? old('sales_notice'): $setting->where('name','setting.website.admin.sales.notice')->first()->value) == 0 ? 'selected' :"" }} >
-                                                关闭
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">短信发送驱动配置</label>
-                                        <select class="custom-select" id="inputGroupSele2ct0412" name="email_notice">
-                                            <option value="1" {{ (old('email_notice') ? old('email_notice'): $setting->where('name','setting.website.user.email.notice')->first()->value) == 1 ? 'selected' :"" }} >
-                                                启用
-                                            </option>
-                                            <option value="0" {{ (old('email_notice') ? old('email_notice'): $setting->where('name','setting.website.user.email.notice')->first()->value) == 0 ? 'selected' :"" }} >
-                                                关闭
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="pl-lg-4">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-email">手机号注册</label>--}}
+                                        {{--<select class="custom-select" id="inputGroupSelect02s142" name="sales_notice">--}}
+                                            {{--<option value="1" {{ (old('sales_notice') ? old('sales_notice'): $setting->where('name','setting.website.admin.sales.notice')->first()->value) == 1 ? 'selected' :"" }} >--}}
+                                                {{--启用--}}
+                                            {{--</option>--}}
+                                            {{--<option value="0" {{ (old('sales_notice') ? old('sales_notice'): $setting->where('name','setting.website.admin.sales.notice')->first()->value) == 0 ? 'selected' :"" }} >--}}
+                                                {{--关闭--}}
+                                            {{--</option>--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-lg-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="form-control-label" for="input-email">短信发送驱动配置</label>--}}
+                                        {{--<select class="custom-select" id="inputGroupSele2ct0412" name="phone_drive">--}}
+                                            {{--<option value="1" {{ (old('email_notice') ? old('email_notice'): $setting->where('name','setting.website.user.email.notice')->first()->value) == 1 ? 'selected' :"" }} >--}}
+                                                {{--启用--}}
+                                            {{--</option>--}}
+                                            {{--<option value="0" {{ (old('email_notice') ? old('email_notice'): $setting->where('name','setting.website.user.email.notice')->first()->value) == 0 ? 'selected' :"" }} >--}}
+                                                {{--关闭--}}
+                                            {{--</option>--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -399,19 +399,6 @@
                                                 启用
                                             </option>
                                             <option value="0" {{ (old('wechat_service') ? old('wechat_service'): $setting->where('name','setting.wechat.service.status')->first()->value) == 0 ? 'selected' :"" }} >
-                                                关闭
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-email">短信发送驱动配置</label>
-                                        <select class="custom-select" id="inputGroupSele2ct0412" name="email_notice">
-                                            <option value="1" {{ (old('email_notice') ? old('email_notice'): $setting->where('name','setting.website.user.email.notice')->first()->value) == 1 ? 'selected' :"" }} >
-                                                启用
-                                            </option>
-                                            <option value="0" {{ (old('email_notice') ? old('email_notice'): $setting->where('name','setting.website.user.email.notice')->first()->value) == 0 ? 'selected' :"" }} >
                                                 关闭
                                             </option>
                                         </select>

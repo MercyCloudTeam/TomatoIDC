@@ -35,7 +35,7 @@
                                         <select class="custom-select" id="inputGroupSelect0312" name="order_no">
                                             @if(!empty($order = Auth::user()->order))
                                                 @foreach($order as $item)
-                                                    <option value="{{$item->no}}">{{$item->good->title}}-{{$item->no}}</option>
+                                                    <option value="{{$item->no}}">{{$item->good->title ?? "商品已下架"}}-{{$item->no}}</option>
                                                 @endforeach
                                             @endif
                                                 <option value="" selected>不选择订单</option>
