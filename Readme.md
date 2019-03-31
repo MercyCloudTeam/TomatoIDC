@@ -1,6 +1,6 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.7/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.8/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 语言: [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md) | 
 
@@ -8,11 +8,12 @@
 
 ## 介绍
 
+![预告图片](https://sz.ali.ftc.red/ftc/2019/04/01/-2.md.jpg)
+
 TomatoIDC V0.1.9由于更新内容不大所以就跳过了
 TomatoIDC V0.2.0主要针对性能优化，功能优化，所以TomatoIDC V0.2.0不建议V0.1.x升级上来（如果自己有点技术可以升级）。
 目前还在更改以及测试，发布时间待定
 如果有建议请去QQ或TG或ISSUE提出，如果想要一起开发请发送邮件或私聊我
-
 
 ### 特性
 
