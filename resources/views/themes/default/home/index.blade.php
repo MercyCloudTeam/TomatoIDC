@@ -101,7 +101,8 @@
                                     <th scope="row">
                                         <div class="media align-items-center">
                                             <div class="media-body">
-                                                <span class="mb-0 text-sm">{{$order->good->title ?? "商品已下架" }}</span>
+                                                <span class="mb-0 text-sm"><a class="dropdown-item"
+                                                           href="{{route('host.detailed',['id'=>$order->host->id])}}">{{$order->good->title ?? "商品已下架" }}</a></span>
                                             </div>
                                         </div>
                                     </th>
