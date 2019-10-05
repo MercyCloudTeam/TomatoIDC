@@ -1,6 +1,6 @@
 # TomatoIDC虚拟主机销售系统
 
-![GPL3.0](https://badgen.net/badge/License/GPL-3.0/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.8/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
+![MIT](https://badgen.net/badge/License/MIT/blue?icon=github)![PHP](https://badgen.net/badge/PHP/7.1.3+/orange)![Verison](https://badgen.net/badge/Verison/V0.1.8/cyan)![PHP](https://badgen.net/badge/版本/测试版/red)
 
 语言: [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md) | 
 
@@ -429,9 +429,8 @@ location / {
 
 ### 版权
 
-TomatoIDC 是基于 GNU General Public License version 3 开放源代码的自由软件，你可以遵照 GPLv3 协议来修改或重新发布本程序。
+TomatoIDC 是基于 MIT 开放源代码的自由软件，你可以遵照 MIT 协议来修改或重新发布本程序。
 
-**例外情况**：插件在未使用 TomatoIDC 程序源代码的情况下，无须采用GPL3.0协议，无须强制开放插件源代码
 
 
 
