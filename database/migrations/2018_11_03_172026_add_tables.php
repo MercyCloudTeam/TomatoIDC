@@ -44,8 +44,8 @@ class AddTables extends Migration
 
         Schema::create('settings', function (Blueprint $table) { //设置
             $table->increments('id');
-            $table->string('name');
-            $table->longText('value');
+            $table->string('name')->nullable();
+            $table->longText('value')->nullable();
             $table->timestamps();
         });
 
