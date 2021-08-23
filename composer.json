@@ -1,18 +1,22 @@
 {
-    "name": "laravel/laravel",
+    "name": "mercycloudteam/hstack",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "description": "HStack Project.",
+    "keywords": ["project"],
+    "license": "AFL-3.0",
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "laravel-lang/lang": "^10.1",
         "laravel/framework": "^8.54",
+        "laravel/jetstream": "^2.3",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
