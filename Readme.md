@@ -4,7 +4,9 @@
 
 语言: [简体中文](https://github.com/MercyCloudTeam/TomatoIDC/blob/master/Readme.md) | 
 
-导航: [Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC) | [交流论坛](https://dev.fanqieui.com) |[🚧官方文档](https://www.yuque.com/mercycloud/eg1gz6) | [Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg) | [QQ群](http://shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)
+导航: [Github](https://github.com/MercyCloudTeam/TomatoIDC/) | [Coding](https://dev.tencent.com/u/Franary/p/TomatoIDC/git) | [Gitee](https://gitee.com/MercyCloud/TomatoIDC)  | [Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg) | [QQ群](http://shang.qq.com/wpa/qunwpa?idkey=5bcf211d7faaafa83e0253d93be8d3813acebafcb24d4eb013d1e3ae9b015383)
+
+### 该分支V0.1系列的最终分支，可进行二次开发，部分功能已经完善。该分支不再进行后续维护。
 
 ## 介绍
 
@@ -18,10 +20,6 @@
 
 若追求商业运营请选择WHMCS
 
-新版本是主要是MercyCloud的需求，而进行开发。Thanks
-
-TomatoIDC V0.1.9由于更新内容不大所以就跳过了
-TomatoIDC V0.2.0主要针对性能优化，功能优化，所以TomatoIDC V0.2.0不建议V0.1.x升级上来（如果自己有点技术可以升级）。
 目前还在更改以及测试，发布时间待定
 如果有建议请去QQ或TG或ISSUE提出，如果想要一起开发请发送邮件或私聊我
 
@@ -54,37 +52,12 @@ TomatoIDC V0.2.0主要针对性能优化，功能优化，所以TomatoIDC V0.2.0
 
 ### 简介
 
-TomatoIDC是一款以[GPL3.0](https://opensource.org/licenses/gpl-3.0.html)协议开源虚拟主机销售系统，具备易于扩展的插件系统，模版系统，使用强大的Laravel框架进行驱动，能帮助你轻松的扩展虚拟主机销售业务。
-
+TomatoIDC是一款以MIT协议开源虚拟主机销售系统，具备易于扩展的插件系统，模版系统，使用强大的Laravel框架进行驱动，能帮助你轻松的扩展虚拟主机销售业务。
 
 
 ### 版本
 
-
-
 目前版本V0.1.8 较多功能还在开放当中，目前版本为测试版，但是使用是完全没有问题的，更新改动可能较大。
-
-关于框架版本：框架采用laravel最新版本
-
-
-
-### 演示站
-
-[演示站-1](https://dev.moe.beer/)
-
-[演示站-2](https://demo.tomatoidc.com)
-
-> 都还没什么人的项目，建个演示站都要被人打:(
-
-会不定期清空数据库，不建议往里面冲钱:)
-
-欢迎大家搭建一下w来给新人玩耍
-
-（可以到知识星球或者直接转给我）
-
-
-
-
 
 ## 安装
 
@@ -231,7 +204,6 @@ location / {
 7. 访问 https://domain/install 进行最后安装
 
 
-
 ## 功能
 
 
@@ -305,18 +277,6 @@ location / {
 
 
 
-### PRO版计划？
-
-我们暂无Pro版计划，我们可能会推出技术支持插件定制开发的，但如果是兼容面板，支付，我们会一步步进行开发，大家可以通过[交流论坛](https://dev.fanqieui.com)或者[交流群](https://jq.qq.com/?_wv=1027&k=52Llnjp)内提出
-
-
-
-### 功能开发
-
-欢迎在我们的[交流论坛](https://dev.fanqieui.com)里提出，如果越多人需要我们将会越快更新！
-
-
-
 ### 更新记录
 
 - V0.1.0  🎉 发布第一个开源版本，可以拿来正式使用-2018-11-23日 现已发布
@@ -335,9 +295,7 @@ location / {
 
 请提交issue/官方群讨论
 
-也可以提交到[交流论坛](https://dev.fanqieui.com)
-
-如果存在安全问题请私聊我萌~~（但是我们没钱奖励你，SRC？不存在的）~~
+如果存在安全问题请私聊~~（但是没钱奖励，SRC？不存在的）~~
 
 
 
@@ -355,7 +313,7 @@ location / {
 
 群号：927933095
 
-[Telegram](https://t.me/joinchat/LS-kqxSAs2QI-uYZTThRxg)
+[Telegram](https://t.me/MercyCloudNetwork)
 
 
 
@@ -364,68 +322,12 @@ location / {
 不要脸的求支持，觉得这个项目不错的大家可以点一下右上角的小星星，有什么问题去论坛，群，GITHUB我都会看的．也会回复的
 
 
-
-也欢迎大家打赏我进知识星球MercyCloudTeam(可以白嫖主机等东西)
-
-里面可以看到我疯狂挖的新坑，以及一些好玩的BUG，以及一些先行的源代码
-
-[知识星球二维码](https://sz.ali.ftc.red/ftc/2018/11/27/image_822582455182_4.jpg)
-
-
-
 #### 服务器推荐
 
 >以下为我目前使用的服务器，仅代表个人。推广链接可领优惠卷
 
 [Aliyun](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=rdnyjbu6)
 
-[Vultr](https://www.vultr.com/?ref=7244417) 
-
-
-
-#### TomatoProject
-
-> 在TomatoIDC的V0.1.2开发中，决定将其规划为TomatoProject，将会有一系列开源项目，欢迎大家支持
-
-
-
-### 废话
-
-本项目刚刚起步，需要大家的支持(一颗小星星就可以了)，如果大家想从其他主机销售系统转过来，需要什么功能欢迎提出来 ~~挖墙脚~~  
-
-```
-
-
-{\__/}
-( • . •)
-/ >🖥 我们的项目
-
-{\__/}
-( • . •)
-/ >🐘 使用最好的PHP语言
-
-{\__/}
-( • - •)
-/ >🐘🐘 采用面向对象编程
-
-{\__/}
-( • - •)
-/ >🌹 选用优雅的Laravel框架
-
-{\__/}
-( • - •)
-/ >🆓 还是开源免费使用
-
-{\__/}
-( • - •)
-/ >👫 还有性感开发者们，在线PHP
-
-{\__/}
-( • - •)
-/ > 🛒 快来开启你的主机商之旅吧
-
-
-```
 
 ### 版权
 
