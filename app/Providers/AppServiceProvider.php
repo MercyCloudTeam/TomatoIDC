@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        //钩子系统
     }
 
     /**
@@ -24,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        //模板系统
+
+        //插件系统
     }
 }

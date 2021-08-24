@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\PluginServiceProvider;
+
 return [
 
     /*
@@ -52,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://hstack.mercycloud.com'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\JetstreamServiceProvider::class,
 
+        // Other Service Providers
+        PluginServiceProvider::class
     ],
 
     /*
