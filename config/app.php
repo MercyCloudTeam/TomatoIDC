@@ -1,6 +1,7 @@
 <?php
 
 use App\Providers\PluginServiceProvider;
+use App\Providers\ThemeServiceProvider;
 
 return [
 
@@ -180,7 +181,8 @@ return [
         App\Providers\JetstreamServiceProvider::class,
 
         // Other Service Providers
-        PluginServiceProvider::class
+        PluginServiceProvider::class,
+        ThemeServiceProvider::class,
     ],
 
     /*
