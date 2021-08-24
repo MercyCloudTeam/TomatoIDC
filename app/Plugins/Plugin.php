@@ -113,7 +113,7 @@ abstract class Plugin
      * @param string $path
      * @param array|string $middleware
      */
-    protected function enableRoutes(string $path = 'routes.php', array|string $middleware = 'web')
+    protected function enableRoutes(string $path = 'routes.php',  $middleware = 'web')
     {
         $this->app->router->group(
             [
@@ -132,7 +132,7 @@ abstract class Plugin
      * @param array|string $paths
      * @return void
      */
-    protected function enableMigrations(array|string $paths = 'migrations')
+    protected function enableMigrations($paths = 'migrations')
     {
         $this->app->afterResolving('migrator', function ($migrator) use ($paths) {
             foreach ((array) $paths as $path) {
