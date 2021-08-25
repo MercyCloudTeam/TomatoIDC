@@ -126,6 +126,11 @@ abstract class Plugin
         );
     }
 
+    protected function enableHooks(string $path = 'hooks.php')
+    {
+        require $this->getPluginPath() . DIRECTORY_SEPARATOR . $path;
+    }
+
     /**
      * Register a database migration path for this plugin.
      *

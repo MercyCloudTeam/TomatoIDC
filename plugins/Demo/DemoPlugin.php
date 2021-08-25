@@ -12,5 +12,6 @@ class DemoPlugin extends Plugin
     {
         $this->enableViews();
         $this->enableRoutes();
+        $this->enableHooks();
     }
 }
