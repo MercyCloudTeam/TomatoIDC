@@ -26,9 +26,7 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Fortify::loginView(function () {
-            return view('theme::auth.login');
-        });
+        Fortify::loginView('theme::auth.login');
         Fortify::registerView(function () {
             return view('theme::auth.register');
         });

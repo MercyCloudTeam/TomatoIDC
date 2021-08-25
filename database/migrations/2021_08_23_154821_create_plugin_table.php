@@ -19,6 +19,7 @@ class CreatePluginTable extends Migration
             $table->string('class')->unique()->nullable();
             $table->string('key')->nullable();
             $table->string('author')->nullable();
+            $table->string('url')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('version')->nullable();

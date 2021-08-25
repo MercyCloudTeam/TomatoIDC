@@ -29,13 +29,12 @@ class CreateProductsTable extends Migration
             $table->integer('tax')->default(6);//税率
             $table->boolean('review')->default(0);//强制要求审核
 
-            $table->double('cost')->nullable();//成本
-            $table->integer('gross_margin')->nullable();//毛利率
-
             $table->bigInteger('category_id')->nullable();
             $table->longText('subtitle')->nullable();
             $table->longText('view')->nullable();//显示参数
             $table->longText('description')->nullable();//商品描述
+
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -47,6 +46,8 @@ class CreateProductsTable extends Migration
             $table->string('level')->default(1);
             $table->longText('view')->nullable();//显示参数
             $table->integer('status')->default(1);
+
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -91,6 +92,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('billing_id')->nullable();//购买时候计费id
             $table->integer('time_quantity')->default(1);//购买时长、如果计费模型是一个月并用户购买了一个月 则记录 1 ,如果计费模型是一个月用户购买了一年则记录12，根据计费类型
 
+            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -147,6 +149,7 @@ class CreateProductsTable extends Migration
             $table->longText('content');
             $table->longText('confidential')->nullable();//机密信息
             $table->integer('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
 
