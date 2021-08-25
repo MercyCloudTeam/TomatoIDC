@@ -16,7 +16,13 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Fortify::loginView('theme::auth.login');
+        Fortify::registerView(function () {
+            return view('theme::auth.register');
+        });
+        //配置使用模板的页面
+        Fortify::viewNamespace('theme');
+        Fortify::viewPrefix('auth.');
     }
 
     /**
