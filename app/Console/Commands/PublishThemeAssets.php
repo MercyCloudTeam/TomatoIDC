@@ -37,6 +37,6 @@ class PublishThemeAssets extends Command
      */
     public function handle()
     {
-
+        return 0;
     }
 }

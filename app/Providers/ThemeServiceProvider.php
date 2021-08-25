@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -33,6 +34,13 @@ class ThemeServiceProvider extends ServiceProvider
         // 加载翻译
         $lang = resource_path("themes/$theme/lang");
         $this->loadTranslationsFrom($lang, 'theme');  // 除自带翻译外模板的翻译
+
+        //默认分页视图引用
+        if (file_exists($views.'/vendor')){
+            Paginator::defaultView("theme::vendor.pagination.default");
+            Paginator::defaultSimpleView("theme::vendor.pagination.simple");
+        }
+
 
         // 静态资源软连接
         $publicAssets = public_path('assets/theme/' . config('hstack.theme'));

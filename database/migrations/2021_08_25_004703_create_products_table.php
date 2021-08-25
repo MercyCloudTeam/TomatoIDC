@@ -118,7 +118,6 @@ class CreateProductsTable extends Migration
             $table->boolean('cycle')->default(false);//循环计费
             $table->dateTime('expired_at')->nullable();//订单过期时间
             $table->dateTime('payment_at')->nullable();//支付时间
-            $table->boolean('vat_invoice')->default(0);//开票状态
             $table->softDeletes();
             $table->timestamps();
         });

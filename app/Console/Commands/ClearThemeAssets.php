@@ -50,6 +50,6 @@ class ClearThemeAssets extends Command
                 unlink($linkPath);
             }
         }
-        return true;
+        return 0;
     }
 }
