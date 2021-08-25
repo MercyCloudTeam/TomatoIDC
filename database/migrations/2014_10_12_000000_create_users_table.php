@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('users_addons',function (Blueprint $table){
+        Schema::create('user_addons',function (Blueprint $table){
             $table->bigInteger('user_id')->index();
             $table->string('name');
             $table->text('value');
