@@ -31,6 +31,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //配置使用模板的页面
+        Fortify::loginView('theme::auth.login');
+        Fortify::registerView('theme::auth.register');
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);

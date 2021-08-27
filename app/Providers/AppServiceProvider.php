@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Fortify;
+use Laravel\Jetstream\Jetstream;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //Menu菜单注册
         //钩子系统
     }
 
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);//防止某些Mysql版本Bug
         Paginator::useBootstrap();//默认分页使用Bootstrap
+
         //
         //模板系统
 

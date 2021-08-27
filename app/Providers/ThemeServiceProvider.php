@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Laravel\Fortify\Fortify;
 
 class ThemeServiceProvider extends ServiceProvider
 {
@@ -53,8 +54,11 @@ class ThemeServiceProvider extends ServiceProvider
             // TODO: 警告用戶不能存儲其他文件，防止安全問題
         }
 
+
         // 模板全局变量
         View::share('themeAssets', 'assets/theme/' . config('hstack.theme'));
+
+        //注册Logo等站点信息
 
     }
 }

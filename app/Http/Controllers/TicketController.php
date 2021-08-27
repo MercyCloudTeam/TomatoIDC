@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
+
+
+    public function contactStore(StoreTicket $request)
+    {
+        //todo 功能可关闭
+
+    }
+
     /**
      * Display a listing of the resource.
      *

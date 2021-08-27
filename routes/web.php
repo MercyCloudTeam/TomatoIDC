@@ -16,8 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/','theme::index');
 
-//开发测试时使用
-Route::resource('tickets',TicketController::class);
+
+Route::middleware(['auth:sanctum','web'])->prefix('home')->group(function (){
+    Route::resource('tickets',TicketController::class);
+});
+
+Route::view('/product','theme::product');
+Route::view('/product','');
+Route::view('/product','');
+
+Route::view('/contact','theme::contact')->name('contact');
+Route::post('/contact',[TicketController::class,'contactStore']);
+//Route::post('/contact','theme::contact')->name('contact');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

@@ -169,6 +169,12 @@ return [
          * Package Service Providers...
          */
 
+
+
+        // Other Service Providers
+        PluginServiceProvider::class,
+        ThemeServiceProvider::class,//优先注入
+
         /*
          * Application Service Providers...
          */
@@ -180,9 +186,6 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
-        // Other Service Providers
-        PluginServiceProvider::class,
-        ThemeServiceProvider::class,
     ],
 
     /*
