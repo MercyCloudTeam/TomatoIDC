@@ -6,6 +6,7 @@
 
 namespace App\Plugins;
 
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -38,6 +39,9 @@ class PluginManager
      */
     protected $pluginExtender;
 
+
+    protected array $enablePlugins = [];
+
     /**
      * PluginManager constructor.
      *
@@ -49,7 +53,11 @@ class PluginManager
         $this->pluginDirectory = base_path('Plugins');
         $this->pluginExtender  = new PluginExtender($this, $app);
 
+        //注册需要启用的插件
+
+        //加载插件
         $this->bootPlugins();
+
         $this->pluginExtender->extendAll();
 
         $this->registerClassLoader();
@@ -83,19 +91,20 @@ class PluginManager
             $directoryName = $dir->getBasename();
             $pluginClass = $this->getPluginClassNameFromDirectory($directoryName);
             if (!class_exists($pluginClass)) {
-                dd('Plugin ' . $directoryName . ' needs a ' . $directoryName . 'Plugin class.');
+                Log::error('Plugin ' . $directoryName . ' needs a ' . $directoryName . 'Plugin class.');
             }
 
             try {
                 $plugin = $this->app->makeWith($pluginClass, [$this->app]);
             } catch (\ReflectionException $e) {
-                dd('Plugin ' . $directoryName . ' could not be booted: "' . $e->getMessage() . '"');
-                exit;
+                Log::error('Plugin ' . $directoryName . ' could not be booted: "' . $e->getMessage() . '"');
             }
 
             if (!($plugin instanceof Plugin)) {
-                dd('Plugin ' . $directoryName . ' must extends the Plugin Base Class');
+                Log::error('Plugin ' . $directoryName . ' must extends the Plugin Base Class');
             }
+
+            //TODO 插件启用及关闭 只加载启用的
 
             $plugin->boot();
 

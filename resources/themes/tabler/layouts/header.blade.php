@@ -57,7 +57,11 @@
                         <a href="#" class="dropdown-item">Feedback</a>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Logout</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    this.closest('form').submit();" class="dropdown-item"> {{ __('Log Out') }}</a>
+                        </form>
                     </div>
 
                 @endauth
@@ -69,12 +73,22 @@
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="./index.html">
+                        <a class="nav-link" href="{{route('index')}}">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path></svg>
                     </span>
                             <span class="nav-link-title">
-                      Home
+                      {{__('Home')}}
+                    </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('dashboard')}}">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <i class="ti ti-dashboard"></i>
+                    </span>
+                            <span class="nav-link-title">
+                      {{__('Console')}}
                     </span>
                         </a>
                     </li>
@@ -187,16 +201,38 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('contact')}}">
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                    {{--                    登录前是联系咱们 ，登录后变成提交工单 --}}
+                    @guest()
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('contact')}}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <circle cx="12" cy="12" r="9"></circle>
+                               <line x1="12" y1="17" x2="12" y2="17.01"></line>
+                               <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4"></path>
+                            </svg>
+                        </span>
+                                <span class="nav-link-title">{{__('Contact Us')}}</span>
+                            </a>
+                        </li>
+                    @endguest
 
-                    </span>
-                            <span class="nav-link-title">
-                      {{__('Contact Us')}}
-                    </span>
-                        </a>
-                    </li>
+                    @auth()
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('contact')}}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <circle cx="12" cy="12" r="9"></circle>
+                               <line x1="12" y1="17" x2="12" y2="17.01"></line>
+                               <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4"></path>
+                            </svg>
+                        </span>
+                                <span class="nav-link-title">{{__('Contact Us')}}</span>
+                            </a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

@@ -34,6 +34,10 @@ class FortifyServiceProvider extends ServiceProvider
         //配置使用模板的页面
         Fortify::loginView('theme::auth.login');
         Fortify::registerView('theme::auth.register');
+        Fortify::resetPasswordView('theme::auth.reset-password');
+        Fortify::verifyEmailView('theme::auth.register');
+        Fortify::confirmPasswordView('theme::auth.register');
+        Fortify::requestPasswordResetLinkView('theme::auth.forgot-password');
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);

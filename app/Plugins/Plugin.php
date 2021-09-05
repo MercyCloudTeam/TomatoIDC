@@ -22,6 +22,11 @@ abstract class Plugin
      */
     public string $name;
 
+    /**
+     * 插件类型
+     * @var string
+     */
+    public string $type;
 
     /**
      * 作者
@@ -126,6 +131,10 @@ abstract class Plugin
         );
     }
 
+    /**
+     * 加载钩子
+     * @param string $path
+     */
     protected function enableHooks(string $path = 'hooks.php')
     {
         require $this->getPluginPath() . DIRECTORY_SEPARATOR . $path;
@@ -137,7 +146,7 @@ abstract class Plugin
      * @param array|string $paths
      * @return void
      */
-    protected function enableMigrations($paths = 'migrations')
+    protected function enableMigrations(array|string $paths = 'migrations')
     {
         $this->app->afterResolving('migrator', function ($migrator) use ($paths) {
             foreach ((array) $paths as $path) {

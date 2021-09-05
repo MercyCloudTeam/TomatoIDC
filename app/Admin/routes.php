@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\Controllers\ThemeController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Dcat\Admin\Admin;
@@ -20,4 +21,6 @@ Route::group([
     $router->resource('products', 'ProductController');
     $router->resource('user', 'UserController');
 
+    //主题配置
+    $router->get('/theme-setup',[ThemeController::class,'setup']);
 });

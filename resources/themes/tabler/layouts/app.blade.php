@@ -14,7 +14,8 @@
     <link href="{{asset("{$themeAssets}/css/tabler-flags.min.css")}}" rel="stylesheet"/>
     <link href="{{asset("{$themeAssets}/css/tabler-payments.min.css")}}" rel="stylesheet"/>
     <link href="{{asset("{$themeAssets}/css/tabler-vendors.min.css")}}" rel="stylesheet"/>
-    <link href="{{asset("{$themeAssets}/css/demo.min.css")}}" rel="stylesheet"/>
+    <link href="{{asset("{$themeAssets}/iconfont/tabler-icons.min.css")}}" rel="stylesheet"/>
+{{--    <link href="{{asset("{$themeAssets}/css/demo.min.css")}}" rel="stylesheet"/>--}}
 
     @yield('css')
 </head>

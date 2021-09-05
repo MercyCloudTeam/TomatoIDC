@@ -8,7 +8,6 @@ namespace App\Plugins;
 
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use JetBrains\PhpStorm\Pure;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\Finder\SplFileInfo;
@@ -267,7 +266,7 @@ class PluginExtender
      * @param ReflectionClass $reflactor
      * @return array
      */
-    #[Pure] protected function collectConstants(ReflectionClass $reflactor): array
+    protected function collectConstants(ReflectionClass $reflactor): array
     {
         return $reflactor->getConstants();
     }
@@ -277,7 +276,7 @@ class PluginExtender
      * @param array $splittedContent
      * @return string
      */
-    #[Pure] protected function getMethodString(\ReflectionMethod $method, array $splittedContent): string
+    protected function getMethodString(\ReflectionMethod $method, array $splittedContent): string
     {
         $methodString = '';
 

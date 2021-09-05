@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/','theme::index');
+Route::view('/','theme::index')->name('index');
 
 
 Route::middleware(['auth:sanctum','web'])->prefix('home')->group(function (){
     Route::resource('tickets',TicketController::class);
 });
+Route::view('/terms-of-service','theme::terms-of-service' )->name('terms.show');
+Route::view('/privacy-policy', 'theme::privacy-policy')->name('policy.show');
 
 Route::view('/product','theme::product');
 Route::view('/product','');
@@ -30,6 +32,6 @@ Route::post('/contact',[TicketController::class,'contactStore']);
 //Route::post('/contact','theme::contact')->name('contact');
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->prefix('console')->group(function (){
+    Route::view('/dashboard','theme::dashboard')->name('dashboard');
+});

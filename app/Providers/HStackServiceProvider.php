@@ -14,6 +14,7 @@ class HStackServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        //注册配置缓存
     }
 
     /**
