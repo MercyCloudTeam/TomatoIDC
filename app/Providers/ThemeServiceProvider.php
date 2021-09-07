@@ -33,10 +33,10 @@ class ThemeServiceProvider extends ServiceProvider
         $publicAssets = public_path('assets/theme/' . config('hstack.theme'));
         if (!is_link(public_path($publicAssets)) && !file_exists($publicAssets)) {
             $fileSystem = $this->app->files;
-            $fileSystem->link(
-                resource_path('themes/' . config('hstack.theme') . '/assets'),
-                public_path('assets/theme/' . config('hstack.theme'))
-            );
+//            $fileSystem->link(
+//                resource_path('themes/' . config('hstack.theme') . '/assets'),
+//                public_path('assets/theme/' . config('hstack.theme'))
+//            );
             // TODO: 警告用戶不能存儲其他文件，防止安全問題
         }
 
