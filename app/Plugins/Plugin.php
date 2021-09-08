@@ -120,6 +120,8 @@ abstract class Plugin
      */
     protected function enableRoutes(string $path = 'routes.php',  $middleware = 'web')
     {
+        //Todo 插件页面默认从插件加载模板 如果主题作者为插件做了模板则使用主题作者的
+
         $this->app->router->group(
             [
                 'namespace' => $this->getPluginControllerNamespace(),

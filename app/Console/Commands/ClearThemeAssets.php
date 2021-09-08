@@ -46,10 +46,11 @@ class ClearThemeAssets extends Command
 //            if (is_link($linkPath) || (windows_os() && file_exists($linkPath) && linkinfo($linkPath))) {
 //
 //            }
-            if (is_link($linkPath)){ //TODO Windows会创建硬链接 无法删除
-                unlink($linkPath);
+            if (is_link($linkPath)) {
+                $this->laravel->make('files')->delete($linkPath);
             }
         }
         return 0;
     }
+
 }

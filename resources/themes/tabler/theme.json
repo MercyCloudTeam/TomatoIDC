@@ -2,7 +2,11 @@
     "name": "Tabler",
     "desc": "",
     "author": "MercyCloud",
-    "route": [
-
-    ]
+    "router": {
+        "/diy/pages/demo":"theme-diy-demo"
+    },
+    "variable": {
+        "index_title": "string",
+        "index_subtitle": "string"
+    }
 }
