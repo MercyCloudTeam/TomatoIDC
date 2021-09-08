@@ -9,9 +9,12 @@ class SystemSetup extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'name';
+    public $incrementing = false;
+
     protected $table = 'system_setups';
 
     protected $fillable = [
-        'key','value'
+        'name','value','type'
     ];
 }

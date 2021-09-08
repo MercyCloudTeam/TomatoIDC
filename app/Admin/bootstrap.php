@@ -24,3 +24,8 @@ use Dcat\Admin\Show;
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+
+//系统默认菜单
+
+
+//插件造成的后台管理菜单请使用数据库的形式

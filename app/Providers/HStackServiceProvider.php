@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\HStack\SetupManager;
 use Illuminate\Support\ServiceProvider;
 
 class HStackServiceProvider extends ServiceProvider
 {
+    public array $setups;
     /**
      * Register services.
      *
@@ -13,8 +15,6 @@ class HStackServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        //注册配置缓存
     }
 
     /**
@@ -24,6 +24,7 @@ class HStackServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        (new SetupManager());
+
     }
 }

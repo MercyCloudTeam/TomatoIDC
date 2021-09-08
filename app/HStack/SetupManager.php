@@ -10,52 +10,105 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class SetupManager
 {
-    public array $list;
+    /**
+     * 系统设置
+     * @var array|mixed
+     */
+    public  array $systemVariables = [];
+
+    /**
+     * 模板的设置
+     * @var array|mixed
+     */
+    public  array $viewVariables = [];
+
 
     public function __construct()
     {
-        //初始化
-        $this->list = config('hstack.system.setups');
-        $this->toCache();
+        //初始化站点设置缓存
+        if (!Cache::has( 'site-setups')){
+            $this->registerSystemConfig();//检测是否有缓存 如果没有就获取并缓存
+        }else{
+            $this->systemVariables = json_decode(Cache::get('site-setups'),true) ?? [];
+        }
+
+        //初始化模板设置缓存
+        $theme = config('hstack.theme');
+        if (!Cache::has("theme-{$theme}-variables")){
+            $this->registerThemeVariable();
+
+        }else{
+            $this->viewVariables = json_decode(Cache::get("theme-{$theme}-variables"),true) ?? [];
+        }
+        $this->toView();
     }
 
     /**
      * 放入缓存
      */
-    public function toCache()
+    public  function registerSystemConfig()
     {
-        $name = 'site-setups';
-        if (!Cache::has($name)){
-            //从数据库中获取
-            $setups = SystemSetup::all()->chunk(5, function($setups) {
-                foreach ($setups as $user) {
-                    $name = $user->name;
-                    echo $name;
-                }
-            });
-            foreach ($setups as $setup){
-//                $setup
-                foreach ($this->list as $key=>$key){
-                    if ($key == $setup->name){
-
+        $list = [];
+        //从数据库中获取
+        SystemSetup::where('type','system')->chunk(100, function($setups) {
+            foreach ($setups as $item){
+                foreach (config('hstack.system.setups') as $name=>$lang){
+                    if ($item->name == $name){
+                        $list[$item->name] = $item->value;
                     }
                 }
             }
-            Cache::put($name,$this->list,3600);//默认一天
-        }
+        });
+        $this->systemVariables = $list ?? [];
+        Cache::put( 'site-setups',json_encode($list),true);
     }
 
-    public function toView()
+    /**
+     * 将配置参数加载到模板可使用的变量
+     */
+    protected  function toView()
     {
-        foreach ($this->list as $k=>$v){
-            View::share("setup-$k",SystemSetup::where('key',$k)->first()->value ?? null);
-        }
+        $list = array_merge_recursive($this->viewVariables,$this->systemVariables);
+        View::share($list);
     }
 
-    public function reloadCache()
+
+    /**
+     * 注册视图变量到缓存
+     */
+    protected  function registerThemeVariable()
     {
-        $name = 'site-setups';
-        Cache::put($name,$this->list,3600);//默认一天
+        $configs =$this->getThemeConfig();
+        $list = [];
+        if (!empty($configs) && isset($configs->variable)){
+            $setups = SystemSetup::where('type','theme')->get();
+            if (!$setups->isEmpty()){
+                foreach ($setups as $item){
+                    foreach ($configs->variable as $name=>$type){
+                        if ("theme_$name" == $item->name){
+                            $list[$item->name] = $item->value;
+                        }
+                    }
+                }
+            }
+            $this->systemVariables = $list ?? [];
+            Cache::put( 'site-setups',json_encode($list),true);//如果没找到配置会注册个空的
+        }
+
     }
 
+    /**
+     * 返回模板配置
+     * @return mixed
+     */
+    protected  function getThemeConfig(): mixed
+    {
+        $theme = config('hstack.theme');
+        // 加载路径
+        $file = resource_path("themes/$theme/theme.json");
+        if (file_exists($file)) {
+            return json_decode(file_get_contents($file));
+        }
+        return false;
+    }
 }

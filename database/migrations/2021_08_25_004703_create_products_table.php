@@ -65,9 +65,9 @@ class CreateProductsTable extends Migration
 
         //系统设置
         Schema::create('system_setups', function (Blueprint $table) { //设置
-            $table->string('name')->unique()->index();
+            $table->string('name')->unique()->index()->primary();
             $table->longText('value');
-            $table->string('type')->default('system');//类型
+            $table->string('type')->default('system')->index();//类型
             $table->timestamps();
         });
 

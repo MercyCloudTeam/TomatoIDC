@@ -76,35 +76,20 @@ class ThemeServiceProvider extends ServiceProvider
      */
     protected function registerTheme()
     {
+//
+//        //注册路由
+//        if (!empty($config->router)){
+//            $routeList = function (){};
+//            foreach ($config->router as $path=>$page){
+//                $routeList->bindTo(Route::view($path,"theme::$page"));
+//            }
+//            $this->app->router->middleware('web')
+//                ->group($routeList);
+//        }
+//        //注册变量
 
-        $theme = config('hstack.theme');
-        // 加载路径
-        $file = resource_path("themes/$theme/theme.json");
-        //如果模板作者需要额外的页面 将通过这里注册相应的路由
-        if (file_exists($file)){
-            $config = json_decode(file_get_contents($file));
-            //注册路由
-            if (!empty($config)){
-                if (!empty($config->router)){
-                    $routeList = function (){};
-                    foreach ($config->router as $path=>$page){
-                        $routeList->bindTo(Route::view($path,"theme::$page"));
-                    }
-                    $this->app->router->middleware('web')
-                        ->group($routeList);
-                }
-            }
-            //注册变量
-            if (Cache::has("theme-{$theme}-variables")){
-                $variables = json_decode(Cache::get("theme-{$theme}-variables"));
-                foreach ($variables as $k=>$v ){
-                    View::share("theme_".$k,$v);
-                }
-            }else{
 
-            }
 
-        }
 
 
     }

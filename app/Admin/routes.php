@@ -22,5 +22,5 @@ Route::group([
     $router->resource('user', 'UserController');
 
     //主题配置
-    $router->get('/theme-setup',[ThemeController::class,'setup']);
+    $router->get('theme-setup',[ThemeController::class,'setupShow']);
 });

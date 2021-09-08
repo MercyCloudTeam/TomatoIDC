@@ -58,12 +58,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         //API每分钟限制50 默认
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(50)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(config('hstack.limit.api_per_minute',25))->by(optional($request->user())->id ?: $request->ip());
         });
 
         //WEB每分钟限制25 默认
         RateLimiter::for('web', function (Request $request) {
-            return Limit::perMinute(25)->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(config('hstack.limit.web_per_minute',50))->by(optional($request->user())->id ?: $request->ip());
         });
 
     }

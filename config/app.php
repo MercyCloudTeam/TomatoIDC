@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\HStackServiceProvider;
 use App\Providers\PluginServiceProvider;
 use App\Providers\ThemeServiceProvider;
 
@@ -174,7 +175,7 @@ return [
         // Other Service Providers
         PluginServiceProvider::class,
         ThemeServiceProvider::class,//优先注入
-
+        HStackServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -183,6 +184,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
