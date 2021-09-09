@@ -13,6 +13,7 @@ class CreateServerTable extends Migration
      */
     public function up()
     {
+//        Remark: 原本的设计是只对PVE进行支持，部分设置预留偏向PVE
 
         //设计源自 MercyCloud Automation Project
         //路径：database/migrations/2021_03_08_114117_create_server_table.php
@@ -128,6 +129,55 @@ class CreateServerTable extends Migration
             $table->timestamps();
         });
 
+
+        //设计源自 MercyCloud Automation Project
+        //database/migrations/2021_03_08_114032_create_i_p_address_table.php
+
+        Schema::create('ip_pool', function (Blueprint $table) {
+            $table->id();
+            $table->ipAddress('ip');
+            $table->string('type')->default('machine');//ip類型 等待分配、预留、弹性IP elasticity retain
+            $table->string('ip_type');//ip類型 ipv4 or ipv6
+            $table->string('gateway')->nullable();//配置網關
+            $table->integer('cidr');//这个网段的子网網掩
+            $table->string('netmask')->nullable();
+            $table->integer('subnet')->default(32);//这端IP的大小 ip size
+            $table->string('mac')->nullable();//MAC地址
+            $table->string('net_type')->default('virtio');//网卡类型/接入类型
+            $table->string('config')->nullable();//另外配置，插件識別
+            $table->integer('vlan')->nullable();//另外配置，插件識別
+            $table->string('nat')->nullable();//如果有一对一NAT的ip段
+            $table->timestamps();
+        });
+
+        Schema::create('ip_related', function (Blueprint $table) {
+            $table->id();
+            $table->integer('server_id')->nullable(); //服務器ID
+            $table->integer('ip_pool_id')->nullable();
+            $table->string('bridge')->nullable();//桥接的网卡
+
+            $table->timestamps();
+        });
+
+        Schema::create('ip_allocation', function (Blueprint $table) {
+            $table->id();
+            $table->ipAddress('ip');
+
+            $table->integer('ip_pool_id')->nullable();
+            $table->integer('server_id')->nullable(); //服務器ID
+            $table->string('type')->default('machine');
+
+            $table->string('service_id')->nullable();//對應服務
+            $table->string('user_id')->nullable();//归属用户ID
+            $table->longText('filler')->nullable();//过滤器配置状态
+            $table->boolean('secondary')->default(0);//IP地址是否為secondary （附加ip）
+            $table->string('config')->nullable();//另外配置，插件識別
+            $table->string('net_type')->default('virtio');//网卡类型/接入类型
+            $table->integer('vlan')->nullable();//另外配置，插件識別
+            $table->timestamps();
+        });
+
+
     }
 
     /**
@@ -147,5 +197,9 @@ class CreateServerTable extends Migration
         Schema::dropIfExists('servers_resource_pool');
         Schema::dropIfExists('servers_resource_pool_association');
         Schema::dropIfExists('servers_setup');
+
+        Schema::dropIfExists('ip_pool');
+        Schema::dropIfExists('ip_related');
+        Schema::dropIfExists('ip_allocation');
     }
 }
