@@ -173,9 +173,9 @@ return [
 
 
         // Other Service Providers
-        PluginServiceProvider::class,
-        ThemeServiceProvider::class,//优先注入
         HStackServiceProvider::class,
+        PluginServiceProvider::class,
+        ThemeServiceProvider::class,
         /*
          * Application Service Providers...
          */

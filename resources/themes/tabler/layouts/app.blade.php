@@ -24,6 +24,7 @@
     @include('theme::layouts.header')
     <div class="page-wrapper">
         <div class="container-xl">
+            @yield('header')
         </div>
         <div class="page-body">
             @yield('content')

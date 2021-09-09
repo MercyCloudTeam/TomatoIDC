@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -58,4 +59,33 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Tickets 工单模型关联
+     * @return HasMany
+     */
+    public function ticket(): HasMany
+    {
+        return $this->hasMany('App\Models\Ticket');
+    }
+
+    /**
+     * Invoice 账单模型关联
+     * @return HasMany
+     */
+    public function invoice(): HasMany
+    {
+        return $this->hasMany('App\Models\Invoice');
+    }
+
+    /**
+     * service 服务模型关联
+     * @return HasMany
+     */
+    public function service(): HasMany
+    {
+        return $this->hasMany('App\Models\Service');
+    }
+
+
 }

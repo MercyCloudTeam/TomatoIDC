@@ -34,13 +34,32 @@ class SetupManager
 
         //初始化模板设置缓存
         $theme = config('hstack.theme');
-        if (!Cache::has("theme-{$theme}-variables")){
+        if (!Cache::has("theme-$theme-variables")){
             $this->registerThemeVariable();
 
         }else{
-            $this->viewVariables = json_decode(Cache::get("theme-{$theme}-variables"),true) ?? [];
+            $this->viewVariables = json_decode(Cache::get("theme-$theme-variables"),true) ?? [];
         }
+
+        //注册模板路由缓存
+        if (!Cache::has("theme-$theme-routes")){
+            $this->registerThemeRouteList();
+        }
+
         $this->toView();
+    }
+
+    /**
+     * 注册模板路由列表
+     */
+    public function registerThemeRouteList()
+    {
+        $theme = config('hstack.theme');
+        $configs = self::getThemeConfig(true);
+        if (!empty($configs) && isset($configs['router'])){
+            Cache::put( "theme-$theme-routes",json_encode($configs['router']),true);//如果没找到配置会注册个空的
+        }
+
     }
 
     /**
@@ -76,9 +95,9 @@ class SetupManager
     /**
      * 注册视图变量到缓存
      */
-    protected  function registerThemeVariable()
+    protected function registerThemeVariable()
     {
-        $configs =$this->getThemeConfig();
+        $configs = self::getThemeConfig();
         $list = [];
         if (!empty($configs) && isset($configs->variable)){
             $setups = SystemSetup::where('type','theme')->get();
@@ -99,15 +118,16 @@ class SetupManager
 
     /**
      * 返回模板配置
+     * @param bool $assoc
      * @return mixed
      */
-    protected  function getThemeConfig(): mixed
+    public static function getThemeConfig(bool $assoc = false): mixed
     {
         $theme = config('hstack.theme');
         // 加载路径
         $file = resource_path("themes/$theme/theme.json");
         if (file_exists($file)) {
-            return json_decode(file_get_contents($file));
+            return json_decode(file_get_contents($file),$assoc);
         }
         return false;
     }

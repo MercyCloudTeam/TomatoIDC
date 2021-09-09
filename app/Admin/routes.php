@@ -20,6 +20,7 @@ Route::group([
     $router->resource('service', 'ServiceController');
     $router->resource('products', 'ProductController');
     $router->resource('user', 'UserController');
+    $router->resource('setup', 'SystemSetupController');
 
     //主题配置
     $router->get('theme-setup',[ThemeController::class,'setupShow']);

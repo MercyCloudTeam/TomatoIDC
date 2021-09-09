@@ -40,11 +40,8 @@ class ThemeServiceProvider extends ServiceProvider
             (new Filesystem())->link($target, $link);
             // NOTE: 警告用戶不能存儲其他文件，防止安全問題
         }
-        // 模板全局变量
+        // 模板全局变量 , 配置的变量注册代码实现在：app/HStack/SetupManager.php app/Providers/HStackServiceProvider.php
         View::share('themeAssets', 'assets/theme/' . config('hstack.theme'));
-        // TODO: 注册Logo等站点信息
-
-        // TODO 注册模板自定义页面内容
         $this->registerPath();
         $this->registerTheme();
     }
@@ -76,21 +73,16 @@ class ThemeServiceProvider extends ServiceProvider
      */
     protected function registerTheme()
     {
-//
-//        //注册路由
-//        if (!empty($config->router)){
-//            $routeList = function (){};
-//            foreach ($config->router as $path=>$page){
-//                $routeList->bindTo(Route::view($path,"theme::$page"));
-//            }
-//            $this->app->router->middleware('web')
-//                ->group($routeList);
-//        }
-//        //注册变量
-
-
-
-
-
+        //注册路由
+        $theme = config('hstack.theme');
+        $routers = json_decode(Cache::get("theme-$theme-routes"));
+        if (!empty($routers)){
+            $routeList = function (){};
+            foreach ($routers as $path=>$page){
+                $routeList->bindTo(Route::view($path,"theme::$page"));
+            }
+            $this->app->router->middleware('web')
+                ->group($routeList);
+        }
     }
 }
