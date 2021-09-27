@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\HStack\SetupManager;
+use App\Plugins\PluginManager;
 use Illuminate\Support\ServiceProvider;
 
 class HStackServiceProvider extends ServiceProvider
@@ -15,6 +16,8 @@ class HStackServiceProvider extends ServiceProvider
      */
     public function register()
     {
+//        $this->app->bind('hstack-theme', function () {
+//        });
     }
 
     /**

@@ -11,6 +11,7 @@ class SystemSetup extends Model
 
     protected $primaryKey = 'name';
     public $incrementing = false;
+    public $timestamps = false;
 
     protected $table = 'system_setups';
 

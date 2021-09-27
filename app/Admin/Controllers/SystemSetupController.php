@@ -2,14 +2,29 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Forms\SystemSetting;
+use App\Admin\Forms\ThemeSetting;
 use App\Admin\Repositories\SystemSetup;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Widgets\Card;
 
 class SystemSetupController extends AdminController
 {
+    /**
+     * @param Content $content
+     * @return Content
+     */
+    public function systemSetup(Content $content)
+    {
+        return  $content
+            ->title('网站设置')
+            ->description('详情')
+            ->body(new Card(new SystemSetting()));
+    }
     /**
      * Make a grid builder.
      *
@@ -58,7 +73,7 @@ class SystemSetupController extends AdminController
     protected function form()
     {
         return Form::make(new SystemSetup(), function (Form $form) {
-            $form->text('name');
+            $form->display('name');
             $form->text('value');
             $form->text('type');
 

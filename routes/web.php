@@ -17,8 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::view('/','theme::index')->name('index');
 
 
-Route::middleware(['auth:sanctum','web'])->prefix('home')->group(function (){
-    Route::resource('tickets',TicketController::class);
+Route::middleware(['auth:sanctum'])->prefix('home')->group(function (){
+    Route::middleware(['verified'])->group(function (){//验证后
+        Route::resource('tickets',TicketController::class);
+    });
+    Route::view('/dashboard','theme::dashboard')->name('dashboard');//仪表盘
+
 });
 Route::view('/terms-of-service','theme::terms-of-service' )->name('terms.show');//用户协议
 Route::view('/privacy-policy', 'theme::privacy-policy')->name('policy.show');//隐私协议
@@ -29,9 +33,6 @@ Route::view('/product','');
 
 Route::view('/contact','theme::contact')->name('contact');//联系页面
 Route::post('/contact',[TicketController::class,'contactStore']);//提交联系申请
+
+//Route::view('theme::billing.product-list',);
 //Route::post('/contact','theme::contact')->name('contact');
-
-
-Route::middleware(['auth:sanctum', 'verified'])->prefix('console')->group(function (){
-    Route::view('/dashboard','theme::dashboard')->name('dashboard');//仪表盘
-});

@@ -66,9 +66,8 @@ class CreateProductsTable extends Migration
         //系统设置
         Schema::create('system_setups', function (Blueprint $table) { //设置
             $table->string('name')->unique()->index()->primary();
-            $table->longText('value');
+            $table->longText('value')->nullable();
             $table->string('type')->default('system')->index();//类型
-            $table->timestamps();
         });
 
         //账单商品
@@ -132,8 +131,8 @@ class CreateProductsTable extends Migration
             $table->longText('contact')->nullable();//聯係方式
             $table->string('type');
             $table->integer('priority')->default(10);//优先级
-            $table->uuid('user_uuid')->nullable();
-            $table->uuid('service_uuid')->nullable();
+            $table->bigInteger('user_id')->nullable();
+            $table->bigInteger('service_id')->nullable();
             $table->integer('admin_id')->nullable();//分配管理員、上一次、目前正在处理的管理员
             $table->integer('status')->default(1);
             $table->softDeletes();

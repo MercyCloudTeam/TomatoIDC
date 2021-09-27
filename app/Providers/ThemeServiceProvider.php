@@ -76,7 +76,7 @@ class ThemeServiceProvider extends ServiceProvider
         //注册路由
         $theme = config('hstack.theme');
         $routers = json_decode(Cache::get("theme-$theme-routes"));
-        if (!empty($routers)){
+        if (is_array($routers)){
             $routeList = function (){};
             foreach ($routers as $path=>$page){
                 $routeList->bindTo(Route::view($path,"theme::$page"));

@@ -18,7 +18,6 @@ class HomeController extends Controller
             ->description('Description...')
             ->body(function (Row $row) {
                 $row->column(6, function (Column $column) {
-                    $column->row(Dashboard::title());
                     $column->row(new Examples\Tickets());
                 });
 

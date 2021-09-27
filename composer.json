@@ -52,7 +52,8 @@
             "@php artisan vendor:publish --tag=laravel-assets --ansi",
             "Illuminate\\Foundation\\ComposerScripts::postUpdate" ,
             "@php artisan ide-helper:generate" ,
-            "@php artisan ide-helper:meta"
+            "@php artisan ide-helper:meta",
+            "@php artisan telescope:publish --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

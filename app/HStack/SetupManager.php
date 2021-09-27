@@ -14,31 +14,48 @@ class SetupManager
      * 系统设置
      * @var array|mixed
      */
-    public  array $systemVariables = [];
+    public array $systemVariables = [];
 
     /**
      * 模板的设置
      * @var array|mixed
      */
-    public  array $viewVariables = [];
+    public array $viewVariables = [];
 
+    /**
+     * 模板配置的JSON转换成Array后
+     * @var array|mixed
+     */
+    public array $themeJson;
 
+    /**
+     * 初始化
+     */
     public function __construct()
     {
+        $theme = config('hstack.theme');
+        //初始化模板Json
+        $themeJson = Cache::get( "theme-$theme-json");
+        if ($themeJson == null){
+            $this->initThemeJson(true);//检测是否有缓存 如果没有就获取并缓存
+        }else{
+            $this->themeJson = json_decode($themeJson,true);
+        }
+
         //初始化站点设置缓存
-        if (!Cache::has( 'site-setups')){
+        $systemVariables = Cache::get( 'site-setups');
+        if ($systemVariables == null){
             $this->registerSystemConfig();//检测是否有缓存 如果没有就获取并缓存
         }else{
-            $this->systemVariables = json_decode(Cache::get('site-setups'),true) ?? [];
+            $this->systemVariables = json_decode($systemVariables,true) ?? [];
         }
 
         //初始化模板设置缓存
-        $theme = config('hstack.theme');
-        if (!Cache::has("theme-$theme-variables")){
+        $viewVariables = Cache::get("theme-$theme-variables");
+        if ($viewVariables == null){
             $this->registerThemeVariable();
-
         }else{
-            $this->viewVariables = json_decode(Cache::get("theme-$theme-variables"),true) ?? [];
+            $this->viewVariables = json_decode($viewVariables,true) ?? [];
         }
 
         //注册模板路由缓存
@@ -55,9 +72,9 @@ class SetupManager
     public function registerThemeRouteList()
     {
         $theme = config('hstack.theme');
-        $configs = self::getThemeConfig(true);
+        $configs = $this->themeJson;
         if (!empty($configs) && isset($configs['router'])){
-            Cache::put( "theme-$theme-routes",json_encode($configs['router']),true);//如果没找到配置会注册个空的
+            Cache::put( "theme-$theme-routes",json_encode($configs['router']));//如果没找到配置会注册个空的
         }
 
     }
@@ -65,11 +82,12 @@ class SetupManager
     /**
      * 放入缓存
      */
-    public  function registerSystemConfig()
+    public function registerSystemConfig()
     {
         $list = [];
         //从数据库中获取
-        SystemSetup::where('type','system')->chunk(100, function($setups) {
+        $setups = SystemSetup::where('type','system')->get();
+        if (!$setups->isEmpty()){
             foreach ($setups as $item){
                 foreach (config('hstack.system.setups') as $name=>$lang){
                     if ($item->name == $name){
@@ -77,9 +95,9 @@ class SetupManager
                     }
                 }
             }
-        });
-        $this->systemVariables = $list ?? [];
-        Cache::put( 'site-setups',json_encode($list),true);
+            $this->systemVariables = $list ?? [];
+            Cache::put( 'site-setups',json_encode($list));
+        }
     }
 
     /**
@@ -87,7 +105,7 @@ class SetupManager
      */
     protected  function toView()
     {
-        $list = array_merge_recursive($this->viewVariables,$this->systemVariables);
+        $list = array_merge($this->viewVariables,$this->systemVariables);
         View::share($list);
     }
 
@@ -97,21 +115,22 @@ class SetupManager
      */
     protected function registerThemeVariable()
     {
-        $configs = self::getThemeConfig();
+        $configs = $this->themeJson;
+        $theme = config('hstack.theme');
         $list = [];
-        if (!empty($configs) && isset($configs->variable)){
+        if (!empty($configs) && isset($configs['variable'])){
             $setups = SystemSetup::where('type','theme')->get();
             if (!$setups->isEmpty()){
                 foreach ($setups as $item){
-                    foreach ($configs->variable as $name=>$type){
-                        if ("theme_$name" == $item->name){
-                            $list[$item->name] = $item->value;
+                    foreach ($configs['variable'] as $name=>$type){
+                        if ($name == $item->name){
+                            $list["theme_".$item->name] = $item->value;
                         }
                     }
                 }
             }
-            $this->systemVariables = $list ?? [];
-            Cache::put( 'site-setups',json_encode($list),true);//如果没找到配置会注册个空的
+            $this->viewVariables = $list ?? [];
+            Cache::put( "theme-$theme-variables",json_encode($list));//如果没找到配置会注册个空的
         }
 
     }
@@ -119,16 +138,16 @@ class SetupManager
     /**
      * 返回模板配置
      * @param bool $assoc
-     * @return mixed
      */
-    public static function getThemeConfig(bool $assoc = false): mixed
+    public function initThemeJson(bool $assoc = false)
     {
         $theme = config('hstack.theme');
         // 加载路径
         $file = resource_path("themes/$theme/theme.json");
         if (file_exists($file)) {
-            return json_decode(file_get_contents($file),$assoc);
+            $json = file_get_contents($file);
+            Cache::put( "theme-$theme-json",$json);//如果没找到配置会注册个空的
+            $this->themeJson =  json_decode($json,$assoc);
         }
-        return false;
     }
 }

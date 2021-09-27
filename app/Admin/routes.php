@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin\Controllers\SystemSetupController;
 use App\Admin\Controllers\ThemeController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,5 @@ Route::group([
 
     //主题配置
     $router->get('theme-setup',[ThemeController::class,'setupShow']);
+    $router->get('system-setup',[SystemSetupController::class,'systemSetup']);
 });

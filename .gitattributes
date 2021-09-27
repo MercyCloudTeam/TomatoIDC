@@ -2,6 +2,6 @@
 *.css linguist-vendored
 *.scss linguist-vendored
 *.js linguist-vendored
-public/vendor/* linguist-vendored
+*.html linguist-vendored
 *.blade.php linguist-language=PHP
 CHANGELOG.md export-ignore
