@@ -5,12 +5,12 @@ return [
     'system'=>[
         'setups'=>[
             //默认加载进缓存 key=>后台管理看到的易读项，支持多语言
-            'site_title'=>'admin.title',
-            'site_subtitle'=>'admin.subtitle',
-            'site_keywords'=>'admin.keywords',
-            'site_logo'=>'admin.logo',
-            'site_logo_mini'=>'admin.logo-mini',
-            'site_power_by'=>'admin.power_by',//版权显示
+            'site_title'=>['lang'=>'admin.title','input'=>'text'],
+            'site_subtitle'=>['lang'=>'admin.subtitle','input'=>'text'],
+            'site_keywords'=>['lang'=>'admin.keywords','input'=>'text'],
+            'site_logo'=>['lang'=>'admin.logo','input'=>'image'],
+            'site_logo_mini'=>['lang'=>'admin.logo-mini','input'=>'image'],
+            'site_power_by'=>['lang'=>'admin.power_by','input'=>'text'],//版权显示
         ]
     ],
     'limit'=>[

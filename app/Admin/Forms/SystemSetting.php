@@ -41,8 +41,17 @@ class SystemSetting extends Form
      */
     public function form()
     {
-        foreach (config('hstack.system.setups') as $name=>$lang){
-           $this->text($name,__($lang));
+        foreach (config('hstack.system.setups') as $name=>$arr){
+            if (isset($arr['input'])){
+                switch ($arr['input']){
+                    case "image":
+                        $this->image($name,__($arr['lang'] ?? $name));
+                        break;
+                    default:
+                        $this->text($name,__($arr['lang'] ?? $name));
+                }
+            }
+
         }
     }
 
