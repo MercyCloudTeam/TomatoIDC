@@ -4,8 +4,10 @@ namespace App\Admin\Forms;
 
 use App\HStack\SetupManager;
 use App\Models\SystemSetup;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Widgets\Form;
 use Illuminate\Support\Facades\Cache;
+use Psr\SimpleCache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
 class SystemSetting extends Form
@@ -15,15 +17,19 @@ class SystemSetting extends Form
      *
      * @param array $input
      *
-     * @return Response
+     * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function handle(array $input)
     {
-
         //删除缓存
-        if (Cache::has('site-setups')){
+//        if (Cache::has('site-setups')){
+        try {
             Cache::delete( 'site-setups');//删除缓存
+        }catch (\Exception $exception){
+
         }
+//        }
         //存储
         foreach ($input as $k=>$v){
             SystemSetup::updateOrCreate([
@@ -33,7 +39,7 @@ class SystemSetting extends Form
                 'value'=>$v
             ]);
         }
-        return $this->response()->success('设置成功')->location('system-setup');
+        return $this->response()->success('设置成功')->location();
     }
 
     /**
@@ -42,10 +48,14 @@ class SystemSetting extends Form
     public function form()
     {
         foreach (config('hstack.system.setups') as $name=>$arr){
+//            dd(config('hstack.system.setups') );
             if (isset($arr['input'])){
                 switch ($arr['input']){
                     case "image":
                         $this->image($name,__($arr['lang'] ?? $name));
+                        break;
+                    case "switch":
+                        $this->switch($name,__($arr['lang'] ?? $name));
                         break;
                     default:
                         $this->text($name,__($arr['lang'] ?? $name));

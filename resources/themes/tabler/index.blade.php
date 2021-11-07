@@ -9,7 +9,7 @@
                     <div class="empty">
                         <div class="empty-img"><img src="{{asset("$themeAssets/illustrations/undraw_quitting_time_dm8t.svg")}}" height="128" alt="">
                         </div>
-{{--                        TODO 主题配置里配置可动态配置项--}}
+                        {{--                        TODO 主题配置里配置可动态配置项--}}
                         <p class="empty-title">{{ $theme_index_title ?? __('To provide you with the most professional basic cloud services')}}</p>
                         <p class="empty-subtitle text-muted">
                             {{$theme_index_subtitle  ?? __('Offering the largest network in the world, you can easily scale and easily scale low latency infrastructure solutions no matter where you or your customers are located!')}}
@@ -36,48 +36,52 @@
                 <div class="card-tabs ">
                     <!-- Cards navigation -->
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a href="#tab-top-1" class="nav-link active" data-bs-toggle="tab">Tab 1</a></li>
-                        <li class="nav-item"><a href="#tab-top-2" class="nav-link" data-bs-toggle="tab">Tab 2</a></li>
-                        <li class="nav-item"><a href="#tab-top-3" class="nav-link" data-bs-toggle="tab">Tab 3</a></li>
-                        <li class="nav-item"><a href="#tab-top-4" class="nav-link" data-bs-toggle="tab">Tab 4</a></li>
+                        @isset($theme_index_tab_1_title)<li class="nav-item"><a href="#tab-top-1" class="nav-link active" data-bs-toggle="tab">{{$theme_index_tab_1_title}}</a></li>@endisset
+                        @isset($theme_index_tab_2_title)<li class="nav-item"><a href="#tab-top-2" class="nav-link" data-bs-toggle="tab">{{$theme_index_tab_2_title}}</a></li>@endisset
+                        @isset($theme_index_tab_3_title)<li class="nav-item"><a href="#tab-top-3" class="nav-link" data-bs-toggle="tab">{{$theme_index_tab_3_title}}</a></li>@endisset
+                        @isset($theme_index_tab_4_title)<li class="nav-item"><a href="#tab-top-4" class="nav-link" data-bs-toggle="tab">{{$theme_index_tab_4_title}}</a></li>@endisset
                     </ul>
                     <div class="tab-content">
-                        <!-- Content of card #1 -->
-                        <div id="tab-top-1" class="card tab-pane active show">
-                            <div class="card-body">
-                                <div class="card-title">Content of tab #1</div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, alias aliquid distinctio dolorem expedita, fugiat hic magni molestiae molestias odit.
-                                </p>
+                        @isset($theme_index_tab_1_title)
+                            <div id="tab-top-1" class="card tab-pane active show">
+                                <div class="card-body">
+                                    <div class="card-title">{{$theme_index_tab_1_title}}</div>
+                                    <p>
+                                        {!! $theme_index_tab_1_content !!}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Content of card #2 -->
-                        <div id="tab-top-2" class="card tab-pane">
-                            <div class="card-body">
-                                <div class="card-title">Content of tab #2</div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, alias aliquid distinctio dolorem expedita, fugiat hic magni molestiae molestias odit.
-                                </p>
+                        @endisset
+                        @isset($theme_index_tab_2_title)
+                            <div id="tab-top-2" class="card tab-pane">
+                                <div class="card-body">
+                                    <div class="card-title">{{$theme_index_tab_2_title}}</div>
+                                    <p>
+                                        {!! $theme_index_tab_2_content !!}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Content of card #3 -->
-                        <div id="tab-top-3" class="card tab-pane">
-                            <div class="card-body">
-                                <div class="card-title">Content of tab #3</div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, alias aliquid distinctio dolorem expedita, fugiat hic magni molestiae molestias odit.
-                                </p>
+                        @endisset
+                        @isset($theme_index_tab_3_title)
+                            <div id="tab-top-3" class="card tab-pane">
+                                <div class="card-body">
+                                    <div class="card-title">{{$theme_index_tab_3_title}}</div>
+                                    <p>
+                                        {!! $theme_index_tab_3_content !!}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Content of card #4 -->
-                        <div id="tab-top-4" class="card tab-pane">
-                            <div class="card-body">
-                                <div class="card-title">Content of tab #4</div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, alias aliquid distinctio dolorem expedita, fugiat hic magni molestiae molestias odit.
-                                </p>
+                        @endisset
+                        @isset($theme_index_tab_4_title)
+                            <div id="tab-top-4" class="card tab-pane">
+                                <div class="card-body">
+                                    <div class="card-title">{{$theme_index_tab_4_title}}</div>
+                                    <p>
+                                        {!! $theme_index_tab_4_content !!}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        @endisset
                     </div>
                 </div>
             </div>

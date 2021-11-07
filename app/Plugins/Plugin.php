@@ -133,6 +133,27 @@ abstract class Plugin
         );
     }
 
+
+    /**
+     * Enable routes for this plugin.
+     *
+     * @param string $path
+     * @param array|string $middleware
+     */
+    protected function enableAdminRoutes(string $path = 'admin.php',  $middleware = 'admin')
+    {
+        $this->app->router->group(
+            [
+                'namespace' => $this->getPluginControllerNamespace(),
+                'middleware' => $middleware,
+            ],
+            function ($app) use ($path) {
+                require $this->getPluginPath() . DIRECTORY_SEPARATOR . $path;
+            }
+        );
+    }
+
+
     /**
      * 加载钩子
      * @param string $path

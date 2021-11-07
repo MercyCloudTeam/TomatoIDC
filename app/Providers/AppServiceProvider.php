@@ -29,11 +29,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);//防止某些Mysql版本Bug
-        Paginator::useBootstrap();//默认分页使用Bootstrap
-
-        //
-        //模板系统
-
-        //插件系统
     }
 }

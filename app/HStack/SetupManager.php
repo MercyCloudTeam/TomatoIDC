@@ -39,7 +39,7 @@ class SetupManager
         if ($themeJson == null){
             $this->initThemeJson(true);//检测是否有缓存 如果没有就获取并缓存
         }else{
-            $this->themeJson = json_decode($themeJson,true);
+            $this->themeJson = json_decode($themeJson,true) ?? [];
         }
 
         //初始化站点设置缓存
@@ -147,7 +147,7 @@ class SetupManager
         if (file_exists($file)) {
             $json = file_get_contents($file);
             Cache::put( "theme-$theme-json",$json);//如果没找到配置会注册个空的
-            $this->themeJson =  json_decode($json,$assoc);
+            $this->themeJson =  json_decode($json,$assoc) ?? [];
         }
     }
 }

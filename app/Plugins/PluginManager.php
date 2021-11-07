@@ -106,6 +106,10 @@ class PluginManager
 
             //TODO 插件启用及关闭 只加载启用的
 
+//            try {
+//
+//            }
+
             $plugin->boot();
 
             $this->plugins[$plugin->name] = $plugin;

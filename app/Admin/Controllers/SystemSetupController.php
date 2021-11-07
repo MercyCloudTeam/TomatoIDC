@@ -14,6 +14,8 @@ use Dcat\Admin\Widgets\Card;
 
 class SystemSetupController extends AdminController
 {
+
+
     /**
      * @param Content $content
      * @return Content

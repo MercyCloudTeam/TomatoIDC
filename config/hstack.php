@@ -10,7 +10,7 @@ return [
             'site_keywords'=>['lang'=>'admin.keywords','input'=>'text'],
             'site_logo'=>['lang'=>'admin.logo','input'=>'image'],
             'site_logo_mini'=>['lang'=>'admin.logo-mini','input'=>'image'],
-            'site_power_by'=>['lang'=>'admin.power_by','input'=>'text'],//版权显示
+            'site_power_by'=>['lang'=>'admin.power_by','input'=>'switch'],//版权显示
         ]
     ],
     'limit'=>[

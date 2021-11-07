@@ -2,17 +2,13 @@
 
 原TomatoIDC项目
 
-
-
-当前显示分支并未开发完成（基本全部功能都未完成，在重写中），查看以前版本并使用请切换[V0.18](https://github.com/MercyCloudTeam/TomatoIDC/tree/V0.1.8)
-
-
+当前显示分支并未开发完成（基本全部功能都**未完成**，在**重写**中），查看以前版本并使用请切换[V0.18](https://github.com/MercyCloudTeam/TomatoIDC/tree/V0.1.8)
 
 ## 介绍
 
-新版本V1更名为HStack，仓库链接等信息不会改变。该分支为新版本重构，正在开发中
+新版本V1更名为HStack，仓库链接等信息不会改变。该分支为**新版本重构**，正在开发中
 
-
+原本可使用EP SVM 支付的旧版本 如需二开请切换旧分支（不确保能跑）
 
 感谢你们的支持。
 
@@ -23,8 +19,7 @@
 
 ### 文档
 
-施工中🚧
-
+**施工中🚧**
 
 
 ### 功能开发
@@ -50,6 +45,12 @@
 如果存在安全问题请联系咱(yf#mercycloud.com / support#mercycloud.com)~~（奖励、SRC？不存在的）~~
 
 
+### 感谢 Thanks
+
+DcatAdmin
+oneso/laravel-plugins https://github.com/oneso/laravel-plugins
+barryvdh/laravel-debugbar(laravel-ide-helper)
+laravel
 
 ### 版权
 

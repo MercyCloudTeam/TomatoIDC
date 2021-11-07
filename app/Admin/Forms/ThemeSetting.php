@@ -4,8 +4,10 @@ namespace App\Admin\Forms;
 
 use App\HStack\SetupManager;
 use App\Models\SystemSetup;
+use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Widgets\Form;
 use Illuminate\Support\Facades\Cache;
+use Psr\SimpleCache\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
 class ThemeSetting extends Form
@@ -15,7 +17,8 @@ class ThemeSetting extends Form
      *
      * @param array $input
      *
-     * @return Response
+     * @return JsonResponse
+     * @throws InvalidArgumentException
      */
     public function handle(array $input)
     {
@@ -40,9 +43,9 @@ class ThemeSetting extends Form
     /**
      * 获取配置文件
      * @param false $assoc
-     * @return false|mixed
+     * @return mixed
      */
-    public function getFile(bool $assoc = false)
+    public function getFile(bool $assoc = false): mixed
     {
         $theme = config('hstack.theme');
         // 加载路径
@@ -61,11 +64,22 @@ class ThemeSetting extends Form
     {
         $config = $this->getFile();
         if (!empty($config->variable)){
+            $lang = $config->lang;
+
             foreach ($config->variable as $name=>$type){
                 switch ($type){
-                    case 'string':
-                        $this->text($name);
+
+                    case "switch":
+                        $this->switch($name,$lang->{\App::getLocale()}->{$name} ?? $name);
+                        break;
+                    case "textarea":
+                        $this->textarea($name,$lang->{\App::getLocale()}->{$name} ?? $name);
+                        break;
+                    default :
+                        $this->text($name,$lang->{\App::getLocale()}->{$name} ?? $name);
+                        break;
                 }
+
             }
         }else{
             $this->display(null,'本模板无可配置项');
@@ -73,8 +87,7 @@ class ThemeSetting extends Form
     }
 
 
-    public function
-    default()
+    public function default(): array
     {
         if (admin_setting('body_class', 0)) {
             $body_class = 0;

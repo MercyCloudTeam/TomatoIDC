@@ -25,5 +25,5 @@ Route::group([
 
     //主题配置
     $router->get('theme-setup',[ThemeController::class,'setupShow']);
-    $router->get('system-setup',[SystemSetupController::class,'systemSetup']);
+    $router->get('setup-hstack',[SystemSetupController::class,'systemSetup']);
 });

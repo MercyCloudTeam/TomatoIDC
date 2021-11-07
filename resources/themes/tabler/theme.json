@@ -6,7 +6,23 @@
         "/diy/pages/demo":"theme-diy-demo"
     },
     "variable": {
-        "index_title": "string",
-        "index_subtitle": "string"
+        "index_title": "text",
+        "index_subtitle": "text",
+        "copyright": "switch",
+        "index_tab_1_title": "text",
+        "index_tab_1_content": "textarea",
+        "index_tab_2_title": "text",
+        "index_tab_2_content": "textarea",
+        "index_tab_3_title": "text",
+        "index_tab_3_content": "textarea"
+        "index_tab_4_title": "text",
+        "index_tab_4_content": "textarea"
+    },
+    "lang": {
+        "zh_CN": {
+            "index_title": "首页标题",
+            "index_subtitle": "首页副标题",
+            "copyright": "版权显示"
+        }
     }
 }

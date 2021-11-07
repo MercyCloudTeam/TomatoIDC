@@ -19,8 +19,10 @@ class CreateServerTable extends Migration
         //路径：database/migrations/2021_03_08_114117_create_server_table.php
         //原详细设计文档 https://mercycloud.coding.net/p/automation/wiki/2
 
+        //2021.10.19 随想，将服务器抽象为后端的概念
+
         //服务器表
-        Schema::create('servers', function (Blueprint $table) {
+        Schema::create('backend', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100)->nullable();//节点代号
             $table->string('code',100)->nullable();//节点代号
@@ -38,7 +40,7 @@ class CreateServerTable extends Migration
         });
 
         //服务器连接表
-        Schema::create('servers_connect', function (Blueprint $table) {
+        Schema::create('backend_connect', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100)->nullable(); //服务器名称
             $table->integer('status')->default(1);//服务器状态
@@ -52,7 +54,7 @@ class CreateServerTable extends Migration
         });
 
         //对应网络组件连接(VyOS
-        Schema::create('servers_network',function (Blueprint $table){
+        Schema::create('backend_network',function (Blueprint $table){
             $table->id();
             $table->integer('server_token_id');
             $table->string('type',50);//vyos pfsense... frr
@@ -72,7 +74,7 @@ class CreateServerTable extends Migration
         });
 
         //网络组件与服务器关联
-        Schema::create('servers_network_association',function (Blueprint $table){
+        Schema::create('backend_network_association',function (Blueprint $table){
             $table->id();
             $table->longText('config');
             $table->integer('servers_network_id');
@@ -81,7 +83,7 @@ class CreateServerTable extends Migration
         });
 
         //服务器登陆令牌
-        Schema::create('servers_tokens', function (Blueprint $table) {
+        Schema::create('backend_tokens', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();//这个验证令牌等名称
             $table->boolean('api')->default(false);//
@@ -93,7 +95,7 @@ class CreateServerTable extends Migration
 
 
         //服务器状态记录
-        Schema::create('servers_status', function (Blueprint $table) {
+        Schema::create('backend_status', function (Blueprint $table) {
             $table->id();
             $table->integer('server_id');
             $table->longText('params');
@@ -101,7 +103,7 @@ class CreateServerTable extends Migration
         });
 
         //服务器资源池
-        Schema::create('servers_resource_pool', function (Blueprint $table) {
+        Schema::create('backend_resource_pool', function (Blueprint $table) {
             $table->id();
             $table->integer('title');//名称
             $table->longText('config');
@@ -112,7 +114,7 @@ class CreateServerTable extends Migration
         });
 
         //服务器配置与关联
-        Schema::create('servers_resource_pool_association',function (Blueprint $table){
+        Schema::create('backend_resource_pool_association',function (Blueprint $table){
             $table->id();
             $table->integer('servers_resource_pool_id');
             $table->integer('server_id');
@@ -120,7 +122,7 @@ class CreateServerTable extends Migration
         });
 
         //存放服务器配置等消息
-        Schema::create('servers_setup', function (Blueprint $table) {
+        Schema::create('backend_setup', function (Blueprint $table) {
             $table->id();
             $table->string('name');//附加物品的类型/成品
             $table->string('type');//附加物品的类型/成品
